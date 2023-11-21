@@ -22,3 +22,11 @@ Xong thì chạy lệnh
 - php artisan serve
 
 thì sẽ ra ip: http://127.0.0.1:8000
+
+vào admin thì thêm /admin
+
+Tài khoản: truongvo
+mật khẩu: truongvo1503
+
+Đây là template admin clone
+https://www.preview.pichforest.com/samply/layouts/
