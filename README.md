@@ -5,7 +5,7 @@ B2: tạo database tên toranowebsite với loại general utf8
 
 B3: Mở source bằng visual code
 
-Tải file .env về và copy bỏ vô source
+- Tải file .env về và copy bỏ vô source
 
 Mở terminal như đã hướng dẫn hoặc gõ Ctrl + shift + `
 
@@ -15,10 +15,10 @@ Mở terminal như đã hướng dẫn hoặc gõ Ctrl + shift + `
 
 Sau khi update lại composer xong thì chạy tiếp lệnh
 
-php artisan key:generate
+- php artisan key:generate
 
 Xong thì chạy lệnh 
 
-php artisan serve
+- php artisan serve
 
 thì sẽ ra ip: http://127.0.0.1:8000
