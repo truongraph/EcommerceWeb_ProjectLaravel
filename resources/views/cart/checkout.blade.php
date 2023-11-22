@@ -86,7 +86,7 @@
                                                 <span class="product-description-name order-summary-emphasis">{{ $item['color'] }} - {{ $item['size'] }}</span>
                                             </td>
                                             <td class="product-quantity visually-hidden"> {{ $item['quantity'] }}</td>
-                                          
+
                                             <td class="product-price">
                                                 <span class="order-summary-emphasis">
                                                 @if ($item['sellprice'] > 0)
@@ -262,12 +262,21 @@
                                         <a href="{{ route('login') }}">Ấn vào đây để đăng nhập</a>
                                         </p>
                                        @endif
-
+                                       @if(session('error'))
+                                       <div class="alert alert-danger">
+                                           {{ session('error') }}
+                                       </div>
+                                       @endif
+                                       @if(session('success'))
+                                       <div class="alert alert-success">
+                                           {{ session('success') }}
+                                       </div>
+                                       @endif
                                 <div class="fieldset">
                                     <div class="field">
                                         <div class="field-input-wrapper">
                                             <label class="field-label" for="name">Họ và tên</label>
-                                            <input type="text" name="name" value="{{ $customerInfo ? $customerInfo->name_customer : '' }}" required class="field-input" placeholder="Họ và tên">
+                                            <input type="text" name="name" value="{{ $customerInfo ? $customerInfo->name_customer : old('name') }}" required class="field-input" placeholder="Họ và tên">
 
                                         </div>
 
@@ -276,7 +285,7 @@
                                     <div class="field  field-half ">
                                         <div class="field-input-wrapper">
                                             <label class="field-label" for="checkout_user_email">Email</label>
-                                            <input type="text" name="email" value="{{ $customerInfo ? $customerInfo->email_customer : '' }}" required class="field-input"  placeholder="Email">
+                                            <input type="text" name="email" value="{{ $customerInfo ? $customerInfo->email_customer : old('email') }}" required class="field-input"  placeholder="Email">
 
                                         </div>
 
@@ -287,21 +296,21 @@
                                     <div class="field field-required field-half  ">
                                         <div class="field-input-wrapper">
                                             <label class="field-label" for="billing_address_phone">Số điện thoại</label>
-                                            <input type="number" name="phone" value="{{ $customerInfo ? $customerInfo->phone_customer : '' }}" required class="field-input" placeholder="Số điện thoại">
+                                            <input type="number" name="phone" value="{{ $customerInfo ? $customerInfo->phone_customer : old('phone') }}" required class="field-input" placeholder="Số điện thoại">
                                         </div>
 
                                     </div>
                                     <div class="field   ">
                                         <div class="field-input-wrapper">
                                             <label class="field-label" for="billing_address_address1">Địa chỉ</label>
-                                            <input name="address" value="{{ $customerInfo ? $customerInfo->address_customer : '' }}" required placeholder="Địa chỉ giao hàng" class="field-input" style="height: auto !important;" />
+                                            <input name="address" value="{{ $customerInfo ? $customerInfo->address_customer : old('address') }}" required placeholder="Địa chỉ giao hàng" class="field-input" style="height: auto !important;" />
                                         </div>
 
                                     </div>
                                     <div class="field">
                                         <div class="field-input-wrapper">
                                             <label class="field-label" for="notes">Nội dung giao hàng</label>
-                                            <textarea name="note" placeholder="Ghi chú giao hàng" class="field-input" rows="4" style="height:auto !important;" value=""></textarea>
+                                            <textarea name="note" placeholder="Ghi chú giao hàng" class="field-input" rows="4" style="height:auto !important;" value="{{ old('note') }}"></textarea>
                                         </div>
 
                                     </div>

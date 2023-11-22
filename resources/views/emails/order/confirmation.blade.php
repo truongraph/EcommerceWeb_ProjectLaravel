@@ -7,61 +7,49 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            color: #1a1a1a;
         }
 
         .container {
             width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
+            margin: 0 auto;
             padding: 20px;
+            background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }
 
         h1 {
-            color: #333;
-            text-align: center;
-        }
-
-        p {
-            line-height: 1.6;
-            margin-bottom: 15px;
+            margin-top: 0;
+            color: #181818;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
-        table,
         th,
         td {
             border: 1px solid #ddd;
-        }
-
-        th,
-        td {
             padding: 8px;
             text-align: left;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f5f5f5;
         }
 
         .footer {
             text-align: center;
             margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ccc;
-        }
-        .flexitem {
-            display: flex;
-            gap: 25px;
+            color: #181818;
+            font-size: 0.8em;
         }
     </style>
 </head>
@@ -71,24 +59,22 @@
         <h1>Đặt hàng thành công</h1>
         <p>Kính gửi anh/chị {{ $order->name_order }},</p>
 
-        <p>Cảm ơn bạn đã đặt hàng của bạn. Chúng tôi đã nhận được đơn đặt hàng của bạn với các chi tiết sau:</p>
+        <p>Cảm ơn bạn đã đặt hàng. Chúng tôi đã nhận được đơn đặt hàng của bạn với các chi tiết sau:</p>
+
         <h3>Thông tin đặt hàng</h3>
-        <div class="flexitem">
+        <div>
             <p>Mã đơn hàng: #{{ $order->code_order }}</p>
-            <p style="margin-left: 20px">Ngày đặt hàng: {{ $order->date_order->format('d/m/Y H:i:s') }}</p>
-            <p style="margin-left: 20px">Họ tên: {{ $order->name_order }}</p>
-        </div>
-        <div class="flexitem">
+            <p>Ngày đặt hàng: {{ $order->date_order->format('d/m/Y H:i:s') }}</p>
+            <p>Họ tên: {{ $order->name_order }}</p>
             <p>Số điện thoại: {{ $order->phone_order }}</p>
-            <p style="margin-left: 20px">Email: {{ $order->email_order }}</p>
-            <p style="margin-left: 20px">Địa chỉ: {{ $order->address_order }}</p>
+            <p>Email: {{ $order->email_order }}</p>
+            <p>Địa chỉ: {{ $order->address_order }}</p>
         </div>
-        <p>Ghi chú: {{ $order->note }}</p>
-        <p>Phương thức thanh toán: {{ $order->paymentmethod->name_payment }}</p>
+
+        <h3>Chi tiết đơn hàng</h3>
         <table>
             <thead>
                 <tr>
-                    {{-- <th>Hình</th> --}}
                     <th>Tên sản phẩm</th>
                     <th>Size</th>
                     <th>Màu</th>
@@ -106,11 +92,6 @@
                 $price = $product->sellprice_product > 0 ? $product->sellprice_product : $product->price_product;
                 @endphp
                 <tr>
-                    {{-- <td>
-                        <img src="{{ asset('img/products/' . $product->id . '/' . $product->avt_product) }}"
-                        alt="{{ $product->name_product }}"
-                        style="max-width: 70px;">
-                    </td> --}}
                     <td>{{ $product->name_product }}</td>
                     <td>{{ $size ? $size->desc_size : '' }}</td>
                     <td>{{ $color ? $color->desc_color : '' }}</td>
@@ -121,8 +102,9 @@
                 @endforeach
             </tbody>
         </table>
+
         <p>Mã giảm giá: {{ $order->discount_code }}</p>
-       <p> Tổng tiền: {{ number_format($order->total_order) }} đ</p>
+        <p>Tổng tiền: {{ number_format($order->total_order) }} đ</p>
 
         <p>Cảm ơn bạn đã mua hàng!</p>
     </div>

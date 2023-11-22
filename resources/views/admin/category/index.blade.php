@@ -3,11 +3,11 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between card flex-sm-row border-0">
-            <h4 class="mb-sm-0 font-size-16 fw-bold">Quản lý danh mục</h4>
+            <h4 class="mb-sm-0 font-size-16 fw-bold">DANH MỤC SẢN PHẨM</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Quản lý danh mục</li>
+                    <li class="breadcrumb-item active">Danh mục sản phẩm</li>
                 </ol>
             </div>
 
@@ -41,6 +41,7 @@
                         <th>Liên kết</th>
                         <th>Danh mục cha</th>
                         <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
                         <th style="width: 40px">Chức năng</th>
                     </tr>
                     </thead>
@@ -65,6 +66,7 @@
                                 @else
                                 Trạng thái không xác định
                                 @endif</td>
+                                <td>{{ \Carbon\Carbon::parse($category->created_at)->format('d/m/Y H:i:s') }}</td>
                             <td>
 
                                  <div style="display:flex;gap:10px">
@@ -86,21 +88,29 @@
     </div> <!-- end col -->
 </div>
 
-<script>
 
-     // Xác nhận trước khi xoá
-     const deleteLinks = document.querySelectorAll('.delete-category');
+<script>
+const deleteLinks = document.querySelectorAll('.delete-category');
     deleteLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
             const categoryId = this.getAttribute('data-id');
-            if (confirm('Bạn có chắc chắn muốn xoá danh mục này không?')) {
-                window.location.href = `/admin/categories/delete/${categoryId}`;
-            }
+            Swal.fire({
+                title: "Thông báo",
+                text: "Bạn có chắc muốn xoá danh mục này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#34c3af",
+                cancelButtonColor: "#f46a6a",
+                confirmButtonText: "Đồng ý xoá",
+                cancelButtonText: "Huỷ bỏ"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu xác nhận xoá, chuyển hướng tới route delete với ID của danh mục
+                    window.location.href = `/admin/categories/delete/${categoryId}`;
+                }
+            });
         });
     });
-    setTimeout(function() {
-        document.getElementById('alert').style.display = 'none';
-    }, 3000);
 </script>
 @endsection
