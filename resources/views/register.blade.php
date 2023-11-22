@@ -30,30 +30,29 @@
                                     <form method="post" action="{{ route('register.submit') }}">
                                         @csrf
                                         <div class="login-input-box">
-
                                             <div class="col_full">
                                                 <label for="username">Tên tài khoản<span class="require_symbol"> *</span></label>
-                                                <input type="text" id="username" name="username" required class="form-control">
+                                                <input type="text" id="username" name="username" value="{{ old('username') }}" required class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="password">Mật khẩu <span class="require_symbol">* </span></label>
-                                                <input type="password" name="password" class="form-control">
+                                                <input type="password" name="password" value="{{ old('password') }}" class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="repassword">Nhập lại mật khẩu <span class="require_symbol">* </span></label>
-                                                <input type="repassword" name="repassword" class="form-control">
+                                                <input type="password" name="repassword" value="{{ old('repassword') }}" class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="name">Họ và tên<span class="require_symbol"> *</span></label>
-                                                <input type="text" id="name" name="name" required class="form-control">
+                                                <input type="text" id="name" name="name" value="{{ old('name') }}" required class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="email">Email<span class="require_symbol"> *</span></label>
-                                                <input type="email" id="email" name="email" required class="form-control">
+                                                <input type="email" id="email" name="email" value="{{ old('email') }}" required class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="phone">Số điện thoại<span class="require_symbol"> *</span></label>
-                                                <input type="text" id="phone" name="phone" required class="form-control">
+                                                <input type="number" id="phone"  name="phone" value="{{ old('phone') }}" required class="form-control">
                                             </div>
                                         </div>
                                         <div class="button-box">

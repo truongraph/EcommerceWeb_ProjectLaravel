@@ -5,24 +5,25 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between card flex-sm-row border-0">
-            <h4 class="mb-sm-0 font-size-16 fw-bold">Chỉnh sửa danh mục</h4>
+            <h4 class="mb-sm-0 font-size-16 fw-bold ">CHỈNH SỬA DANH MỤC SẢN PHẨM</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quản lý danh mục</a></li>
-                    <li class="breadcrumb-item active">Chỉnh sửa danh mục</li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Danh mục sản phẩm</a></li>
+                    <li class="breadcrumb-item active">Chỉnh sửa danh mục sản phẩm</li>
                 </ol>
             </div>
         </div>
     </div>
 </div>
-@if(session('error'))
+
+<div class="row" bis_skin_checked="1">
+    <div class="col-xl-4" bis_skin_checked="1">
+        @if(session('error'))
 <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
     {{ session('error') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<div class="row" bis_skin_checked="1">
-    <div class="col-xl-4" bis_skin_checked="1">
         <div class="card" bis_skin_checked="1">
             <div class="card-body" bis_skin_checked="1">
                 <form method="POST" action="{{ route('admin.categories.update', $category->id) }}">
@@ -41,6 +42,7 @@
                                 <input type="text" class="form-control" id="link_category" name="link_category" value="{{ $category->link_category }}">
                             </div>
                         </div>
+
                     </div>
                     <div class="row" bis_skin_checked="1">
                         <div class="col-md-12" bis_skin_checked="1">
@@ -69,8 +71,8 @@
                     </div>
                     <div bis_skin_checked="1">
                         <button class="btn btn-success" type="submit">Lưu danh mục</button>
-                        <a href="#" class="btn btn-outline-danger delete-category" data-id="{{ $category->id }}">Xoá danh mục</a>
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-warning" style="float: right"> Huỷ bỏ</a>
+                        <a href="#" class="btn btn-danger delete-category" style="float: right" data-id="{{ $category->id }}">Xoá danh mục</a>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary" > Huỷ bỏ</a>
                     </div>
                 </form>
             </div><!-- end card-body -->
@@ -157,11 +159,23 @@
         link.addEventListener('click', function(event) {
             event.preventDefault();
             const categoryId = this.getAttribute('data-id');
-            if (confirm('Bạn có chắc chắn muốn xoá danh mục này không?')) {
-                window.location.href = `/admin/categories/delete/${categoryId}`;
-            }
+            Swal.fire({
+                title: "Thông báo",
+                text: "Bạn có chắc muốn xoá danh mục này không?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#34c3af",
+                cancelButtonColor: "#f46a6a",
+                confirmButtonText: "Đồng ý xoá",
+                cancelButtonText: "Huỷ bỏ"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu xác nhận xoá, chuyển hướng tới route delete với ID của danh mục
+                    window.location.href = `/admin/categories/delete/${categoryId}`;
+                }
+            });
         });
-    })
+    });
     setTimeout(function() {
         document.getElementById('alert').style.display = 'none';
     }, 3000);

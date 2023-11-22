@@ -25,9 +25,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <div class="text-center mb-5">
-                        <p class="font-size-20 text-muted mt-3 uppercase"><b>HỆ THỐNG QUẢN LÝ BÁN HÀNG</b></p>
-                    </div>
+
                     @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show mb-2" role="alert">
                         {{ session('success') }}
@@ -46,16 +44,16 @@
                                 <div class="p-lg-5 p-4">
 
                                     <div>
-                                        <h5>Chào mừng bạn !</h5>
-                                        <p class="text-muted">Vui lòng đăng nhập tài khoản để quản trị</p>
+                                        <h5><b>HỆ THỐNG QUẢN LÝ BÁN HÀNG</b></h5>
+                                        <p class="text-muted">Đăng nhập tài khoản để bắt đầu quản trị</p>
                                     </div>
 
-                                    <div class="mt-4 pt-3">
+                                    <div class="pt-2">
                                         <form method="POST" action="/admin/login">
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="username" class="fw-semibold">Email hoặc tên tài khoản</label>
-                                                <input type="text" class="form-control" id="email" name="email" required">
+                                                <input type="text" class="form-control" id="email" name="email" required>
                                             </div>
 
                                             <div class="mb-3">
@@ -69,7 +67,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="text-end">
-                                                        <button class="btn btn-success w-md waves-effect waves-light" type="submit">Đăng nhập</button>
+                                                        <button class="btn btn-success w-md waves-effect waves-light" type="submit">Đăng nhập hệ thống</button>
                                                     </div>
                                                 </div>
                                             </div>

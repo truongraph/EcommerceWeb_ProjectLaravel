@@ -107,18 +107,18 @@ class AccountController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $password = md5($request->input('password'));
-        $repassword = $request->input('repassword');
+        $repassword = md5($request->input('repassword'));
         $phone = $request->input('phone');
         $existingUsernameAccount = Account::where('name_account', $username)->first();
         if ($existingUsernameAccount) {
-            return redirect()->route('register')->with('error', 'Tên tài khoản đã tồn tại.');
+            return redirect()->route('register')->with('error', 'Tên tài khoản đã tồn tại.')->withInput();
         }
         if ($repassword !== $password) {
-            return redirect()->route('register')->with('error', 'Mật khẩu và xác nhận mật khẩu không khớp.');
+            return redirect()->route('register')->with('error', 'Mật khẩu không khớp với nhau hãy kiểm tra')->withInput();
         }
         $existingAccount = Account::where('email_account', $email)->first();
         if ($existingAccount) {
-            return redirect()->route('register')->with('error', 'Email đã tồn tại.');
+            return redirect()->route('register')->with('error', 'Email đã tồn tại. Bạn có thể đăng nhập hoặc khôi phục mật khẩu nếu quên')->withInput();
         }
         // Tạo tài khoản mới
         $account = new Account();
