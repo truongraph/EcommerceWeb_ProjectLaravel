@@ -30,9 +30,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <p class="card-title-desc">
-                    <a href="{{ route('admin.customers.create') }}" class="btn btn-primary waves-effect waves-light"><i class="bx bx-plus"></i> Tạo mới khách hàng</a>
-                </p>
                 <table id="Tabledatatable" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
@@ -61,8 +58,8 @@
                             <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('d/m/Y H:i:s') }}</td>
                             <td>
                                 <div style="display:flex;gap:10px">
-                                    <a class="btn btn-sm btn-dark" href="{{ route('admin.customers.edit', $customer->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger delete-customer" data-id="{{ $customer->id }}"><i class="bx bx-trash"></i> Xoá</a>
+                                    <a class="btn  btn-primary"><i class="bx bx-edit"></i> Chỉnh sửa</a>
+                                    <a href="#" class="btn btn-danger delete-customer" data-id="{{ $customer->id }}"><i class="bx bx-trash"></i> Xoá</a>
                                  </div>
                             </td>
 

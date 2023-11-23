@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 
 class AdminCategoryController extends Controller
 {
+
+    //============================================
+    //============================================
     public function index()
     {
         $categories = Category::all();
         return view('admin.category.index', compact('categories'));
     }
+    //============================================
+    //============================================
     public function create()
     {
         $parentCategories = Category::where('status_category', 1)

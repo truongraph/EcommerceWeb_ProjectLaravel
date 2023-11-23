@@ -30,21 +30,17 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                {{-- <p class="card-title-desc">
-                    <a href="{{ route('admin.accounts.create') }}" class="btn btn-primary waves-effect waves-light"><i class="bx bx-plus"></i> Tạo mới danh mục</a>
-                </p> --}}
                 <table id="Tabledatatable" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
-                    <tr>
-                        <th style="width: 10px">STT</th>
-                        <th>Tên tài khoản</th>
-                        <th>Email</th>
-                        <th>Ngày tạo</th>
-                        <th style="width: 40px">Chức năng</th>
-                    </tr>
+                        <tr>
+                            <th style="width: 10px">STT</th>
+                            <th>Tên tài khoản</th>
+                            <th>Email</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th style="width: 40px">Chức năng</th>
+                        </tr>
                     </thead>
-
-
                     <tbody>
                         @php
                         $count = 1; // Khởi tạo biến đếm
@@ -55,11 +51,19 @@
                             <td>{{ $account->name_account  }}</td>
                             <td>{{ $account->email_account }}</td>
                             <td>{{ \Carbon\Carbon::parse($account->created_at)->format('d/m/Y H:i:s') }}</td>
+                            <td>@if($account->status_account == 1)
+                                <small class="badge badge-soft-success">Hoạt động</small>
+                                @elseif($account->status_account == 0)
+                                <small class="badge badge-soft-danger">Ngừng hoạt động</small>
+                                @endif</td>
                             <td>
                                 <div style="display:flex;gap:10px">
-                                    <a class="btn btn-sm btn-dark" href="{{ route('admin.accounts.edit', $account->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger delete-accounts" data-id="{{ $account->id }}"><i class="bx bx-trash"></i> Xoá</a>
-                                 </div>
+                                    @if($account->id !== 1)
+                                    <!-- Nút xoá chỉ được hiển thị nếu ID không phải là 1 -->
+                                    <a class="btn btn-primary" href="{{ route('admin.accounts.edit', $account->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
+                                    <a href="#" class="btn btn-danger delete-accounts" data-id="{{ $account->id }}"><i class="bx bx-trash"></i> Xoá</a>
+                                    @endif
+                                </div>
                             </td>
 
                         </tr>
@@ -76,28 +80,29 @@
 
 <script>
     const deleteLinks = document.querySelectorAll('.delete-accounts');
-        deleteLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                const accountID = this.getAttribute('data-id');
-                Swal.fire({
-                    title: "Thông báo",
-                    text: "Bạn có chắc muốn xoá tài khoản này không?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#34c3af",
-                    cancelButtonColor: "#f46a6a",
-                    confirmButtonText: "Đồng ý xoá",
-                    cancelButtonText: "Huỷ bỏ"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Nếu xác nhận xoá, chuyển hướng tới route delete với ID của danh mục
-                        window.location.href = `/admin/accounts/delete/${accountID}`;
-                    }
-                });
+    deleteLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const accountID = this.getAttribute('data-id');
+            Swal.fire({
+                title: "Thông báo"
+                , text: "Bạn có chắc muốn xoá tài khoản này không?"
+                , icon: "warning"
+                , showCancelButton: true
+                , confirmButtonColor: "#34c3af"
+                , cancelButtonColor: "#f46a6a"
+                , confirmButtonText: "Đồng ý xoá"
+                , cancelButtonText: "Huỷ bỏ"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu xác nhận xoá, chuyển hướng tới route delete với ID của danh mục
+                    window.location.href = `/admin/accounts/delete/${accountID}`;
+                }
             });
         });
-    </script>
+    });
+
+</script>
 
 
 @endsection

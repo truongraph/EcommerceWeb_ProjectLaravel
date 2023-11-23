@@ -20,14 +20,16 @@ class OrderDetail extends Model
         return $this->belongsTo(Product::class, 'productid');
     }
 
+    public function sizes()
+    {
+        return $this->belongsTo(Size::class, 'sizeid');
+    }
+
     public function colors()
     {
         return $this->belongsTo(Color::class, 'colorid');
     }
 
-    public function sizes()
-    {
-        return $this->belongsTo(Size::class, 'sizeid');
-    }
+
 
 }

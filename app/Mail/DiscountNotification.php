@@ -14,12 +14,14 @@ class DiscountNotification extends Mailable
 {
     use Queueable, SerializesModels;
     public $discount;
+    public $name_account;
     /**
      * Create a new message instance.
      */
-    public function __construct(Discount $discount)
+    public function __construct(Discount $discount, $name_account)
     {
         $this->discount = $discount;
+        $this->name_account = $name_account;
     }
 
     /**
@@ -34,7 +36,11 @@ class DiscountNotification extends Mailable
 
     public function build()
     {
-        return $this->view('emails.register_success')->with(['discount' => $this->discount]);
+        return $this->view('emails.register_success')
+        ->with([
+            'discount' => $this->discount,
+            'name_account' => $this->name_account,
+        ]);
     }
 
     /**

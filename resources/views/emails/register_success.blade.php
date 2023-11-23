@@ -47,7 +47,7 @@
             <h2>Đăng ký tài khoản thành công</h2>
         </div>
         <div class="content">
-            <p>Xin chào,</p>
+            <p>Xin chào {{ $name_account }}</p>
             <p>Chúc mừng! Bạn đã đăng ký tài khoản thành công.</p>
             <p>Dưới đây là mã giảm giá chúng tôi tặng cho bạn:</p>
             <p class="discount-code">{{ $discount->code }}</p>

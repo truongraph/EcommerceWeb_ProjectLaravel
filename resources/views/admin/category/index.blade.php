@@ -60,9 +60,9 @@
                                 {{ $category->parentCategory->name_category }}
                                 @endif</td>
                             <td>@if($category->status_category == 1)
-                                <small class="badge text-bg-success">Hoạt động</small>
+                                <small class="badge badge-soft-success">Hoạt động</small>
                                 @elseif($category->status_category == 0)
-                                <small class="badge text-bg-danger">Ngừng hoạt động</small>
+                                <small class="badge badge-soft-danger">Ngừng hoạt động</small>
                                 @else
                                 Trạng thái không xác định
                                 @endif</td>
@@ -70,8 +70,8 @@
                             <td>
 
                                  <div style="display:flex;gap:10px">
-                                    <a class="btn btn-sm btn-dark" href="{{ route('admin.categories.edit', $category->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
-                                    <a href="#" class="btn btn-sm btn-danger delete-category" data-id="{{ $category->id }}"><i class="bx bx-trash"></i> Xoá</a>
+                                    <a class="btn btn-primary" href="{{ route('admin.categories.edit', $category->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
+                                    <a href="#" class="btn btn-danger delete-category" data-id="{{ $category->id }}"><i class="bx bx-trash"></i> Xoá</a>
                                  </div>
 
                             </td>

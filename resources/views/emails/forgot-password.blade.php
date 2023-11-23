@@ -43,7 +43,9 @@
         <p>Xin chào <b>{{ $name_account }}</b></p>
         <p>Bạn nhận được email này vì chúng tôi đã nhận được yêu cầu khôi phục mật khẩu từ tài khoản của bạn.</p>
         <p>Vui lòng nhấn vào đường dẫn bên dưới để khôi phục mật khẩu của bạn:</p>
-        <p><a style="background: rgb(5, 185, 125)221, 221);color:white;padding:5px;border-radius:5px;margin-top:5px;margin-bottom:5px;" href="{{ route('reset.password.form', ['token' => $token]) }}">Khôi phục mật khẩu</a></p>
+        <p>
+            <a style="background: rgb(5, 185, 125)221, 221);color:white;padding:5px;border-radius:5px;margin-top:5px;margin-bottom:5px;"
+            href="{{ route('reset.password.form', ['token' => $token]) }}">Khôi phục mật khẩu</a></p>
         <p><b style="color: red">*Lưu ý:</b> Nếu không phải bạn yêu cầu, vui lòng bỏ qua email này.</p>
     </div>
 </body>
