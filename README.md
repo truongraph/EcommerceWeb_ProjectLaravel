@@ -1,3 +1,7 @@
+CÁCH CÀI ĐẶT WEBSITE
+1.Nếu chưa có xampp thì cài xampp
+2.Nếu chưa có composer thì theo dõi link -> https://hocwebchuan.com/tutorial/laravel/install_composer.php
+
 B1: tải hoặc clone source về bỏ thư mục htdoct của xamp và chạy xamp
 
 B2: tạo database tên toranowebsite với loại general utf8
