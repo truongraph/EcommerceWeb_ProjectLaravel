@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DiscountNotification;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 class AccountController extends Controller
 {
 
@@ -20,22 +21,22 @@ class AccountController extends Controller
     }
     public function loginSubmit(Request $request)
     {
-        // Lấy thông tin từ form đăng nhập
         $login = $request->input('email');
         $password = md5($request->input('password'));
+
         $account = Account::where(function ($query) use ($login) {
             $query->where('email_account', $login)
-                  ->orWhere('name_account', $login);
-        })
-        ->where('password_account', $password)
-        ->first();
-        // Kiểm tra xem tài khoản có tồn tại và password khớp không
+                ->orWhere('name_account', $login);
+        })->where('password_account', $password)->first();
+
         if ($account) {
+            if ($account->status_account == 0) {
+                return response()->json(['success' => false, 'message' => 'Tài khoản của bạn đã bị ngừng hoạt động. Vui lòng liên hệ quản trị viên.']);
+            }
 
             session(['account_id' => $account->id]);
             return response()->json(['success' => true, 'message' => 'Đăng nhập thành công']);
         } else {
-            // Đăng nhập không thành công
             return response()->json(['success' => false, 'message' => 'Thông tin tài khoản hoặc mật khẩu không đúng']);
         }
     }
@@ -125,6 +126,7 @@ class AccountController extends Controller
         $account->name_account = $username;
         $account->email_account = $email;
         $account->password_account = $password;
+        $account->status_account = 1;
         $account->save();
 
         // Lấy ID của tài khoản vừa tạo
@@ -139,18 +141,20 @@ class AccountController extends Controller
         $customer->save();
 
         // Tạo mã giảm giá
-        $discountCode = 'NEW_' . strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
-        $expirationDate = Carbon::now()->addDays(30); // Ngày hết hạn
+        //$discountCode = 'NEW_' . strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
+        $accountName = $account->name_account;
+        $discountCode = 'WELCOME_' . strtoupper($accountName);
+        $expirationDate = Carbon::now()->addDays(30);
 
         $discount = new Discount();
         $discount->code = $discountCode;
         $discount->limit_number = 1;
         $discount->discount = min(50000, PHP_INT_MAX);
-        ;
+        $discount->payment_limit = min(20000, PHP_INT_MAX);
         $discount->expiration_date = $expirationDate;
         // Lưu thông tin mã giảm giá vào bảng Discount
         $discount->save();
-        Mail::to($request->input('email'))->send(new DiscountNotification($discount));
+        Mail::to($request->input('email'))->send(new DiscountNotification($discount, $account->name_account));
         // Redirect hoặc hiển thị thông báo thành công
         return redirect()->route('login')->with('success', 'Đăng ký tài khoản thành công.! Chúng tôi có tặng cho bạn 1 mã giảm qua email');
     }

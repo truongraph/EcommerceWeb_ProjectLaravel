@@ -139,6 +139,12 @@
                         <li class="menu-title" key="t-menu">
                             Tổng quan
                         </li>
+                        <li>
+                            <a href="{{URL::to('/')}}" class="waves-effect">
+                                <i class='bx bxs-store'></i>
+                                <span key="t-ui-elements">Website đặt hàng</span>
+                            </a>
+                        </li>
                         <li class="{{ Request::is('admin/dashboard*') ? 'mm-active' : '' }}">
                             <a href="{{ route('admin.dashboard') }}" class="waves-effect {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
                                 <i class='bx bxs-dashboard'></i>
@@ -151,13 +157,13 @@
                         <li class="{{ Request::is('admin/accounts*') ? 'mm-active' : '' }}">
                             <a href="{{ route('admin.accounts.index') }}" class="waves-effect {{ Request::is('admin/accounts*') ? 'active' : '' }}">
                                 <i class='bx bxs-user'></i>
-                                <span key="t-ui-elements">Quản lý tài khoản</span>
+                                <span key="t-ui-elements">Tài khoản</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/customers*') ? 'mm-active' : '' }}">
                             <a href="{{ route('admin.customers.index') }}" class="waves-effect {{ Request::is('admin/customers*') ? 'active' : '' }}">
                                 <i class='bx bxs-user-rectangle'></i>
-                                <span key="t-ui-elements">Quản lý khách hàng</span>
+                                <span key="t-ui-elements">Khách hàng</span>
                             </a>
                         </li>
                         <li class="menu-title" key="t-menu">
@@ -169,6 +175,7 @@
                                 <span key="t-ui-elements">Danh mục sản phẩm</span>
                             </a>
                         </li>
+
                     </ul>
                 </div>
             </div>

@@ -103,6 +103,8 @@ Route::middleware(['admin.auth'])->group(function () {
     //========================================================
     //========================================================
     Route::get('/admin', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
+    //========================================================
+    //========================================================
     Route::get('/admin/categories', [AdminCategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('/admin/categories/create', [AdminCategoryController::class, 'create'])->name('admin.categories.create');
     Route::post('/admin/categories/store', [AdminCategoryController::class, 'store'])->name('admin.categories.store');
@@ -112,8 +114,6 @@ Route::middleware(['admin.auth'])->group(function () {
     //========================================================
     //========================================================
     Route::get('/admin/accounts', [AdminAccountController::class, 'index'])->name('admin.accounts.index');
-    // Route::get('/admin/accounts/create', [AdminAccountController::class, 'create'])->name('admin.accounts.create');
-    // Route::post('/admin/accounts/store', [AdminAccountController::class, 'store'])->name('admin.accounts.store');
     Route::get('/admin/accounts/{id}/edit', [AdminAccountController::class, 'edit'])->name('admin.accounts.edit');
     Route::put('/admin/accounts/{id}', [AdminAccountController::class, 'update'])->name('admin.accounts.update');
     Route::get('/admin/accounts/delete/{id}', [AdminAccountController::class, 'delete'])->name('admin.accounts.delete');

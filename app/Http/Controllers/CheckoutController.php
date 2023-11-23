@@ -123,8 +123,8 @@ class CheckoutController extends Controller
             'hasDiscountApplied' => $hasDiscountApplied, // Thêm trạng thái có mã giảm giá được áp dụng vào response
         ]);
     }
-    //===================================================
-    //===================================================
+
+
     public function process(Request $request)
     {
         // Lấy thông tin người mua
@@ -139,7 +139,7 @@ class CheckoutController extends Controller
         $cart = json_decode($request->input('cart'), true);
         $date = now()->format('dmy'); // ddmmyy
         $time = $dateOrder->format('Hi'); // Lấy giờ và phút hiện tại theo định dạng HHii
-        $random = mt_rand(10, 99); // Sinh số ngẫu nhiên từ 10 đến 99
+        $random = mt_rand(1, 9); // Sinh số ngẫu nhiên từ 10 đến 99
         $orderCode = "OD{$date}{$time}{$random}";
         $discountCode = $request->input('discount_code');
         $discount = Discount::where('code', $discountCode)->first();
@@ -149,11 +149,11 @@ class CheckoutController extends Controller
         if (empty($name) || empty($phone) || empty($address)) {
             return redirect()->route('checkout.index')->with('error', 'Vui lòng điền đầy đủ thông tin bắt buộc.')->withInput();
         }
-        // Tạo mới Customer nếu chưa tồn tại
+        // Kiểm tra email tồn tại
         $existingCustomer = Customer::where('email_customer', $email)->first();
-        if ($existingCustomer) {
-            return redirect()->route('checkout.index')->with('error', 'Email đã tồn tại trong hệ thống. Vui lòng đăng nhập để đặt hàng')->withInput();
-        } else {
+        //Nếu chưa tồn tại
+        if (!$existingCustomer) {
+            //return redirect()->route('checkout.index')->with('error', 'Email đã tồn tại trong hệ thống. Vui lòng đăng nhập để đặt hàng')->withInput();
             $customer = new Customer();
             $customer->name_customer = $name;
             $customer->email_customer = $email;
@@ -162,66 +162,89 @@ class CheckoutController extends Controller
             $customer->id_account = 1;
             $customer->save();
             // Tạo tài khoản mới dựa trên email của Customer
+            $temporaryPassword = Str::random(10);
             $account = Account::create([
                 'name_account' => explode('@', $customer->email_customer)[0],
                 'email_account' => $customer->email_customer,
-                'password_account' => bcrypt(Str::random(10)), // Mật khẩu tạm thời
+                'password_account' => md5($temporaryPassword),
+                'status_account' => 1,
             ]);
-            // Cập nhật id_account trong bảng Customer
             $customer->id_account = $account->id;
             $customer->save();
-            $customerId = $customer->id;
-            $order = new Order();
-            $order->name_order = $name;
-            $codeOrder = $orderCode;
-            $order->code_order = $codeOrder;
-            $order->date_order = $dateOrder;
-            $order->email_order = $email;
-            $order->phone_order = $phone;
-            $order->address_order = $address;
-            $order->total_order = min($totalPrice, PHP_INT_MAX);
-            if ($discount) {
-                $order->discount_code = $discount->id;
+            //Tạo discount cho tài khoản mới
+            $accountName = explode('@', $customer->email_customer)[0];
+            $discountCodedata = 'WELCOME_' . strtoupper($accountName);
+            $expirationDatedata = Carbon::now()->addDays(30);
+            $discountdata = new Discount();
+            $discountdata->code = $discountCodedata;
+            $discountdata->limit_number = 1;
+            $discountdata->discount = min(50000, PHP_INT_MAX);
+            $discountdata->expiration_date = $expirationDatedata;
+            $discountdata->payment_limit = min(20000, PHP_INT_MAX);
+            $discountdata->save();
+            // Gửi email thông tin tài khoản, mã giảm giá và ngày hết hạn
+            Mail::send('emails.account-information', ['account' => $account, 'password' => $temporaryPassword, 'discountCode' => $discountCodedata, 'expirationDate' => $expirationDatedata], function ($message) use ($customer) {
+                $message->to($customer->email_customer)
+                    ->subject('Thông tin tài khoản của bạn');
+            });
+        } else {
+            if ($existingCustomer->account && $existingCustomer->account->status_account === 0) {
+                return redirect()->route('checkout.index')->with('error', 'Email này đã bị ngừng hoạt động trong hệ thống. Vui lòng liên hệ quản trị viên.')->withInput();
             }
-            $order->note = $note;
-            $order->status_order = 1;
-            $order->id_customer = $customerId;
-            $order->id_payment = $paymentmethod;
-            $order->save();
-            // Lưu chi tiết vào orderdetail
-            foreach ($cart as $cartKey => $item) {
-                list($productid, $sizeid, $colorid) = explode('_', $cartKey);
-                $orderDetail = new OrderDetail();
-                $orderDetail->orderid = $order->id;
-                $orderDetail->productid = $productid;
-                $orderDetail->colorid = $item['colorid'];
-                $orderDetail->sizeid = $item['sizeid'];
-                $orderDetail->quantity = $item['quantity'];
-                $orderDetail->totalprice = isset($item['sellprice']) && $item['sellprice'] > 0 ? min($item['quantity'] * $item['sellprice'], PHP_INT_MAX) : min($item['quantity'] * $item['price'], PHP_INT_MAX);
-                $orderDetail->save();
-                // Cập nhật số lượng đã bán của sản phẩm
-                $product = Product::find($productid);
-                if ($product) {
-                    $product->number_buy += $item['quantity'];
-                    $product->save();
-                }
+            $customer = $existingCustomer;
+        }
+        //Nếu đã tồn tại
+        $customerId = $customer->id;
+        $order = new Order();
+        $order->name_order = $name;
+        $codeOrder = $orderCode;
+        $order->code_order = $codeOrder;
+        $order->date_order = $dateOrder;
+        $order->email_order = $email;
+        $order->phone_order = $phone;
+        $order->address_order = $address;
+        $order->total_order = min($totalPrice, PHP_INT_MAX);
+        if ($discount) {
+            $order->discount_code = $discount->code;
+        }
+        $order->note = $note;
+        $order->status_order = 1;
+        $order->id_customer = $customerId;
+        $order->id_payment = $paymentmethod;
+        $order->save();
+        // Lưu chi tiết vào orderdetail
+        foreach ($cart as $cartKey => $item) {
+            list($productid) = explode('_', $cartKey);
+            $orderDetail = new OrderDetail();
+            $orderDetail->orderid = $order->id;
+            $orderDetail->productid = $productid;
+            $orderDetail->colorid = $item['colorid'];
+            $orderDetail->sizeid = $item['sizeid'];
+            $orderDetail->quantity = $item['quantity'];
+            $orderDetail->totalprice = isset($item['sellprice']) && $item['sellprice'] > 0 ? min($item['quantity'] * $item['sellprice'], PHP_INT_MAX) : min($item['quantity'] * $item['price'], PHP_INT_MAX);
+            $orderDetail->save();
+            // Cập nhật số lượng đã bán của sản phẩm
+            $product = Product::find($productid);
+            if ($product) {
+                $product->number_buy += $item['quantity'];
+                $product->save();
             }
-            if ($discount) {
-                // Cập nhật số lượt sử dụng mã giảm giá
+        }
+        if ($discount) {
+            // Cập nhật số lượt sử dụng mã giảm giá
             $discount->number_used += 1;
             $discount->save();
-            }
-            $orderDetails = OrderDetail::with('product.sizes', 'product.colors')->where('orderid', $order->id)->get();
-            // Xóa giỏ hàng sau khi đã thanh toán
-            session()->forget('cart');
-            // Gửi email xác nhận đơn hàng cho khách hàng
-            Mail::to($order->email_order)->send(new OrderConfirmation($order, $orderDetails));
-            // Trong hàm process của CheckoutController
-            session(['orderId' => $order->id]);
-            return redirect()->route('checkout.success')->with('success', 'Đặt hàng thành công');
         }
-        //Customer = session()->has('account_id') ? Customer::where('id_account', session('account_id'))->value('id') : 3;
+        $orderDetails = OrderDetail::with('product.sizes', 'product.colors')->where('orderid', $order->id)->get();
+        // Xóa giỏ hàng sau khi đã thanh toán
+        session()->forget('cart');
+        // Gửi email xác nhận đơn hàng cho khách hàng
+        Mail::to($order->email_order)->send(new OrderConfirmation($order, $orderDetails));
+        // Trong hàm process của CheckoutController
+        session(['orderId' => $order->id]);
+        return redirect()->route('checkout.success')->with('success', 'Đặt hàng thành công');
     }
+
     //===================================================
     //===================================================
     public function success()
