@@ -150,7 +150,7 @@
                                             <td class="total-line-name">Mã giảm giá</td>
                                             <td class="total-line-price d-flex gap-3" style="justify-content: end;">
                                             <span class="order-summary-emphasis">
-                                                <p id="discount_info"></p>
+                                                {{-- <p id="discount_info"></p> --}}
                                                 <p id="discount_money" style="font-weight:700;color: red;"></p>
                                              </span>
                                              <button style="position:relative;top: -1px;color: red;cursor: pointer;" type="button" id="remove_discount_button"><i class="bx bxs-trash"></i></button>
@@ -331,9 +331,10 @@
         </div>
     </div>
 </form>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-
+$('.alert-danger').delay(5000).fadeOut('slow');
 $(document).ready(function() {
     var originalTotal = {{ $total }};
     var hasDiscountApplied = {{ session()->has('original_total') ? 'true' : 'false' }};

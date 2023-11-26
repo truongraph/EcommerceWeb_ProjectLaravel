@@ -23,15 +23,21 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'id_category');
     }
 
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class, 'product_id');
+    }
+
     public function sizes()
     {
-        return $this->hasMany(Size::class, 'id_product');
+        return $this->hasManyThrough(Size::class, ProductVariant::class, 'product_id', 'id', 'id', 'size_id');
     }
 
     public function colors()
     {
-        return $this->hasMany(Color::class, 'id_product');
+        return $this->hasManyThrough(Color::class, ProductVariant::class, 'product_id', 'id', 'id', 'color_id');
     }
+
 
     public function getRelatedProducts()
     {
