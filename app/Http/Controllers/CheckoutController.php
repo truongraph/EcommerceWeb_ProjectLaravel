@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderConfirmation;
 use App\Models\Customer;
 use App\Models\Account;
+use App\Models\ProductVariant;
 use Illuminate\Support\Str;
-
 class CheckoutController extends Controller
 {
     //===================================================
@@ -143,9 +143,21 @@ class CheckoutController extends Controller
         $orderCode = "OD{$date}{$time}{$random}";
         $discountCode = $request->input('discount_code');
         $discount = Discount::where('code', $discountCode)->first();
-
         // Lấy giỏ hàng từ session
         $cart = session()->get('cart', []);
+        foreach ($cart as $cartKey => $item) {
+            list($productid, $sizeid, $colorid) = explode('_', $cartKey);
+
+            // Kiểm tra số lượng của size và color trong ProductVariant
+            $productVariant = ProductVariant::where('product_id', $productid)
+                ->where('size_id', $sizeid)
+                ->where('color_id', $colorid)
+                ->first();
+
+            if (!$productVariant || $item['quantity'] > $productVariant->quantity) {
+                return redirect()->route('checkout.index')->with('error', 'Số lượng sản phẩm không khả dụng. Vui lòng kiểm tra lại giỏ hàng của bạn.')->withInput();
+            }
+        }
         if (empty($name) || empty($phone) || empty($address)) {
             return redirect()->route('checkout.index')->with('error', 'Vui lòng điền đầy đủ thông tin bắt buộc.')->withInput();
         }
@@ -235,6 +247,10 @@ class CheckoutController extends Controller
             $discount->number_used += 1;
             $discount->save();
         }
+        // Cập nhật lại số lượng của ProductVariant sau khi xác nhận đơn hàng
+        $productVariant->quantity -= $item['quantity'];
+        $productVariant->save();
+
         $orderDetails = OrderDetail::with('product.sizes', 'product.colors')->where('orderid', $order->id)->get();
         // Xóa giỏ hàng sau khi đã thanh toán
         session()->forget('cart');

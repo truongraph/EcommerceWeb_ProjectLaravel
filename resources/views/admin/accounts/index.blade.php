@@ -61,7 +61,6 @@
                                     @if($account->id !== 1)
                                     <!-- Nút xoá chỉ được hiển thị nếu ID không phải là 1 -->
                                     <a class="btn btn-primary" href="{{ route('admin.accounts.edit', $account->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
-                                    <a href="#" class="btn btn-danger delete-accounts" data-id="{{ $account->id }}"><i class="bx bx-trash"></i> Xoá</a>
                                     @endif
                                 </div>
                             </td>
@@ -78,31 +77,6 @@
     </div> <!-- end col -->
 </div>
 
-<script>
-    const deleteLinks = document.querySelectorAll('.delete-accounts');
-    deleteLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const accountID = this.getAttribute('data-id');
-            Swal.fire({
-                title: "Thông báo"
-                , text: "Bạn có chắc muốn xoá tài khoản này không?"
-                , icon: "warning"
-                , showCancelButton: true
-                , confirmButtonColor: "#34c3af"
-                , cancelButtonColor: "#f46a6a"
-                , confirmButtonText: "Đồng ý xoá"
-                , cancelButtonText: "Huỷ bỏ"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Nếu xác nhận xoá, chuyển hướng tới route delete với ID của danh mục
-                    window.location.href = `/admin/accounts/delete/${accountID}`;
-                }
-            });
-        });
-    });
-
-</script>
 
 
 @endsection
