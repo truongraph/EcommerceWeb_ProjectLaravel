@@ -61,7 +61,6 @@
                         <!-- Nút xoá chỉ được hiển thị nếu ID không phải là 1 -->
                         @if($account->id !== 1)
                         <button class="btn btn-success" type="submit">Lưu tài khoản</button>
-                        <a href="#" class="btn btn-danger delete-accounts" style="float: right" data-id="{{ $account->id }}">Xoá tài khoản</a>
                         @endif
                         <a href="{{ route('admin.accounts.index') }}" class="btn btn-secondary"> Huỷ bỏ</a>
                     </div>
@@ -84,29 +83,6 @@
         }
     });
 
-    // Sự kiện xoá tài khoản
-    const deleteLinks = document.querySelectorAll('.delete-accounts');
-    deleteLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const accountID = this.getAttribute('data-id');
-            Swal.fire({
-                title: "Thông báo"
-                , text: "Bạn có chắc muốn xoá tài khoản này không?"
-                , icon: "warning"
-                , showCancelButton: true
-                , confirmButtonColor: "#34c3af"
-                , cancelButtonColor: "#f46a6a"
-                , confirmButtonText: "Đồng ý xoá"
-                , cancelButtonText: "Huỷ bỏ"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Nếu xác nhận xoá, chuyển hướng tới route delete với ID của danh mục
-                    window.location.href = `/admin/accounts/delete/${accountID}`;
-                }
-            });
-        });
-    });
 
 </script>
 @endsection

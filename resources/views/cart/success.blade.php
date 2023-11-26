@@ -103,6 +103,7 @@
                                             </td>
                                             <td class="product-description">
                                                 <span class="product-description-name order-summary-emphasis">{{ $detail->product->name_product }}</span>
+                                                <span class="product-description-name order-summary-emphasis">{{ $detail->sizes->desc_size }} - {{ $detail->colors->desc_color }}</span>
                                             </td>
                                             <td class="product-quantity visually-hidden">{{ $detail->quantity }}</td>
                                             <td class="text-center" style="display: none;">

@@ -9,8 +9,7 @@
                 <ul class="breadcrumb-list">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Trang chủ</a></li>
                     @if ($product->category)
-                    <li class="breadcrumb-item"><a href="{{ route('categories.show',  $product->category->link_category) }}" title="">{{
-                            $product->category->name_category }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('categories.show', $product->category->link_category) }}" title="">{{ $product->category->name_category }}</a></li>
                     @endif
                     <li class="breadcrumb-item active">{{ $product->name_product }}</li>
                 </ul>
@@ -28,16 +27,13 @@
                 <!-- Product Details Left -->
                 <div class="stick-gallery">
                     @if ($product->sellprice_product > 0)
-                    <span class="sale-flag">-{{ round((1 - $product->sellprice_product / $product->price_product) * 100)
-                        }}%</span>
+                    <span class="sale-flag">-{{ round((1 - $product->sellprice_product / $product->price_product) * 100) }}%</span>
                     @endif
                     <div class="product-large-slider">
                         @foreach ($imagePaths as $imagePath)
                         <div class="pro-large-img img-zoom">
-                            <img src="{{ asset('img/products/' . $product->id . '/' . $imagePath) }}"
-                                alt="product-details" />
-                            <a href="{{ asset('img/products/' . $product->id . '/' . $imagePath) }}"
-                                data-fancybox="images">
+                            <img src="{{ asset('img/products/' . $product->id . '/' . $imagePath) }}" alt="product-details" />
+                            <a href="{{ asset('img/products/' . $product->id . '/' . $imagePath) }}" data-fancybox="images">
                                 <i class='bx bx-zoom-in'></i>
                             </a>
                         </div>
@@ -46,8 +42,7 @@
                     <div class="product-nav">
                         @foreach ($imagePaths as $imagePath)
                         <div class="pro-nav-thumb">
-                            <img src="{{ asset('img/products/' . $product->id . '/' . $imagePath) }}"
-                                alt="product-details" />
+                            <img src="{{ asset('img/products/' . $product->id . '/' . $imagePath) }}" alt="product-details" />
                         </div>
                         @endforeach
                     </div>
@@ -64,10 +59,20 @@
                             <li class="product-sku">Mã: <span>{{ $product->sku }}</span>
                             </li>
                             <li class="product-sku">Tình trạng:
-                                @if ($product->quantity_product > 0)
-                                <span class="text-success">Còn hàng</span>
+                                {{--  HIỂN THỊ TÌNH TRẠNG HẾT HÀNG --}}
+                                @php
+                                $allVariantsEmpty = true;
+                                foreach ($variants as $variant) {
+                                    if ($variant->quantity > 0) {
+                                        $allVariantsEmpty = false;
+                                        break;
+                                    }
+                                }
+                                @endphp
+                                @if ($allVariantsEmpty)
+                                    <span class="text-danger">Hết hàng</span>
                                 @else
-                                <span class="new-price ">Hết hàng</span>
+                                    <span class="text-success">Còn hàng</span>
                                 @endif
                             </li>
                         </ul>
@@ -95,45 +100,83 @@
                         <p class="short_desc">{{ $product->shortdesc_product }}</p>
                         <form id="addToCartForm" action="{{ route('cart.add') }}" method="post">
                             @csrf
-                            <div class="d-flex gap-3">
-                                <div class="select-opstion-box mb-20">
-                                    <h6 class="title" for="size">Kích thước </h6>
-                                    <select name="size" id="size" class="color-select">
-                                        @foreach ($sizes as $size)
-                                        <option value="{{ $size->id }}" class="attached enabled">
-                                            {{ $size->desc_size }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="select-opstion-box mb-20">
-                                    <h6 class="title" for="size">Màu sắc </h6>
-                                    <select name="color" id="color" class="color-select">
-                                        @foreach ($colors as $color)
-                                        <option value="{{ $color->id }}" class="attached enabled">
-                                            {{ $color->desc_color }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="item-select-variant mb-20">
+                                <h6 class="title" for="size">Kích thước</h6>
+                                <div class="color-select">
+                                    @foreach ($sizes as $size)
+                                    @php
+                                    $available = false;
+                                    @endphp
+                                    @foreach ($variants as $variant)
+                                    @if ($variant->size_id === $size->id && $variant->quantity > 0)
+                                    @php
+                                    $available = true;
+                                    @endphp
+                                    @break
+                                    @endif
+                                    @endforeach
+                                    @if ($available)
+                                    <div class="size-option" data-size="{{ $size->id }}">
+                                        {{ $size->desc_size }}
+                                    </div>
+                                    @else
+                                    <!-- Đổi div thành span để không cho phép chọn -->
+                                    <span class="size-option out-of-stock" data-size="{{ $size->id }}">
+                                        {{ $size->desc_size }}
+                                    </span>
+                                    @endif
+                                    @endforeach
                                 </div>
                             </div>
-                            <div class="single-add-to-cart">
-                                <div class="media-total mb-3" bis_skin_checked="1">
+
+                            <div class="item-select-variant mb-20">
+                                <h6 class="title" for="color">Màu sắc</h6>
+                                <div class="color-select">
+                                    @foreach ($colors as $color)
+                                    @php
+                                    $available = false;
+                                    @endphp
+                                    @foreach ($variants as $variant)
+                                    @if ($variant->color_id === $color->id && $variant->quantity > 0)
+                                    @php
+                                    $available = true;
+                                    @endphp
+                                    @break
+                                    @endif
+                                    @endforeach
+                                    @if ($available)
+                                    <div class="color-option" data-color="{{ $color->id }}">
+                                        {{ $color->desc_color }}
+                                    </div>
+                                    @else
+                                    <!-- Đổi div thành span để không cho phép chọn -->
+                                    <span class="color-option out-of-stock" data-color="{{ $color->id }}">
+                                        {{ $color->desc_color }}
+                                    </span>
+                                    @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="item-select-variant mb-20">
+                                <span>
+                                    <h6 class="title" for="color">Số lượng</h6>
+                                    <span id="stockInfo" class="stock-info"></span>
+                                </span>
+                                <div class="media-total" bis_skin_checked="1">
                                     <div class="item-qty" style="width: 120px;" bis_skin_checked="1">
                                         <div class="quantity" bis_skin_checked="1">
-                                            <input class="cart-plus-minus-box quantity-input" type="number"
-                                                name="quantity" id="quantity" value="1">
+                                            <input class="cart-plus-minus-box quantity-input" type="number" name="quantity" id="quantity" value="1">
                                             <div class="quantity-nav" bis_skin_checked="1">
-                                                <button class="changeQuantity quantity-button quantity-up" type="button"
-                                                    id="increaseQuantity" bis_skin_checked="1">+</button>
-                                                <button class="changeQuantity quantity-button quantity-down"
-                                                    type="button" id="decreaseQuantity" bis_skin_checked="1">-</button>
+                                                <button class="changeQuantity quantity-button quantity-up" type="button" id="increaseQuantity" bis_skin_checked="1">+</button>
+                                                <button class="changeQuantity quantity-button quantity-down" type="button" id="decreaseQuantity" bis_skin_checked="1">-</button>
                                             </div>
                                         </div>
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="single-add-to-cart d-flex">
                                 <button class="add-to-cart" type="submit">Thêm vào giỏ hàng</button>
-
                             </div>
                         </form>
                     </div>
@@ -182,18 +225,15 @@
                     <div class="single-product-wrap mt-10">
                         <div class="product-image">
                             <a href="{{ route('products.show', ['linkProduct' => $product->link_product]) }}" title="">
-                                <img src="{{ asset('img/products/' . $product->id . '/' . $product->avt_product) }}"
-                                    alt="{{ $product->name_product }}">
+                                <img src="{{ asset('img/products/' . $product->id . '/' . $product->avt_product) }}" alt="{{ $product->name_product }}">
                             </a>
                             @if ($product->sellprice_product > 0)
-                            <span class="onsale">-{{ round((1 - $product->sellprice_product / $product->price_product) *
-                                100) }}%</span>
+                            <span class="onsale">-{{ round((1 - $product->sellprice_product / $product->price_product) * 100) }}%</span>
                             @endif
                         </div>
 
                         <div class="product-content">
-                            <h6 class="product-name"><a href="{{ route('products.show', ['linkProduct' => $product->link_product]) }}" title="">{{
-                                    $product->name_product }}</a></h6>
+                            <h6 class="product-name"><a href="{{ route('products.show', ['linkProduct' => $product->link_product]) }}" title="">{{ $product->name_product }}</a></h6>
                             <div class="price-box">
                                 @if ($product->sellprice_product > 0)
                                 @php
@@ -229,35 +269,247 @@
 </div>
 
 
+
+
 <script>
     // Xử lý tăng giảm số lượng
-        var quantityInput = document.getElementById('quantity');
-        var decreaseButton = document.getElementById('decreaseQuantity');
-        var increaseButton = document.getElementById('increaseQuantity');
-        decreaseButton.addEventListener('click', function() {
-            if (quantityInput.value > 1) {
-                quantityInput.value = parseInt(quantityInput.value) - 1;
+    var quantityInput = document.getElementById('quantity');
+    var decreaseButton = document.getElementById('decreaseQuantity');
+    var increaseButton = document.getElementById('increaseQuantity');
+    decreaseButton.addEventListener('click', function() {
+        if (quantityInput.value > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
+    });
+    increaseButton.addEventListener('click', function() {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    });
+
+</script>
+{{-- ======================================================================= --}}
+{{-- ======================================================================= --}}
+{{-- ======================================================================= --}}
+<script>
+    //===========================================================
+    // Khai báo các biến lưu trữ thông tin về size và color được chọn
+    //===========================================================
+    let selectedSize = null;
+    let selectedColor = null;
+    //===========================================================
+    // Biến lưu trữ số lượng sản phẩm theo từng size và color
+    //===========================================================
+    let quantityBySizeAndColor = {};
+    //===========================================================
+    // Biến lưu trữ thông tin về các size có sẵn cho từng màu
+    //===========================================================
+    let availableSizesByColor = {};
+    //===========================================================
+    //===========================================================
+    // Hàm cập nhật thông tin số lượng sản phẩm và kích thước có sẵn cho từng màu sắc và size
+    //===========================================================
+    //===========================================================
+    function updateAvailableOptions() {
+        quantityBySizeAndColor = {};
+        availableSizesByColor = {};
+            // Lặp qua các variant để cập nhật thông tin số lượng và kích thước có sẵn
+            @foreach ($variants as $variant)
+                // Kiểm tra và lưu số lượng sản phẩm theo từng size và color
+                if (!quantityBySizeAndColor[{{$variant->color_id}}]) {
+                    quantityBySizeAndColor[{{$variant->color_id}}] = {};
+                }
+                quantityBySizeAndColor[{{$variant->color_id}}][{{$variant->size_id}}] = {{$variant->quantity}};
+                // Kiểm tra và lưu thông tin về các size có sẵn cho từng màu
+                if (!availableSizesByColor[{{$variant->color_id}}]) {
+                    availableSizesByColor[{{$variant->color_id}}] = [];
+                }
+                availableSizesByColor[{{$variant->color_id}}].push({{$variant->size_id}});
+            @endforeach
+    }
+    //===========================================================
+    //===========================================================
+    // Gọi hàm cập nhật thông tin số lượng sản phẩm và kích thước có sẵn khi trang được load
+    //===========================================================
+    //===========================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        updateAvailableOptions();
+        updateSelectedOptions();
+    });
+    //===========================================================
+    //===========================================================
+    // Hàm cập nhật trạng thái cho các tùy chọn size và color dựa trên thông tin đã cập nhật
+    //===========================================================
+    //===========================================================
+    function updateSelectedOptions() {
+        // Tổng số lượng sản phẩm của tất cả các biến thể
+        let allVariantsQuantity = Object.values(quantityBySizeAndColor).reduce((acc, val) => acc.concat(Object.values(val)), []);
+        let totalQuantity = allVariantsQuantity.reduce((acc, val) => acc + val, 0);
+
+        // Cập nhật trạng thái cho tùy chọn size
+        document.querySelectorAll('.size-option').forEach(function(sizeOption) {
+            let size = sizeOption.dataset.size;
+
+            // Kiểm tra nếu tổng số lượng là 0 hoặc size không có sẵn cho màu đã chọn thì đánh dấu là hết hàng
+            if (totalQuantity === 0 || (selectedColor !== null && availableSizesByColor[selectedColor].indexOf(parseInt(size)) === -1)) {
+                sizeOption.classList.add('out-of-stock');
+            } else {
+                sizeOption.classList.remove('out-of-stock');
+            }
+
+            // Nếu size không có số lượng tồn kho, đánh dấu là hết hàng và disable tùy chọn size đó
+            if (selectedColor !== null && selectedColor in quantityBySizeAndColor && size in quantityBySizeAndColor[selectedColor] && quantityBySizeAndColor[selectedColor][size] === 0) {
+                sizeOption.classList.add('out-of-stock');
+                // Thêm thuộc tính disabled để disable tùy chọn
+                sizeOption.setAttribute('disabled', 'disabled');
+            } else {
+                // Bỏ thuộc tính disabled nếu quantity > 0
+                sizeOption.removeAttribute('disabled');
             }
         });
-        increaseButton.addEventListener('click', function() {
-            quantityInput.value = parseInt(quantityInput.value) + 1;
+
+        // Cập nhật trạng thái cho tùy chọn color
+        document.querySelectorAll('.color-option').forEach(function(colorOption) {
+            let color = colorOption.dataset.color;
+
+            // Kiểm tra nếu tổng số lượng là 0 hoặc màu không có sẵn cho size đã chọn thì đánh dấu là hết hàng
+            if (totalQuantity === 0 || (selectedSize !== null && !quantityBySizeAndColor[color][selectedSize])) {
+                colorOption.classList.add('out-of-stock');
+            } else {
+                colorOption.classList.remove('out-of-stock');
+            }
+
+            // Kiểm tra nếu không có size nào của màu có số lượng tồn kho, đánh dấu là hết hàng và disable tùy chọn màu đó
+            let hasAvailableQuantity = Object.keys(quantityBySizeAndColor[color]).some(function(sizeKey) {
+                return quantityBySizeAndColor[color][sizeKey] > 0;
+            });
+
+            if (!hasAvailableQuantity) {
+                colorOption.classList.add('out-of-stock');
+                // Thêm thuộc tính disabled để disable tùy chọn màu không có quantity > 0
+                colorOption.setAttribute('disabled', 'disabled');
+            } else {
+                // Bỏ thuộc tính disabled nếu có ít nhất một size có quantity > 0
+                colorOption.removeAttribute('disabled');
+            }
         });
-</script>
-<script>
-    // Xử lý chuyển hướng sau khi thêm vào giỏ hàng
-        document.getElementById('addToCartForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    // Gửi Ajax request để thêm vào giỏ hàng
-    axios.post('/cart/add', new FormData(this))
-        .then(function (response) {
-            toastr.success('Bạn đã thêm 1 sản phẩm vào giỏ hàng');
-            setTimeout(function() {
-                window.location.reload();
-            }, 500);
-        })
-        .catch(function (error) {
-            console.error(error);
+    }
+    //===========================================================
+    //===========================================================
+    //Sự kiện khi chọn kích thước
+    //===========================================================
+    //===========================================================
+    document.querySelectorAll('.size-option').forEach(function(sizeOption) {
+        // Thêm sự kiện click cho từng tùy chọn size
+        sizeOption.addEventListener('click', function() {
+            // Kiểm tra nếu size đang được chọn bằng với size đã được chọn trước đó
+            if (selectedSize === this.dataset.size) {
+                // Nếu trùng thì bỏ chọn size đó
+                selectedSize = null;
+            } else {
+                // Nếu không trùng thì chọn size này và gán vào biến selectedSize
+                selectedSize = this.dataset.size;
+            }
+            // Cập nhật trạng thái các tùy chọn size và color dựa trên thông tin đã chọn
+            updateSelectedOptions();
+            document.querySelectorAll('.size-option').forEach(function(option) {
+                 // Loại bỏ 'selected-option' cho tất cả các tùy chọn size
+                option.classList.remove('selected-option');
+            });
+            if (selectedSize !== null) {
+                // Nếu đã chọn size mới, thêm CSS 'selected-option' cho tùy chọn đó
+                this.classList.add('selected-option');
+            }
+            // Cập nhật thông tin số lượng còn hàng dựa trên size và color đã chọn
+            updateStockInfo();
         });
-});
+    });
+    //===========================================================
+    //===========================================================
+    //Sự kiện khi chọn màu
+    //===========================================================
+    //===========================================================
+    document.querySelectorAll('.color-option').forEach(function(colorOption) {
+        colorOption.addEventListener('click', function() {
+            if (selectedColor === this.dataset.color) {
+                selectedColor = null;
+            } else {
+                selectedColor = this.dataset.color;
+            }
+            updateSelectedOptions();
+            document.querySelectorAll('.color-option').forEach(function(option) {
+                option.classList.remove('selected-option');
+            });
+            if (selectedColor !== null) {
+                this.classList.add('selected-option');
+            }
+            updateStockInfo();
+        });
+    });
+    //===========================================================
+    //===========================================================
+    // Cập nhật thông tin số lượng còn hàng
+    //===========================================================
+    //===========================================================
+    function updateStockInfo() {
+        let stockInfo = document.getElementById('stockInfo');
+        if (selectedSize !== null && selectedColor !== null) {
+            let quantity = quantityBySizeAndColor[selectedColor][selectedSize];
+            stockInfo.innerText = `(Còn ${quantity} sản phẩm)`;
+        } else {
+            stockInfo.innerText = '';
+        }
+    }
+    //===========================================================
+    //===========================================================
+    // Xử lý thêm vào giỏ hàng
+    //===========================================================
+    //===========================================================
+    document.getElementById('addToCartForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        if (selectedColor === null && selectedColor === null) {
+            toastr.error('Vui lòng chọn đầy đủ kích thước và màu');
+            return;
+        }
+        if (selectedSize === null) {
+            toastr.error('Vui lòng chọn kích thước');
+            return;
+        }
+        if (selectedColor === null) {
+            toastr.error('Vui lòng chọn màu sắc');
+            return;
+        }
+        let quantityInput = document.getElementById('quantity');
+        let quantityToAdd = parseInt(quantityInput.value);
+
+        // Kiểm tra số lượng nhập vào có hợp lệ không
+        if (quantityBySizeAndColor[selectedColor][selectedSize] < quantityToAdd) {
+            toastr.error('Số lượng đang vượt quá số lượng tồn');
+            return;
+        }
+
+        let formData = new FormData(this);
+        formData.append('size', selectedSize);
+        formData.append('color', selectedColor);
+        axios.post('/cart/add', formData)
+            .then(function(response) {
+                let message = response.data.message;
+                if (message) {
+                    toastr.success(message);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 500);
+                }
+            })
+            .catch(function(error) {
+                let errorMessage = error.response.data.message; // Lấy thông báo lỗi từ response
+                if (errorMessage) {
+                    toastr.error(errorMessage); // Hiển thị thông báo lỗi bằng toast
+                } else {
+                    console.error(error); // Log lỗi nếu không có thông báo lỗi từ controller
+                }
+            });
+    });
+
+
 </script>
 @endsection
+

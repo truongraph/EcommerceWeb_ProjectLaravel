@@ -50,6 +50,7 @@ Route::get('/categories/{category}', [CategoryController::class, 'show'])->name(
 //===========================================
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{linkProduct}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/get-quantity', [ProductController::class, 'getQuantity'])->name('get.quantity');
 // Route::get('/products/{id}', [ProductController::class, 'show']);
 // Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 //===========================================

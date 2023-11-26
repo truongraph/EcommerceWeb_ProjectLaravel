@@ -25,7 +25,7 @@ class ContactController extends Controller
         // Gửi email
         Mail::send('emails.contact', $validatedData, function ($message) use ($validatedData) {
             $message->from($validatedData['email'], $validatedData['fullname']);
-            $message->to('truong.vd1503@gmail.com')->subject('Thông tin liên hệ từ form');
+            $message->to('zinhamlovesuu@gmail.com')->subject('Thông tin liên hệ từ form');
         });
         return redirect()->back()->with('success', 'Email đã được gửi thành công!');
     }
