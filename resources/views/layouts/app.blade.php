@@ -281,6 +281,8 @@
     <!-- ======================================================================================================================== -->
     <!-- JS  -->
     <!-- Modernizer JS -->
+
+
     <script src="{{ asset('frontend_area/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
