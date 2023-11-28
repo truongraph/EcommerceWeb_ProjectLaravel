@@ -27,7 +27,11 @@ class ForgotPasswordController extends Controller
         $account = Account::where('email_account', $email)->first();
         if (!$account) {
                 return redirect()->back()->with('error', 'Email không tồn tại trong hệ thống.');
-        } else {
+        }
+        if ($account) {
+            if ($account->status_account == 0) {
+                return redirect()->back()->with('error', 'Tài khoản của bạn đã ngừng hoạt động. Vui lòng liên hệ quản trị viên.');
+            }
             $token = Str::random(60);
             $account->update(['reset_password_token' => $token]);
             // Gửi email chứa link khôi phục mật khẩu tới email của người dùng
@@ -42,6 +46,7 @@ class ForgotPasswordController extends Controller
             });
             return redirect()->back()->with('success', 'Chúng tôi đã gửi hướng dẫn khôi phục mật khẩu vào email của bạn.');
         }
+
     }
     //==========================================
     //==========================================

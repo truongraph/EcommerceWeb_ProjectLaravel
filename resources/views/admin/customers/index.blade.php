@@ -39,7 +39,7 @@
                         <th>SĐT</th>
                         <th>Địa chỉ</th>
                         <th>Tài khoản liên kết</th>
-                        <th>Ngày tạo</th>
+                        {{-- <th>Ngày tạo</th> --}}
                         <th style="width: 40px">Chức năng</th>
                     </tr>
                     </thead>
@@ -55,7 +55,7 @@
                             <td>{{ $customer->phone_customer }}</td>
                             <td>{{ $customer->address_customer }}</td>
                             <td>{{ $customer->account->name_account }}</td>
-                            <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('d/m/Y H:i:s') }}</td>
+                            {{-- <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('d/m/Y H:i:s') }}</td> --}}
                             <td>
                                 <div style="display:flex;gap:10px">
                                     <a class="btn  btn-primary"><i class="bx bx-edit"></i> Chỉnh sửa</a>

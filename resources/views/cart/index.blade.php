@@ -22,6 +22,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12 contentCart-detail">
+                    @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                     <div class="mainCart-detail">
                         <div class="heading-cart">
                             <h1>Giỏ hàng của bạn</h1>
@@ -137,8 +143,6 @@
                                 <div class="summary-time__row">
                                     <div class="boxtime-title">
                                         <p class="txt-title">Tạm tính</p>
-
-
                                     </div>
                                     <div class="boxtime-radio" id="picktime_radio">
                                         <div class="radio-item">

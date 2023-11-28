@@ -465,6 +465,24 @@
     //===========================================================
     document.getElementById('addToCartForm').addEventListener('submit', function(event) {
         event.preventDefault();
+
+        let allVariantsEmpty = true;
+        // Kiểm tra xem tất cả các biến thể có quantity > 0 không
+        for (let variant in quantityBySizeAndColor) {
+            for (let size in quantityBySizeAndColor[variant]) {
+                if (quantityBySizeAndColor[variant][size] > 0) {
+                    allVariantsEmpty = false;
+                    break;
+                }
+            }
+        }
+
+         // Nếu tất cả đều hết hàng, hiển thị thông báo và ngăn người dùng thêm vào giỏ hàng
+        if (allVariantsEmpty) {
+            toastr.error('Sản phẩm này đã hết hàng');
+            return;
+        }
+
         if (selectedColor === null && selectedColor === null) {
             toastr.error('Vui lòng chọn đầy đủ kích thước và màu');
             return;

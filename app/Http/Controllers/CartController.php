@@ -90,6 +90,7 @@ class CartController extends Controller
         $quantity = $request->input('quantity');
         $cart = session()->get('cart', []);
         if (isset($cart[$productid])) {
+            // Lấy sizeid và colorid từ giỏ hàng
             $sizeid = $cart[$productid]['sizeid'];
             $colorid = $cart[$productid]['colorid'];
 
@@ -99,21 +100,35 @@ class CartController extends Controller
                 ->first();
 
             if ($variant && $variant->quantity > 0) {
+                // Xác định hành động (increase, decrease, update)
                 if ($action === 'update') {
-                    // Cập nhật số lượng sản phẩm
                     $totalQuantity = $quantity;
                 } elseif ($action == 'increase') {
                     $totalQuantity = $cart[$productid]['quantity'] + 1;
                 } elseif ($action == 'decrease') {
                     $totalQuantity = $cart[$productid]['quantity'] - 1;
-                }
 
-                if ($totalQuantity > $variant->quantity) {
+                    // Kiểm tra nếu số lượng sản phẩm trong giỏ lớn hơn quantity của size và color
+                    if ($totalQuantity > $variant->quantity) {
+                        // Cập nhật lại quantity của size và color trong giỏ
+                        $totalQuantity = $variant->quantity;
+
+                        // Cập nhật quantity trong giỏ hàng
+                        $cart[$productid]['quantity'] = $totalQuantity;
+                        session()->put('cart', $cart);
+
+                        return Response::json(['message' => 'Số lượng sản phẩm đã được giảm về số lượng có sẵn'], 200);
+                    }
+                }
+                 // Kiểm tra nếu số lượng nhập vào lớn hơn số lượng tồn tại, trả về thông báo lỗi
+                 if ($totalQuantity > $variant->quantity) {
                     return Response::json(['message' => 'Số lượng vượt quá số lượng tồn'], 400);
                 }
 
+                // Cập nhật số lượng sản phẩm trong giỏ hàng
                 $cart[$productid]['quantity'] = $totalQuantity;
                 session()->put('cart', $cart);
+
                 return Response::json(['message' => 'Thay đổi số lượng thành công'], 200);
             } else {
                 return Response::json(['message' => 'Sản phẩm đã hết hàng hoặc không có sẵn'], 404);
