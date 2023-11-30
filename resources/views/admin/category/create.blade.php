@@ -56,8 +56,8 @@
                         </div>
                     </div>
                     <div bis_skin_checked="1">
-                        <button class="btn btn-success" type="submit">Lưu danh mục</button>
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary pull-right">Huỷ bỏ</a>
+                        <button class="btn btn-success" type="submit"><i class="bx bxs-save"></i> Lưu danh mục</button>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary"><i class="bx bxs-x-circle"></i> Huỷ bỏ</a>
                     </div>
                 </form>
             </div><!-- end card-body -->

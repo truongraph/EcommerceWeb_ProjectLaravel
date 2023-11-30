@@ -4005,7 +4005,7 @@ textarea.form-control-lg {
     padding: var(--bs-dropdown-header-padding-y) var(--bs-dropdown-header-padding-x);
     margin-bottom: 0;
     font-size: .765625rem;
-    color: var(--bs-dropdown-header-color);
+    color: #c50000;
     white-space: nowrap
 }
 
@@ -5282,7 +5282,7 @@ textarea.form-control-lg {
 }
 
 .breadcrumb-item.active {
-    color: var(--bs-breadcrumb-item-active-color)
+    color: #0576b9;
 }
 
 .pagination {
@@ -9517,7 +9517,7 @@ textarea.form-control-lg {
 }
 
 .fw-bold {
-    font-weight: 600!important
+    font-weight: 800!important;
 }
 
 .fw-semibold {
@@ -14627,7 +14627,7 @@ a,button {
 }
 
 .btn-dark,.btn-secondary {
-    color: #eff2f7!important
+    color: #ffffff!important;
 }
 
 .btn-outline-light {
@@ -14643,7 +14643,8 @@ a,button {
 }
 
 .btn-secondary {
-    border-bottom: 1.5px solid var(--bs-table-border-color)
+    border-bottom: 1.5px solid var(--bs-table-border-color);
+    background: #979797 !important;
 }
 
 .btn-success {

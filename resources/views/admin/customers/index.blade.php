@@ -30,6 +30,26 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+                <h5 class="fw-bold">Bộ lọc</h5>
+                <form class="border-bottom mb-3" action="{{ route('admin.customers.index') }}" method="GET">
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="Tên khách hàng" id="name_filter" name="name_filter" value="{{ request('name_filter') }}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="Email" id="email_filter" name="email_filter" value="{{ request('email_filter') }}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" placeholder="Số điện thoại" id="phone_filter" name="phone_filter" value="{{ request('phone_filter') }}">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary"><i class="bx bxs-filter-alt"></i> Lọc</button>
+                            <a href="{{ route('admin.customers.index') }}" class="btn btn-secondary"><i class="bx bx-reset"></i> Reset bộ lọc</a>
+                        </div>
+                    </div>
+
+                </form>
+                </>
                 <table id="Tabledatatable" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
@@ -47,7 +67,7 @@
                         @php
                         $count = 1; // Khởi tạo biến đếm
                         @endphp
-                        @foreach($customers as $customer)
+                          @foreach($customers as $customer)
                         <tr>
                             <td class="text-center">{{ $count++ }}</td>
                             <td>{{ $customer->name_customer  }}</td>
@@ -58,7 +78,7 @@
                             {{-- <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('d/m/Y H:i:s') }}</td> --}}
                             <td>
                                 <div style="display:flex;gap:10px">
-                                    <a class="btn  btn-primary"><i class="bx bx-edit"></i> Chỉnh sửa</a>
+                                    <a class="btn btn-primary" href="{{ route('admin.customers.edit', $customer->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
                                     <a href="#" class="btn btn-danger delete-customer" data-id="{{ $customer->id }}"><i class="bx bx-trash"></i> Xoá</a>
                                  </div>
                             </td>
@@ -74,6 +94,8 @@
         <!-- end card -->
     </div> <!-- end col -->
 </div>
+
+
 
 
 <script>
