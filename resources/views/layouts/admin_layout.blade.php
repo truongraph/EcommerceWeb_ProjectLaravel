@@ -36,18 +36,18 @@
                     <div class="navbar-brand-box">
                         <a class="logo logo-dark">
                             <span class="logo-sm">
-                                QL
+                                QT
                             </span>
                             <span class="logo-lg">
-                                QUẢN LÝ BÁN HÀNG
+                                HỆ THỐNG QUẢN TRỊ
                             </span>
                         </a>
                         <a class="logo logo-light">
                             <span class="logo-sm">
-                                QL
+                                QT
                             </span>
                             <span class="logo-lg">
-                                QUẢN LÝ BÁN HÀNG
+                                HỆ THỐNG QUẢN TRỊ
                             </span>
                         </a>
                     </div>
@@ -152,7 +152,7 @@
                             </a>
                         </li>
                         <li class="menu-title" key="t-menu">
-                            Thông tin chung
+                           Thông tin quản trị
                         </li>
                         <li class="{{ Request::is('admin/accounts*') ? 'mm-active' : '' }}">
                             <a href="{{ route('admin.accounts.index') }}" class="waves-effect {{ Request::is('admin/accounts*') ? 'active' : '' }}">
@@ -162,20 +162,58 @@
                         </li>
                         <li class="{{ Request::is('admin/customers*') ? 'mm-active' : '' }}">
                             <a href="{{ route('admin.customers.index') }}" class="waves-effect {{ Request::is('admin/customers*') ? 'active' : '' }}">
-                                <i class='bx bxs-user-rectangle'></i>
+                                <i class='bx bxs-layer'></i>
                                 <span key="t-ui-elements">Khách hàng</span>
                             </a>
                         </li>
-                        <li class="menu-title" key="t-menu">
-                           Quản lý danh mục
-                        </li>
                         <li class="{{ Request::is('admin/categories*') ? 'mm-active' : '' }}">
                             <a href="{{ route('admin.categories.index') }}" class="waves-effect {{ Request::is('admin/categories*') ? 'active' : '' }}">
-                                <i class='bx bxs-bookmarks'></i>
+                                <i class='bx bxs-archive'></i>
                                 <span key="t-ui-elements">Danh mục sản phẩm</span>
                             </a>
                         </li>
-
+                        <li class="{{ Request::is('admin/colors*') ? 'mm-active' : '' }}">
+                            <a  class="waves-effect {{ Request::is('admin/colors*') ? 'active' : '' }}">
+                                <i class='bx bxs-palette'></i>
+                                <span key="t-ui-elements">Màu sắc</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('admin/sizes*') ? 'mm-active' : '' }}">
+                            <a class="waves-effect {{ Request::is('admin/sizes*') ? 'active' : '' }}">
+                                <i class='bx bxs-ruler'></i>
+                                <span key="t-ui-elements">Kích thước</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('admin/products*') ? 'mm-active' : '' }}">
+                            <a class="waves-effect {{ Request::is('admin/products*') ? 'active' : '' }}">
+                                <i class='bx bxs-t-shirt'></i>
+                                <span key="t-ui-elements">Sản phẩm</span>
+                            </a>
+                        </li>
+                         <li class="{{ Request::is('admin/orders*') ? 'mm-active' : '' }}">
+                            <a class="waves-effect {{ Request::is('admin/orders*') ? 'active' : '' }}">
+                                <i class='bx bxs-truck  '></i>
+                                <span key="t-ui-elements">Đơn hàng</span>
+                            </a>
+                        </li>
+                          <li class="{{ Request::is('admin/discounts*') ? 'mm-active' : '' }}">
+                            <a class="waves-effect {{ Request::is('admin/discounts*') ? 'active' : '' }}">
+                                <i class='bx bxs-discount'></i>
+                                <span key="t-ui-elements">Mã giảm giá</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('admin/banners*') ? 'mm-active' : '' }}">
+                            <a class="waves-effect {{ Request::is('admin/banners*') ? 'active' : '' }}">
+                                <i class='bx bxs-collection'></i>
+                                <span key="t-ui-elements">Banner</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('admin/banners*') ? 'mm-active' : '' }}">
+                            <a class="waves-effect {{ Request::is('admin/banners*') ? 'active' : '' }}">
+                                <i class='bx bxs-envelope'></i>
+                                <span key="t-ui-elements">Cấu hình email</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -191,11 +229,11 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <script>
                                 document.write(new Date().getFullYear())
 
-                            </script> © Quản lý bán hàng.
+                            </script> © Hệ thống quản lý bán hàng.
                         </div>
                     </div>
                 </div>

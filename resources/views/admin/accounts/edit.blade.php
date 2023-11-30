@@ -60,9 +60,9 @@
                     <div bis_skin_checked="1">
                         <!-- Nút xoá chỉ được hiển thị nếu ID không phải là 1 -->
                         @if($account->id !== 1)
-                        <button class="btn btn-success" type="submit">Lưu tài khoản</button>
+                        <button class="btn btn-success" type="submit"><i class="bx bxs-save"></i> Lưu tài khoản</button>
                         @endif
-                        <a href="{{ route('admin.accounts.index') }}" class="btn btn-secondary"> Huỷ bỏ</a>
+                        <a href="{{ route('admin.accounts.index') }}" class="btn btn-secondary"><i class="bx bxs-x-circle"></i> Huỷ bỏ</a>
                     </div>
                 </form>
             </div><!-- end card-body -->
