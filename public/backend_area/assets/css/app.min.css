@@ -235,7 +235,7 @@ body:not([data-topbar=dark]) .navbar-brand-box {
 .logo {
     line-height: 60px;
     font-weight: 700;
-    color: white;
+    color: #ffffff !important;
     font-size: 17px;
     text-align: center;
 }
@@ -325,7 +325,8 @@ body:not([data-topbar=dark]) .navbar-brand-box {
 .noti-icon .badge {
     position: absolute;
     top: 12px;
-    right: 4px
+    right: 4px;
+    padding: 5px 7px;
 }
 
 .notification-item {
@@ -413,8 +414,8 @@ body[data-topbar=dark] .app-search input.form-control::-webkit-input-placeholder
 }
 
 body[data-sidebar=dark] .navbar-brand-box {
-    background: #121e2d;
-    border-bottom: 1px solid #192a3f
+    background: #04649d!important;
+    border-bottom: 1px solid #04649d!important;
 }
 
 body[data-sidebar=dark] .logo-dark {
@@ -457,16 +458,21 @@ body[data-layout=horizontal] .page-content {
 }
 
 .page-title-box {
-    padding: 7px 20px;
+    padding: 15px 20px;
     background-color: var(--bs-card-bg);
     border-bottom: 1px solid var(--bs-card-border-color)!important;
-    margin: -19px -20px 20px -20px
+    margin: -19px -20px 20px -20px;
 }
 
+.page-title-box h4{
+    font-weight: 800 !important;
+    font-size: 19px !important;
+}
 .page-title-box .breadcrumb {
     background-color: transparent;
     padding: 0;
-    font-size: 13px
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .page-title-box .breadcrumb h4 {
@@ -487,13 +493,15 @@ body[data-layout=horizontal] .page-title-box {
 
 .footer {
     bottom: 0;
-    padding: 20px calc(20px / 2);
+    padding: 10px;
     position: absolute;
     right: 0;
-    color: #74788d;
+    color: #000000;
     left: 240px;
-    height: 60px;
-    background-color: #f2f2f5
+    height: 40px;
+    background-color: #e2e2e2;
+    text-align: center;
+    font-weight: 700;
 }
 
 @media (max-width: 991.98px) {
@@ -660,7 +668,7 @@ body[data-layout=horizontal] .footer {
 
 #sidebar-menu ul li a {
     display: block;
-    padding: .6rem 1.5rem;
+    padding: .8rem 1rem;
     color: #545a6d;
     position: relative;
     -webkit-transition: all .4s;
@@ -679,7 +687,8 @@ body[data-layout=horizontal] .footer {
 }
 
 #sidebar-menu ul li a span {
-    vertical-align: middle
+    vertical-align: middle;
+    font-weight: 600;
 }
 
 #sidebar-menu ul li a:hover {
@@ -718,12 +727,12 @@ body[data-layout=horizontal] .footer {
 }
 
 #sidebar-menu ul.metismenu>li.mm-active>a {
-    background-color: #0576b9!important;
-    color: #fff!important
+    background-color: #04649D !important;
+    color: #fff!important;
 }
 
 #sidebar-menu ul.metismenu>li.mm-active>a>i {
-    color: #fff!important
+    color: #fff !important;
 }
 
 [dir=rtl] #sidebar-menu .has-arrow:after {
@@ -731,14 +740,14 @@ body[data-layout=horizontal] .footer {
 }
 
 .menu-title {
-    padding: 12px 20px!important;
+    padding: 12px 25px!important;
     letter-spacing: .05em;
     pointer-events: none;
     cursor: default;
     font-size: 11px;
     text-transform: uppercase;
     color: #545a6d;
-    font-weight: 600
+    font-weight: 800;
 }
 
 .mm-active {
@@ -924,19 +933,20 @@ body[data-sidebar-size=sm] .vertical-menu #sidebar-menu>ul ul li.active a {
 }
 
 body[data-sidebar=dark] .vertical-menu {
-    background: #121e2d
+    background: #0a0a0a;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a {
-    color: #8fa6bf
+    color: #ffffff;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a i {
-    color: #8fa6bf
+    color: #ffffff;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a:hover {
-    color: #fff
+    color: #fff;
+    background: #212121;
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
@@ -956,7 +966,7 @@ body[data-sidebar=dark][data-sidebar-size=sm] {
 }
 
 body[data-sidebar=dark][data-sidebar-size=sm] .vertical-menu #sidebar-menu>ul>li:hover>a {
-    background: #152334;
+    background: #1e1e1e;
     color: #fff
 }
 
@@ -1009,7 +1019,8 @@ body[data-sidebar=dark] .mm-active .active i {
 }
 
 body[data-sidebar=dark] .menu-title {
-    color: #8fa6bf
+    color: #c9cbd1;
+    background: #0a0a0a;
 }
 
 body[data-layout=horizontal] .main-content {
@@ -3866,7 +3877,9 @@ table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected {
 .table.dataTable thead tr td.sorting,.table.dataTable thead tr td.sorting_asc,.table.dataTable thead tr td.sorting_desc,.table.dataTable thead tr th.sorting,.table.dataTable thead tr th.sorting_asc,.table.dataTable thead tr th.sorting_desc {
     padding-left: 12px;
     padding-right: 30px;
-    background: #ebebeb;
+    background: #dceffa;
+    font-weight: 700;
+    color: #171717;
 }
 
 .table.dataTable.dtr-inline.collapsed>tbody>tr>td,table.dataTable.dtr-inline.collapsed>tbody>tr>td {

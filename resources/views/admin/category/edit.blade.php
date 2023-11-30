@@ -70,9 +70,9 @@
 
                     </div>
                     <div bis_skin_checked="1">
-                        <button class="btn btn-success" type="submit">Lưu danh mục</button>
-                        <a href="#" class="btn btn-danger delete-category" style="float: right" data-id="{{ $category->id }}">Xoá danh mục</a>
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary"> Huỷ bỏ</a>
+                        <button class="btn btn-success" type="submit"><i class="bx bxs-save"></i> Lưu danh mục</button>
+                        <a href="#" class="btn btn-danger delete-category" style="float: right" data-id="{{ $category->id }}"><i class="bx bxs-trash"></i> Xoá danh mục</a>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary"><i class="bx bxs-x-circle"></i> Huỷ bỏ</a>
                     </div>
                 </form>
             </div><!-- end card-body -->
