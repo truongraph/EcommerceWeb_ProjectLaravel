@@ -199,7 +199,7 @@
                                 <div class="product_tab_content tab-pane active" id="description" role="tabpanel">
                                     <div class="product_description_wrap  mt-30">
                                         <div class="product_desc mb-30">
-                                            {{ $product->desc_product }}
+                                            {!! $product->desc_product !!}
                                         </div>
 
                                     </div>

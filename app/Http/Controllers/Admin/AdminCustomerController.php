@@ -52,16 +52,22 @@ class AdminCustomerController extends Controller
             'name_customer' => 'required',
             'phone_customer' => 'required',
             'address_customer' => 'required',
+            'email_customer' => 'required|email',
         ]);
 
         // Cập nhật thông tin khách hàng
         $customer->name_customer = $validatedData['name_customer'];
         $customer->phone_customer = $validatedData['phone_customer'];
         $customer->address_customer = $validatedData['address_customer'];
-
+        $customer->email_customer = $validatedData['email_customer'];
         // Lưu các thay đổi vào cơ sở dữ liệu
         $customer->save();
-
+        // Cập nhật thông tin email_account của account tương ứng
+        $account = $customer->account;
+        if ($account) {
+            $account->email_account = $validatedData['email_customer'];
+            $account->save();
+        }
         // Chuyển hướng về trang danh sách khách hàng với thông báo thành công
         return redirect()->route('admin.customers.index')->with('success', 'Đã cập nhật thông tin khách hàng');
     }

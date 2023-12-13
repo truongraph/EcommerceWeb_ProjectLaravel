@@ -244,7 +244,7 @@ class CheckoutController extends Controller
         $order->address_order = $address;
         $order->total_order = min($totalPrice, PHP_INT_MAX);
         if ($discount) {
-            $order->discount_code = $discount->code;
+            $order->discount_code = $discount->id;
         }
         $order->note = $note;
         $order->status_order = 1;

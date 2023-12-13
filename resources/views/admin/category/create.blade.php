@@ -16,54 +16,61 @@
     </div>
 </div>
 
-<div class="row" bis_skin_checked="1">
-    <div class="col-xl-4" bis_skin_checked="1">
-        @if ($errors->any())
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            @if ($errors->any())
             @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
-                            {{ $error }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endforeach
-        @endif
-        <div class="card" bis_skin_checked="1">
-            <div class="card-body" bis_skin_checked="1">
-                <form  method="post" action="{{ route('admin.categories.store') }}">
-                    @csrf
-                    <div class="row" bis_skin_checked="1">
-                        <div class="col-md-12" bis_skin_checked="1">
-                            <div class="mb-3" bis_skin_checked="1">
-                                <label for="name" class="form-label">Tên danh mục</label>
-                                <input type="text" class="form-control" id="name_category" name="name_category" required>
+            <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
+                {{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endforeach
+            @endif
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="{{ route('admin.categories.store') }}">
+                        @csrf
+                        <div class="row" bis_skin_checked="1">
+                            <div class="col-md-12" bis_skin_checked="1">
+                                <div class="mb-3" bis_skin_checked="1">
+                                    <label for="name" class="form-label">Tên danh mục</label>
+                                    <input type="text" class="form-control" id="name_category" name="name_category"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-md-12" bis_skin_checked="1">
+                                <div class="mb-3" bis_skin_checked="1">
+                                    <label for="link" class="form-label">Liên kết</label>
+                                    <input type="text" class="form-control" id="link_category" name="link_category">
+                                </div>
+                            </div>
+                            <div class="col-md-12" bis_skin_checked="1">
+                                <div class="mb-3" bis_skin_checked="1">
+                                    <label for="parent" class="form-label">Danh mục cha</label>
+                                    <select class="form-select select2" id="parent" name="id_parent">
+                                        <option value="">Không có</option>
+                                        @foreach($parentCategories as $parentCategory)
+                                        <option value="{{ $parentCategory->id }}">{{ $parentCategory->name_category }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12" bis_skin_checked="1">
-                            <div class="mb-3" bis_skin_checked="1">
-                                <label for="link" class="form-label">Liên kết</label>
-                                <input type="text" class="form-control" id="link_category" name="link_category">
-                            </div>
+                        <div bis_skin_checked="1">
+                            <button class="btn btn-success" type="submit"><i class="bx bx-save"></i> Lưu danh
+                                mục</button>
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary"><i
+                                    class="bx bx-x-circle"></i> Huỷ bỏ</a>
                         </div>
-                        <div class="col-md-12" bis_skin_checked="1">
-                            <div class="mb-3" bis_skin_checked="1">
-                                <label for="parent" class="form-label">Danh mục cha</label>
-                                <select class="form-select" id="parent" name="id_parent">
-                                    <option value="">Không có</option>
-                                    @foreach($parentCategories as $parentCategory)
-                                    <option value="{{ $parentCategory->id }}">{{ $parentCategory->name_category }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div bis_skin_checked="1">
-                        <button class="btn btn-success" type="submit"><i class="bx bxs-save"></i> Lưu danh mục</button>
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary"><i class="bx bxs-x-circle"></i> Huỷ bỏ</a>
-                    </div>
-                </form>
-            </div><!-- end card-body -->
-        </div><!-- end card -->
-    </div> <!-- end col -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -86,4 +93,3 @@
 
 </script>
 @endsection
-

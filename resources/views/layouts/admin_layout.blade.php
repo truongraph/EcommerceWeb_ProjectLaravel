@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8" />
@@ -10,20 +11,33 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('backend_area/assets/images/favicon.ico') }}">
     <!-- DataTables -->
-    <link href="{{ asset('backend_area/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('backend_area/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend_area/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend_area/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}"
+        rel="stylesheet" type="text/css" />
     <!-- Select datatable -->
-    <link href="{{ asset('backend_area/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend_area/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"
+        rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('backend_area/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Sweet Alert-->
-    <link href="{{ asset('backend_area/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend_area/assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet"
+        type="text/css" />
     <!-- Responsive datatable -->
-    <link href="{{ asset('backend_area/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend_area/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
+        rel="stylesheet" type="text/css" />
     <!-- Bootstrap Css -->
-    <link href="{{ asset('backend_area/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend_area/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet"
+        type="text/css" />
     <!-- Icons Css -->
     <link href="{{ asset('backend_area/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('backend_area/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
+    <!-- Thư viện Bootstrap Datepicker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -51,11 +65,14 @@
                             </span>
                         </a>
                     </div>
-                    <button type="button" class="btn btn-sm px-3 font-size-16 vertinav-toggle header-item waves-effect" id="vertical-menu-btn">
+                    <button type="button" class="btn btn-sm px-3 font-size-16 vertinav-toggle header-item waves-effect"
+                        id="vertical-menu-btn">
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
 
-                    <button type="button" class="btn btn-sm px-3 font-size-16 horinav-toggle header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <button type="button"
+                        class="btn btn-sm px-3 font-size-16 horinav-toggle header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
                 </div>
@@ -65,53 +82,13 @@
                             <i class="mdi mdi-fullscreen"></i>
                         </button>
                     </div>
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="mdi mdi-bell"></i>
-                            <span class="badge bg-danger rounded-pill">3</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
-                            <div class="p-3">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h6 class="m-0"> Notifications </h6>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="#" class="small" key="t-view-all"> View All</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-simplebar style="max-height: 230px;">
-                                <a href="#" class="text-reset notification-item d-block active">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-xs">
-                                                <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                                    <i class="bx bx-cart"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-1" key="t-your-order">Your order is placed</h6>
-                                            <div class="font-size-13 text-muted">
-                                                <p class="mb-1" key="t-grammer">If several languages coalesce the grammar</p>
-                                                <p class="mb-0 font-size-12"><i class="mdi mdi-clock-outline"></i> <span key="t-min-ago">3 min ago</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="p-2 border-top d-grid">
-                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle header-profile-user" src="{{URL::to('backend_area/assets/images/avt.png')}}" alt="Header Avatar">
+                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle header-profile-user"
+                                src="{{URL::to('backend_area/assets/images/avt.png')}}" alt="Header Avatar">
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
@@ -122,7 +99,9 @@
                             <div class="dropdown-divider"></div>
                             <form method="POST" action="{{ route('admin.logout') }}">
                                 @csrf
-                                <button class="dropdown-item" type="submit"><i class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span class="align-middle" key="t-logout">Đăng xuất</span></button>
+                                <button class="dropdown-item" type="submit"><i
+                                        class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span
+                                        class="align-middle" key="t-logout">Đăng xuất</span></button>
                             </form>
 
                         </div>
@@ -141,76 +120,87 @@
                         </li>
                         <li>
                             <a href="{{URL::to('/')}}" class="waves-effect">
-                                <i class='bx bxs-store'></i>
+                                <i class='bx bx-store'></i>
                                 <span key="t-ui-elements">Website đặt hàng</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/dashboard*') ? 'mm-active' : '' }}">
-                            <a href="{{ route('admin.dashboard') }}" class="waves-effect {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
-                                <i class='bx bxs-dashboard'></i>
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="waves-effect {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+                                <i class='bx bx-desktop'></i>
                                 <span key="t-ui-elements">Bảng điều khiển</span>
                             </a>
                         </li>
                         <li class="menu-title" key="t-menu">
-                           Thông tin quản trị
+                            Thông tin quản trị
                         </li>
                         <li class="{{ Request::is('admin/accounts*') ? 'mm-active' : '' }}">
-                            <a href="{{ route('admin.accounts.index') }}" class="waves-effect {{ Request::is('admin/accounts*') ? 'active' : '' }}">
-                                <i class='bx bxs-user'></i>
+                            <a href="{{ route('admin.accounts.index') }}"
+                                class="waves-effect {{ Request::is('admin/accounts*') ? 'active' : '' }}">
+                                <i class='bx bx-user'></i>
                                 <span key="t-ui-elements">Tài khoản</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/customers*') ? 'mm-active' : '' }}">
-                            <a href="{{ route('admin.customers.index') }}" class="waves-effect {{ Request::is('admin/customers*') ? 'active' : '' }}">
-                                <i class='bx bxs-layer'></i>
+                            <a href="{{ route('admin.customers.index') }}"
+                                class="waves-effect {{ Request::is('admin/customers*') ? 'active' : '' }}">
+                                <i class='bx bx-layer'></i>
                                 <span key="t-ui-elements">Khách hàng</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/categories*') ? 'mm-active' : '' }}">
-                            <a href="{{ route('admin.categories.index') }}" class="waves-effect {{ Request::is('admin/categories*') ? 'active' : '' }}">
-                                <i class='bx bxs-archive'></i>
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="waves-effect {{ Request::is('admin/categories*') ? 'active' : '' }}">
+                                <i class='bx bx-archive'></i>
                                 <span key="t-ui-elements">Danh mục sản phẩm</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/colors*') ? 'mm-active' : '' }}">
-                            <a  class="waves-effect {{ Request::is('admin/colors*') ? 'active' : '' }}">
-                                <i class='bx bxs-palette'></i>
+                            <a href="{{ route('admin.colors.index') }}"
+                                class="waves-effect {{ Request::is('admin/colors*') ? 'active' : '' }}">
+                                <i class='bx bx-palette'></i>
                                 <span key="t-ui-elements">Màu sắc</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/sizes*') ? 'mm-active' : '' }}">
-                            <a class="waves-effect {{ Request::is('admin/sizes*') ? 'active' : '' }}">
-                                <i class='bx bxs-ruler'></i>
+                            <a href="{{ route('admin.sizes.index') }}"
+                                class="waves-effect {{ Request::is('admin/sizes*') ? 'active' : '' }}">
+                                <i class='bx bx-ruler'></i>
                                 <span key="t-ui-elements">Kích thước</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/products*') ? 'mm-active' : '' }}">
-                            <a class="waves-effect {{ Request::is('admin/products*') ? 'active' : '' }}">
-                                <i class='bx bxs-t-shirt'></i>
+                            <a href="{{ route('admin.products.index') }}"
+                                class="waves-effect {{ Request::is('admin/products*') ? 'active' : '' }}">
+                                <i class='bx bx-package'></i>
                                 <span key="t-ui-elements">Sản phẩm</span>
                             </a>
                         </li>
-                         <li class="{{ Request::is('admin/orders*') ? 'mm-active' : '' }}">
-                            <a class="waves-effect {{ Request::is('admin/orders*') ? 'active' : '' }}">
-                                <i class='bx bxs-truck  '></i>
+                        <li class="{{ Request::is('admin/orders*') ? 'mm-active' : '' }}">
+                            <a href="{{ route('admin.orders.index') }}"
+                             class="waves-effect {{ Request::is('admin/orders*') ? 'active' : '' }}">
+                                <i class='bx bx-archive-in'></i>
                                 <span key="t-ui-elements">Đơn hàng</span>
                             </a>
                         </li>
-                          <li class="{{ Request::is('admin/discounts*') ? 'mm-active' : '' }}">
-                            <a class="waves-effect {{ Request::is('admin/discounts*') ? 'active' : '' }}">
-                                <i class='bx bxs-discount'></i>
+                        <li class="{{ Request::is('admin/discounts*') ? 'mm-active' : '' }}">
+                            <a href="{{ route('admin.discounts.index') }}"
+                                class="waves-effect {{ Request::is('admin/discounts*') ? 'active' : '' }}">
+                                <i class='bx bx-certification'></i>
                                 <span key="t-ui-elements">Mã giảm giá</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('admin/banners*') ? 'mm-active' : '' }}">
-                            <a class="waves-effect {{ Request::is('admin/banners*') ? 'active' : '' }}">
-                                <i class='bx bxs-collection'></i>
+                            <a href="{{ route('admin.banners.index') }}"
+                             class="waves-effect {{ Request::is('admin/banners*') ? 'active' : '' }}">
+                                <i class='bx bx-collection'></i>
                                 <span key="t-ui-elements">Banner</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is('admin/banners*') ? 'mm-active' : '' }}">
-                            <a class="waves-effect {{ Request::is('admin/banners*') ? 'active' : '' }}">
-                                <i class='bx bxs-envelope'></i>
+                        <li class="{{ Request::is('admin/emails*') ? 'mm-active' : '' }}">
+                            <a href="{{ route('admin.email.edit') }}"
+                                class="waves-effect {{ Request::is('admin/emails*') ? 'active' : '' }}">
+                                <i class='bx bx-envelope'></i>
                                 <span key="t-ui-elements">Cấu hình email</span>
                             </a>
                         </li>
@@ -241,8 +231,21 @@
 
         </div>
     </div>
+    <script>
+        // Bắt thông báo thành công và ẩn nó sau 3 giây
+        document.addEventListener("DOMContentLoaded", function() {
+            var successAlert = document.querySelector('.alert');
+
+            if (successAlert) {
+                setTimeout(function() {
+                    successAlert.classList.add('d-none');
+                }, 4000); // 4 giây
+            }
+        });
+    </script>
 
     <!-- JAVASCRIPT -->
+
     <script src="{{ asset('backend_area/assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/metismenu/metisMenu.min.js') }}"></script>
@@ -253,23 +256,29 @@
     <script src="{{ asset('backend_area/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 
+    <script src="{{ asset('backend_area/assets/libs/select2/js/select2.min.js') }}"></script>
+
     <!-- Buttons examples -->
     <script src="{{ asset('backend_area/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('backend_area/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('backend_area/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}">
+    </script>
     <script src="{{ asset('backend_area/assets/libs/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend_area/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('backend_area/assets/libs/datatables.net-keyTable/js/dataTables.keyTable.min.html') }}"></script>
+    <script src="{{ asset('backend_area/assets/libs/datatables.net-keyTable/js/dataTables.keyTable.min.html') }}">
+    </script>
     <script src="{{ asset('backend_area/assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
     <!-- apexcharts -->
     <script src="{{ asset('backend_area/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
     <!-- Responsive examples -->
-    <script src="{{ asset('backend_area/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('backend_area/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('backend_area/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}">
+    </script>
+    <script src="{{ asset('backend_area/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}">
+    </script>
     <!-- Sweet Alerts js -->
     <script src="{{ asset('backend_area/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
@@ -280,10 +289,42 @@
     <!-- dashboard init -->
     <script src="{{ asset('backend_area/assets/js/pages/dashboard.init.js') }}"></script>
 
+
     <script src="{{ asset('backend_area/assets/js/app.js') }}"></script>
+    <!-- Thêm thư viện jQuery và Bootstrap JS -->
+
+    <!-- Thư viện Bootstrap Datepicker -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Thêm thư viện CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    <script>
+        ClassicEditor
+        .create(document.querySelector('.ckeditor'), {
+            height: 400 // Thiết lập chiều cao (vd: 400px)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr('.pickdate', {
+                enableTime: true,
+                dateFormat: "d/m/Y H:i",
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+        $('.select2').select2();
+    });
+    </script>
     <script>
         $(document).ready(function() {
             $('#Tabledatatable').DataTable({
+                "responsive": false,
+                "scrollX": true,
                 "language": {
                     "sProcessing": "Đang xử lý..."
                     , "sLengthMenu": "Hiển thị _MENU_ danh sách"
@@ -306,5 +347,5 @@
 
     </script>
 </body>
-</html>
 
+</html>

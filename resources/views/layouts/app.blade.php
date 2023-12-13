@@ -282,7 +282,18 @@
     <!-- JS  -->
     <!-- Modernizer JS -->
 
+    <script>
+        // Bắt thông báo thành công và ẩn nó sau 3 giây
+        document.addEventListener("DOMContentLoaded", function() {
+            var successAlert = document.querySelector('.alert');
 
+            if (successAlert) {
+                setTimeout(function() {
+                    successAlert.classList.add('d-none');
+                }, 5000); // 4 giây
+            }
+        });
+    </script>
     <script src="{{ asset('frontend_area/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
