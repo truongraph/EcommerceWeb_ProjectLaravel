@@ -11,23 +11,12 @@
 
                         <div class="hero-slider-area hero-slider-one swiper mySwiper">
                             <div class="swiper-wrapper gallery-top">
-
+                                @foreach($banners as $banner)
                                 <div data-hash="" class="swiper-slide">
-                                    <img class="swiper-slide" src="{{ URL::to('frontend_area/assets/img/bg1.webp') }}"
-                                        alt="">
+                                    <img class="swiper-slide" src="{{ asset('img/banners/main/' . $banner->image) }}"
+                                        alt="{{ $banner->type }}">
                                 </div>
-                                <div data-hash="" class="swiper-slide">
-                                    <img class="swiper-slide" src="{{ URL::to('frontend_area/assets/img/bg2.webp') }}"
-                                        alt="">
-                                </div>
-                                <div data-hash="" class="swiper-slide">
-                                    <img class="swiper-slide" src="{{ URL::to('frontend_area/assets/img/bg3.jpg') }}"
-                                        alt="">
-                                </div>
-                                <div data-hash="" class="swiper-slide">
-                                    <img class="swiper-slide" src="{{ URL::to('frontend_area/assets/img/bg4.jpg') }}"
-                                        alt="">
-                                </div>
+                                @endforeach
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -109,14 +98,16 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="single-banner mb-30">
-                        <a href="#"><img class="swiper-slide"
-                                src="{{ URL::to('frontend_area/assets/img/sec1.webp') }}" alt=""></a>
+                        @foreach($secon1Banners as $banner)
+                        <a href="#"><img class="swiper-slide" src="{{ asset('img/banners/secon1/' . $banner->image) }}" alt=""></a>
+                    @endforeach
                     </div>
                 </div>
                 <div class="col-lg-6  col-md-6">
                     <div class="single-banner mb-30">
-                        <a href="#"><img class="swiper-slide"
-                                src="{{ URL::to('frontend_area/assets/img/sec2.jpg') }}" alt=""></a>
+                        @foreach($secon2Banners as $banner)
+                        <a href="#"><img class="swiper-slide" src="{{ asset('img/banners/secon2/' . $banner->image) }}" alt=""></a>
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -190,14 +181,16 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="single-banner mb-30">
-                        <a href="#"><img class="swiper-slide"
-                                src="{{ URL::to('frontend_area/assets/img/sec3.jpg') }}" alt=""></a>
+                        @foreach($secon3Banners as $banner)
+                        <a href="#"><img class="swiper-slide" src="{{ asset('img/banners/secon3/' . $banner->image) }}" alt=""></a>
+                    @endforeach
                     </div>
                 </div>
                 <div class="col-lg-6  col-md-6">
                     <div class="single-banner mb-30">
-                        <a href="#"><img class="swiper-slide"
-                                src="{{ URL::to('frontend_area/assets/img/sec4.jpg') }}" alt=""></a>
+                        @foreach($secon4Banners as $banner)
+                        <a href="#"><img class="swiper-slide" src="{{ asset('img/banners/secon4/' . $banner->image) }}" alt=""></a>
+                    @endforeach
                     </div>
                 </div>
             </div>

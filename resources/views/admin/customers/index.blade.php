@@ -42,8 +42,8 @@
                         <div class="col-md-2">
                             <input type="text" class="form-control" placeholder="Số điện thoại" id="phone_filter" name="phone_filter" value="{{ request('phone_filter') }}">
                         </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary"><i class="bx bxs-filter-alt"></i> Lọc</button>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary"><i class="bx bx-filter-alt"></i> Lọc</button>
                             <a href="{{ route('admin.customers.index') }}" class="btn btn-secondary"><i class="bx bx-reset"></i> Reset bộ lọc</a>
                         </div>
                     </div>
@@ -56,9 +56,10 @@
                         <th style="width: 10px">STT</th>
                         <th>Tên khách hàng</th>
                         <th>Email</th>
-                        <th>SĐT</th>
+                        <th style="width: 30px">SĐT</th>
                         <th>Địa chỉ</th>
-                        <th>Tài khoản liên kết</th>
+                        <th style="width: 40px">Tài khoản liên kết</th>
+                        <th style="width: 50px">Trạng thái tài khoản</th>
                         {{-- <th>Ngày tạo</th> --}}
                         <th style="width: 40px">Chức năng</th>
                     </tr>
@@ -75,6 +76,11 @@
                             <td>{{ $customer->phone_customer }}</td>
                             <td>{{ $customer->address_customer }}</td>
                             <td>{{ $customer->account->name_account }}</td>
+                            <td>@if( $customer->account->status_account == 1)
+                                <small class="badge badge-soft-success">Hoạt động</small>
+                                @elseif( $customer->account->status_account == 0)
+                                <small class="badge badge-soft-danger">Ngừng hoạt động</small>
+                                @endif</td>
                             {{-- <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('d/m/Y H:i:s') }}</td> --}}
                             <td>
                                 <div style="display:flex;gap:10px">

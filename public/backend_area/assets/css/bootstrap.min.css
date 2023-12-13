@@ -633,7 +633,7 @@ progress {
 
 @media (min-width: 1200px) {
     .container,.container-lg,.container-md,.container-sm,.container-xl {
-        max-width:1140px
+        max-width:1240px
     }
 }
 
@@ -2464,7 +2464,7 @@ progress {
 }
 
 .form-control:disabled,.form-control[readonly] {
-    background-color: #eff2f7;
+    background-color: #f9f9f9;
     opacity: 1
 }
 
@@ -15000,3 +15000,55 @@ a,button {
 }
 
 /*# sourceMappingURL=bootstrap.min.css.map */
+/* Tùy chỉnh kích thước và màu sắc */
+.datepicker {
+    width: 250px; /* Độ rộng */
+    max-width: 100%; /* Độ rộng tối đa */
+    font-family: Arial, sans-serif; /* Font chữ */
+}
+
+/* Tùy chỉnh màu nền và màu chữ của ngày đã chọn */
+.datepicker tbody tr td.active,
+.datepicker tbody tr td.active:hover,
+.datepicker tbody tr td.active.disabled,
+.datepicker tbody tr td.active.disabled:hover {
+    background-color: #007bff; /* Màu nền */
+    color: #fff; /* Màu chữ */
+}
+
+/* Tùy chỉnh màu nền của datepicker header */
+.datepicker thead {
+    background-color: #f8f9fa; /* Màu nền */
+}
+
+/* Tùy chỉnh màu chữ của ngày trong tuần */
+.datepicker thead th {
+    color: #333; /* Màu chữ */
+}
+
+/* Tùy chỉnh màu chữ và màu nền của button next/prev */
+.datepicker th.prev,
+.datepicker th.next {
+    color: #007bff; /* Màu chữ */
+    background-color: transparent; /* Màu nền */
+}
+
+/* Tùy chỉnh màu chữ và màu nền của button today/clear */
+.datepicker tfoot th {
+    color: #007bff; /* Màu chữ */
+    background-color: transparent; /* Màu nền */
+}
+
+.dropdown-menu{
+    color: black !important;
+}
+
+/* Tùy chỉnh màu nền và viền của input */
+.pickdate {
+    background-color: #fff; /* Màu nền */
+    color: #000; /* Màu chữ */
+}
+ #Tabledatatable tbody tr:hover {
+        background-color: #f5f5f5; /* Màu nền khi hover */
+        transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi */
+    }

@@ -10,6 +10,13 @@ class Product extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $fillable = ['link_product'];
+    protected $appends = ['total_stock'];
+
+    public function getTotalStockAttribute()
+    {
+        $variants = ProductVariant::where('product_id', $this->id)->get();
+        return $variants->sum('quantity');
+    }
     public function scopeFindByLinkProduct($query, $linkProduct)
     {
         return $query->where('link_product', $linkProduct);
