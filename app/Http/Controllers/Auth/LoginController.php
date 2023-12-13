@@ -9,6 +9,10 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordEmail;
+use Illuminate\Support\Str;
 class LoginController extends Controller
 {
     public function showLogin()
@@ -17,29 +21,31 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        // Lấy thông tin từ form đăng nhập
-        $login = $request->input('email');
-        $password = md5($request->input('password'));
-        $account = User::where(function ($query) use ($login) {
-            $query->where('email', $login)
-                ->orWhere('name', $login);
-        })
-            ->where('password', $password)
-            ->first();
-        // Kiểm tra xem tài khoản có tồn tại và password khớp không
-        if ($account) {
+{
+    $login = $request->input('email');
+    $password = $request->input('password');
+
+    // Tìm tài khoản theo email hoặc tên người dùng
+    $account = User::where(function ($query) use ($login) {
+        $query->where('email', $login)->orWhere('name', $login);
+    })->first();
+
+    // Kiểm tra xem tài khoản có tồn tại không
+    if ($account) {
+        // Kiểm tra mật khẩu dưới dạng bcrypt
+        if (md5($password, $account->password)) {
             session(['id' => $account->id]);
             Auth::login($account);
             return redirect()->intended('/admin');
         }
-        return redirect('/admin/login')->with('error', 'Thông tin tài khoản hoặc mật khẩu không đúng.');
     }
+
+    return redirect('/admin/login')->with('error', 'Thông tin tài khoản hoặc mật khẩu không đúng.');
+}
     public function logout()
     {
         Auth::logout();
         return redirect('/admin/login');
     }
-
 
 }

@@ -63,7 +63,6 @@
 
                                             <div class="row align-items-center">
                                                 <div class="col-6">
-
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="text-end">
@@ -85,11 +84,14 @@
                             </div>
                         </div>
                     </div>
-  <!-- end card -->
-  <div class="mt-5 text-center">
-    <p>Đi đến trang đặt hàng <a href="{{URL::to('/')}}" class="fw-semibold text-decoration-underline text-primary"> tại đây </a> </p>
-    <p>© <script>document.write(new Date().getFullYear())</script> <b>Hệ thống quản lý bán hàng</b></p>
-</div>
+                    <!-- end card -->
+                    <div class="mt-5 text-center">
+                        <p>Đi đến trang đặt hàng <a href="{{URL::to('/')}}" class="fw-semibold text-decoration-underline text-primary"> tại đây </a> </p>
+                        <p>© <script>
+                                document.write(new Date().getFullYear())
+
+                            </script> <b>Hệ thống quản lý bán hàng</b></p>
+                    </div>
                 </div>
                 <!-- end col -->
             </div>

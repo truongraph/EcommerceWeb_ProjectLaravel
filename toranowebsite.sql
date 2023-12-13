@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2023 at 04:13 PM
+-- Generation Time: Dec 13, 2023 at 04:54 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,6 +33,7 @@ CREATE TABLE `accounts` (
   `email_account` varchar(255) NOT NULL,
   `password_account` varchar(255) NOT NULL,
   `reset_password_token` varchar(255) DEFAULT NULL,
+  `status_account` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -41,10 +42,39 @@ CREATE TABLE `accounts` (
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `name_account`, `email_account`, `password_account`, `reset_password_token`, `created_at`, `updated_at`) VALUES
-(1, 'root', '', '', '', NULL, NULL),
-(2, 'truongvo', 'truong.vd2000@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', NULL, NULL, '2023-11-16 14:46:16'),
-(6, 'zinham', 'zinhamlovesuu@gmail.com', '8e67cfe9b5daec65ecd5ba1271ec6225', '', '2023-11-15 13:09:06', '2023-11-15 13:09:06');
+INSERT INTO `accounts` (`id`, `name_account`, `email_account`, `password_account`, `reset_password_token`, `status_account`, `created_at`, `updated_at`) VALUES
+(1, 'root', '', '', '', 1, NULL, NULL),
+(2, 'truongvo', 'truong.vd2000@gmail.com', '8e67cfe9b5daec65ecd5ba1271ec6225', NULL, 1, '2023-11-12 21:31:00', '2023-12-03 16:31:53'),
+(15, 'zinham', 'zinhamlovesuu@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', NULL, 0, '2023-11-28 14:59:13', '2023-11-30 08:43:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `image` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `type`, `link`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'main', 'bg1', 'bg1.webp', 1, '2023-12-12 03:22:48', NULL),
+(2, 'main', 'bg2', 'bg2.webp', 1, NULL, NULL),
+(3, 'main', 'bg3', 'bg3.jpg', 1, NULL, '2023-12-13 09:54:06'),
+(4, 'secon1', 'sec1', 'sec1.webp', 1, NULL, NULL),
+(5, 'secon2', 'sec2', 'sec2.jpg', 1, NULL, NULL),
+(6, 'secon3', 'sec3', 'sec3.jpg', 1, NULL, NULL),
+(7, 'secon4', 'sec4', 'sec4.jpg', 1, NULL, '2023-12-13 10:14:28');
 
 -- --------------------------------------------------------
 
@@ -70,10 +100,10 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name_category`, `link_category`, `sort`, `id_parent`, `status_category`, `created_at`, `updated_at`) VALUES
 (1, 'Quần', 'quan', 1, NULL, 1, NULL, NULL),
 (2, 'Quần jean', 'quan-jean', 1, 1, 1, NULL, NULL),
-(3, 'Quần thun', 'quan-thun', 2, 1, 1, NULL, NULL),
+(3, 'Quần thun', 'quan-thun', 2, 1, 1, NULL, '2023-11-21 08:25:22'),
 (4, 'Áo', 'ao', 2, NULL, 1, NULL, NULL),
-(5, 'Giày', 'giay', 3, NULL, 1, NULL, NULL),
-(6, 'Phụ kiện', 'phu-kien', 4, NULL, 1, NULL, NULL);
+(5, 'Giày', 'giay', 3, NULL, 1, NULL, '2023-11-23 09:27:34'),
+(10, 'Phụ kiện', 'phu-kien', 4, NULL, 1, '2023-11-20 12:47:56', '2023-11-28 14:28:42');
 
 -- --------------------------------------------------------
 
@@ -85,17 +115,19 @@ CREATE TABLE `colors` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `desc_color` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `id_product` bigint(20) UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `colors`
 --
 
-INSERT INTO `colors` (`id`, `desc_color`, `created_at`, `updated_at`, `id_product`) VALUES
-(1, 'Xanh đen', NULL, NULL, 1),
-(2, 'Xám', NULL, NULL, 1);
+INSERT INTO `colors` (`id`, `desc_color`, `created_at`, `updated_at`) VALUES
+(1, 'Xanh đen', NULL, NULL),
+(2, 'Xám', NULL, NULL),
+(3, 'Đen', '2023-11-18 18:44:21', '2023-11-30 04:34:26'),
+(4, 'Xanh navy', '2023-11-18 18:44:21', NULL),
+(7, 'Đỏ đỏ', '2023-12-05 14:12:37', '2023-12-05 14:12:50');
 
 -- --------------------------------------------------------
 
@@ -119,9 +151,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `name_customer`, `email_customer`, `phone_customer`, `address_customer`, `id_account`, `created_at`, `updated_at`) VALUES
-(3, 'khách vãng lai', '', '', '', 1, NULL, NULL),
-(4, 'Võ Trường', 'truong.vd2000@gmail.com', '0721625362', '673/21/10', 2, NULL, '2023-11-15 14:04:07'),
-(7, 'Bá zin', 'zinhamlovesuu@gmail.com', '09128732132', NULL, 6, '2023-11-15 13:09:06', '2023-11-15 13:09:06');
+(4, 'Võ Trường', 'truong.vd2000@gmail.com', '072162536', '673/21/10 Binh tân, HCM,việt Nam', 2, NULL, '2023-11-28 14:13:45'),
+(17, 'Zin Hâm', 'zinhamlovesuu@gmail.com', '0912837223', 'Số 17', 15, '2023-11-28 14:59:13', '2023-11-30 08:09:06');
 
 -- --------------------------------------------------------
 
@@ -131,7 +162,7 @@ INSERT INTO `customers` (`id`, `name_customer`, `email_customer`, `phone_custome
 
 CREATE TABLE `discounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `code` varchar(255) NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `discount` decimal(8,2) NOT NULL,
   `limit_number` int(11) DEFAULT NULL,
   `number_used` int(11) NOT NULL DEFAULT 0,
@@ -146,8 +177,10 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`id`, `code`, `discount`, `limit_number`, `number_used`, `expiration_date`, `payment_limit`, `created_at`, `updated_at`) VALUES
-(1, 'HEHE', 10000.00, 5, 5, '2023-11-15 05:34:32', 50.00, NULL, '2023-11-15 05:41:05'),
-(4, 'NEW_80582F79', 50000.00, 1, 0, '2023-12-15 20:09:06', NULL, '2023-11-15 13:09:06', '2023-11-15 13:09:06');
+(1, 'xinchao', 10000.00, 9, 4, '2023-12-27 05:34:00', 200000.00, NULL, '2023-12-12 13:15:34'),
+(9, 'WELCOME_ZINHAM', 50000.00, 1, 0, '2023-12-28 21:59:13', 20000.00, '2023-11-28 14:59:13', '2023-11-28 14:59:13'),
+(11, 'Teiasiu', 50000.00, 10, 0, '2023-12-04 12:00:00', 150000.00, '2023-12-03 07:51:15', '2023-12-03 07:51:15'),
+(12, 'TEqweiuwqe', 10000.00, 100000, 0, '2023-12-06 13:20:00', 100000.00, '2023-12-05 14:16:50', '2023-12-05 14:16:50');
 
 -- --------------------------------------------------------
 
@@ -195,7 +228,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2023_11_13_024004_create_orders_table', 7),
 (12, '2023_11_13_024648_create_payments_table', 8),
 (13, '2023_11_14_070444_create_order_details_table', 9),
-(14, '2023_11_15_110121_create_discounts_table', 10);
+(14, '2023_11_15_110121_create_discounts_table', 10),
+(15, '2023_11_24_113912_create_product_variants_table', 11),
+(16, '2023_12_13_093927_create_banners_table', 12);
 
 -- --------------------------------------------------------
 
@@ -213,7 +248,7 @@ CREATE TABLE `orders` (
   `address_order` varchar(255) NOT NULL,
   `total_order` decimal(10,2) NOT NULL,
   `note` text DEFAULT NULL,
-  `discount_code` varchar(100) DEFAULT NULL,
+  `discount_code` bigint(20) UNSIGNED DEFAULT NULL,
   `status_order` int(11) NOT NULL,
   `id_customer` bigint(20) UNSIGNED NOT NULL,
   `id_payment` bigint(20) UNSIGNED NOT NULL,
@@ -226,18 +261,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `name_order`, `code_order`, `date_order`, `email_order`, `phone_order`, `address_order`, `total_order`, `note`, `discount_code`, `status_order`, `id_customer`, `id_payment`, `created_at`, `updated_at`) VALUES
-(30, 'Võ Trường', 'ORD1511230946986', '2023-11-15 02:46:44', 'truong.vd2000@gmail.com', '09283726352', '673/12/12/22 bình Tân, Hồ Chí Minh', 2200000.00, 'Ghi chú test', NULL, 1, 4, 2, '2023-11-15 02:46:44', '2023-11-15 02:46:44'),
-(31, 'Bác ba phi', 'ORD1511231002100', '2023-11-15 03:02:51', 'truong.vd2000@gmail.com', '0928736252', '217/2/24 Bình Tân, Hồ Chí Minhh', 3300000.00, 'hehe', NULL, 1, 3, 1, '2023-11-15 03:02:51', '2023-11-15 03:02:51'),
-(32, 'sadsa', 'ORD1511231008141', '2023-11-15 03:08:18', 'truong.vd200@gmail.com', '0921387', '21321/2132131 binh Tan', 550000.00, 'dasda', NULL, 1, 3, 1, '2023-11-15 03:08:18', '2023-11-15 03:08:18'),
-(33, 'TRuonsad', 'ORD1511231010479', '2023-11-15 03:10:29', 'truong.vd2000@gmail.com', '9821736215', '21873/22/1 HCM', 1100000.00, 'hteuo', NULL, 1, 3, 1, '2023-11-15 03:10:29', '2023-11-15 03:10:29'),
-(34, 'vÕ tRUONG', 'ORD1511231313874', '2023-11-15 06:13:09', 'truong.vd2000@gmail.com', '0921372131', '123/213sdasad', 2740000.00, 'hehe', 'HEHE', 1, 3, 2, '2023-11-15 06:13:09', '2023-11-15 06:13:09'),
-(35, 'Võ Trường', 'OD151123220963', '2023-11-15 15:09:28', 'truong.vd2000@gmail.com', '0721625362', 'Testtttttttt', 11000000.00, 'sadsadsadasdsadasdsadasdsadsadasdas', NULL, 1, 3, 2, '2023-11-15 15:09:28', '2023-11-15 15:09:28'),
-(36, 'Võ Trường', 'OD151123221623', '2023-11-15 15:16:54', 'truong.vd2000@gmail.com', '0721625362', 'trewre', 1100000.00, 'asdsaddas', NULL, 1, 3, 1, '2023-11-15 15:16:54', '2023-11-15 15:16:54'),
-(37, 'Võ Trường', 'OD151123222368', '2023-11-15 15:23:17', 'truong.vd2000@gmail.com', '0721625362', 'dsa', 550000.00, 'sadsadsa', NULL, 1, 3, 2, '2023-11-15 15:23:17', '2023-11-15 15:23:17'),
-(38, 'Võ Trường', 'OD151123222864', '2023-11-15 15:28:04', 'truong.vd2000@gmail.com', '0721625362', 'sadsadsa', 550000.00, 'dasdsadaddsadsadadda', NULL, 1, 3, 2, '2023-11-15 15:28:04', '2023-11-15 15:28:04'),
-(39, 'Võ Trường', 'OD151123223572', '2023-11-15 15:35:12', 'truong.vd2000@gmail.com', '0721625362', 'zxczxcsadqwexzxcxz', 550000.00, 'sadsadsadsadasdsadsadadadaxzxzcxz', NULL, 1, 3, 1, '2023-11-15 15:35:12', '2023-11-15 15:35:12'),
-(41, 'Võ Trường', 'OD161123095173', '2023-11-16 02:51:08', 'truong.vd2000@gmail.com', '0721625362', '3287/123/sadsadsa', 550000.00, 'asdsadasdasds', NULL, 1, 4, 2, '2023-11-16 02:51:08', '2023-11-16 02:51:08'),
-(42, 'Võ Trường', 'OD161123220188', '2023-11-16 15:01:59', 'truong.vd2000@gmail.com', '0721625362', 'sdfdsfdsf', 550000.00, 'dsfdsfdsfdsfdsfdsfsfs', NULL, 1, 4, 2, '2023-11-16 15:01:59', '2023-11-16 15:01:59');
+(61, 'Võ Trường', 'OD12122320132', '2023-12-12 13:13:19', 'truong.vd2000@gmail.com', '072162536', '673/21/10 Binh tân, HCM,việt Nam', 900000.00, 'Giao giờ hành chính', 1, 1, 4, 2, '2023-12-12 13:13:19', '2023-12-12 13:13:19'),
+(62, 'Võ Trường', 'OD12122320153', '2023-12-12 13:15:34', 'truong.vd2000@gmail.com', '072162536', '673/21/10 Binh tân, HCM,việt Nam', 1090000.00, 'Giao qua nhà tôi', 1, 4, 4, 1, '2023-12-12 13:15:34', '2023-12-13 10:24:26');
 
 -- --------------------------------------------------------
 
@@ -262,25 +287,11 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `created_at`, `updated_at`, `orderid`, `productid`, `colorid`, `sizeid`, `quantity`, `totalprice`) VALUES
-(34, '2023-11-15 02:46:44', '2023-11-15 02:46:44', 30, 1, 1, 1, 1, 550000.00),
-(35, '2023-11-15 02:46:44', '2023-11-15 02:46:44', 30, 1, 1, 2, 2, 1100000.00),
-(36, '2023-11-15 02:46:44', '2023-11-15 02:46:44', 30, 1, 2, 1, 1, 550000.00),
-(37, '2023-11-15 03:02:51', '2023-11-15 03:02:51', 31, 1, 1, 1, 2, 1100000.00),
-(38, '2023-11-15 03:02:51', '2023-11-15 03:02:51', 31, 1, 2, 1, 4, 2200000.00),
-(39, '2023-11-15 03:08:18', '2023-11-15 03:08:18', 32, 1, 1, 1, 1, 550000.00),
-(40, '2023-11-15 03:10:29', '2023-11-15 03:10:29', 33, 1, 1, 1, 1, 550000.00),
-(41, '2023-11-15 03:10:29', '2023-11-15 03:10:29', 33, 1, 1, 2, 1, 550000.00),
-(42, '2023-11-15 06:13:09', '2023-11-15 06:13:09', 34, 1, 1, 1, 3, 1650000.00),
-(43, '2023-11-15 06:13:09', '2023-11-15 06:13:09', 34, 1, 2, 2, 2, 1100000.00),
-(44, '2023-11-15 15:09:28', '2023-11-15 15:09:28', 35, 1, 1, 1, 16, 8800000.00),
-(45, '2023-11-15 15:09:28', '2023-11-15 15:09:28', 35, 1, 2, 2, 2, 1100000.00),
-(46, '2023-11-15 15:09:28', '2023-11-15 15:09:28', 35, 1, 1, 2, 2, 1100000.00),
-(47, '2023-11-15 15:16:54', '2023-11-15 15:16:54', 36, 1, 1, 1, 2, 1100000.00),
-(48, '2023-11-15 15:23:17', '2023-11-15 15:23:17', 37, 1, 1, 1, 1, 550000.00),
-(49, '2023-11-15 15:28:04', '2023-11-15 15:28:04', 38, 1, 2, 1, 1, 550000.00),
-(50, '2023-11-15 15:35:12', '2023-11-15 15:35:12', 39, 1, 2, 2, 1, 550000.00),
-(51, '2023-11-16 02:51:08', '2023-11-16 02:51:08', 41, 1, 1, 1, 1, 550000.00),
-(52, '2023-11-16 15:01:59', '2023-11-16 15:01:59', 42, 1, 1, 1, 1, 550000.00);
+(80, '2023-12-12 13:13:19', '2023-12-12 13:13:19', 61, 2, 3, 1, 1, 300000.00),
+(81, '2023-12-12 13:13:19', '2023-12-12 13:13:19', 61, 2, 2, 1, 2, 600000.00),
+(82, '2023-12-12 13:15:34', '2023-12-12 13:15:34', 62, 2, 3, 1, 1, 300000.00),
+(83, '2023-12-12 13:15:34', '2023-12-12 13:15:34', 62, 1, 1, 1, 1, 400000.00),
+(84, '2023-12-12 13:15:34', '2023-12-12 13:15:34', 62, 1, 2, 1, 1, 400000.00);
 
 -- --------------------------------------------------------
 
@@ -345,9 +356,8 @@ CREATE TABLE `products` (
   `name_product` varchar(255) NOT NULL,
   `link_product` varchar(255) NOT NULL,
   `sku` varchar(255) NOT NULL,
-  `avt_product` varchar(255) NOT NULL,
-  `image_product` varchar(255) NOT NULL,
-  `quantity_product` int(11) NOT NULL,
+  `avt_product` varchar(255) DEFAULT NULL,
+  `image_product` varchar(255) DEFAULT NULL,
   `price_product` decimal(8,2) NOT NULL,
   `sellprice_product` decimal(8,2) NOT NULL,
   `sortdesc_product` text NOT NULL,
@@ -363,8 +373,37 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name_product`, `link_product`, `sku`, `avt_product`, `image_product`, `quantity_product`, `price_product`, `sellprice_product`, `sortdesc_product`, `desc_product`, `number_buy`, `status_product`, `id_category`, `created_at`, `updated_at`) VALUES
-(1, 'Quần Jeans basic Slim DABJ004', 'quan-jeans-basic-slim-dabj004', 'DABJ004', '1.webp', '1.webp#2.webp#3.webp', 50, 550000.00, 0.00, 'Quần Jeans basic Slim CABJ004/2', '1. CHÍNH SÁCH ÁP DỤNG\r\n\r\nÁp dụng từ ngày 01/09/2018.\r\n\r\nTrong vòng 30 ngày kể từ ngày mua sản phẩm với các sản phẩm TORANO.\r\n\r\nÁp dụng đối với sản phẩm nguyên giá và sản phẩm giảm giá ít hơn 50%.\r\n\r\nSản phẩm nguyên giá chỉ được đổi 01 lần duy nhất sang sản phẩm nguyên giá khác và không thấp hơn giá trị sản phẩm đã mua.\r\n\r\nSản phẩm giảm giá/khuyến mại ít hơn 50% được đổi 01 lần sang màu khác hoặc size khác trên cùng 1 mã trong điều kiện còn sản phẩm hoặc theo quy chế chương trình (nếu có). Nếu sản phẩm đổi đã hết hàng khi đó KH sẽ được đổi sang sản phẩm khác có giá trị ngang bằng hoặc cao hơn. Khách hàng sẽ thanh toán phần tiền chênh lệch nếu sản phẩm đổi có giá trị cao hơn sản phẩm đã mua.\r\n\r\nChính sách chỉ áp dụng khi sản phẩm còn hóa đơn mua hàng, còn nguyên nhãn mác, thẻ bài đính kèm sản phẩm và sản phẩm không bị dơ bẩn, hư hỏng bởi những tác nhân bên ngoài cửa hàng sau khi mua sản phẩm.\r\n\r\nSản phẩm đồ lót và phụ kiện không được đổi trả.\r\n\r\n2. ĐIỀU KIỆN ĐỔI SẢN PHẨM\r\n\r\nĐổi hàng trong vòng 07 ngày kể từ ngày khách hàng nhận được sản phẩm.\r\n\r\nSản phẩm còn nguyên tem, mác và chưa qua sử dụng.\r\n\r\n3. THỰC HIỆN ĐỔI SẢN PHẨM\r\n\r\nQuý khách có thể đổi hàng Online tại hệ thống cửa hàng và đại lý TORANO trên toàn quốc . Lưu ý: vui lòng mang theo sản phẩm và phiếu giao hàng.\r\n\r\nNếu tại khu vực bạn không có cửa hàng TORANO hoặc sản phẩm bạn muốn đổi thì vui lòng làm theo các bước sau:\r\n\r\nBước 1: Gọi đến Tổng đài: 0931733469 các ngày trong tuần (trừ ngày lễ), cung cấp mã đơn hàng và mã sản phẩm cần đổi.\r\n\r\nBước 2: Vui lòng gửi hàng đổi về địa chỉ : Kho Online TORANO - 1165 Giải Phóng, Thịnh Liệt, Q. Hoàng Mai, Hà Nội.\r\n\r\nBước 3: TORANO gửi đổi sản phẩm mới khi nhận được hàng. Trong trường hợp hết hàng, TORANO sẽ liên hệ xác nhận.', 0, 1, 2, NULL, NULL);
+INSERT INTO `products` (`id`, `name_product`, `link_product`, `sku`, `avt_product`, `image_product`, `price_product`, `sellprice_product`, `sortdesc_product`, `desc_product`, `number_buy`, `status_product`, `id_category`, `created_at`, `updated_at`) VALUES
+(1, 'Quần Jeans basic Slim DABJ004', 'quan-jeans-basic-slim-dabj004', 'DABJ004', '1.png', '1.png#2.png', 500000.00, 400000.00, 'Quần Jeans basic Slim CABJ004/2 \r\nhehe nè haha', '<p>TẬN HƯỞNG OREO SOCOLA PIE NGON KHÓ CƯỠNG</p><p><img src=\"https://static.xx.fbcdn.net/images/emoji.php/v9/t75/1/16/1f618.png\" alt=\"😘\">Bạn đã sẵn sàng để được trải nghiệm cảm giác tuyệt vời như được đắm chìm trong lớp socola sóng sánh ngất ngây, bồng bềnh trong làn mây mềm mại, êm ái tựa ôm một chú gấu bông?</p><p><img src=\"https://static.xx.fbcdn.net/images/emoji.php/v9/tf4/1/16/2728.png\" alt=\"✨\">Còn chần chờ gì mà không rinh ngay bánh OREO Socola Pie để tận hưởng cảm giác tuyệt vời ấy!</p><p><a href=\"https://www.facebook.com/hashtag/oreovn?__eep__=6&amp;__cft__[0]=AZVzBMwNt-HYszL9YvpHpPuXMDyGCRJxy0hU1qb9JlGmqlEs56WZYwfZHgi_SJvG9h4V2AiTv0D3aR94b9XLT6Dbn4J7GfZmRn_BiEydMqwjXjveZR8MOLSarAkyAAoyKNi95pn1J7d3T9Y0pK43wlc_IvaYUhKaxoxwn6X3fkBza_pfAQnJcDNpGBVlLPU4KMAB2ocDyhmXTI8bWMjiKdyVABePsrA71GSAGbRH-wan72RGgAo4gXqM3bFgS6VnpvstOq9bK4xmeKebBqCMm8YgsVo7QOT9b1_M5L5UA4r6vd3RNRYC5U3u7ZfISAYb6UiFPXPAxJgRVUtLw2bDmhJ1&amp;__tn__=*NK-R\">#OREOVN</a> <a href=\"https://www.facebook.com/hashtag/oreosocolapie?__eep__=6&amp;__cft__[0]=AZVzBMwNt-HYszL9YvpHpPuXMDyGCRJxy0hU1qb9JlGmqlEs56WZYwfZHgi_SJvG9h4V2AiTv0D3aR94b9XLT6Dbn4J7GfZmRn_BiEydMqwjXjveZR8MOLSarAkyAAoyKNi95pn1J7d3T9Y0pK43wlc_IvaYUhKaxoxwn6X3fkBza_pfAQnJcDNpGBVlLPU4KMAB2ocDyhmXTI8bWMjiKdyVABePsrA71GSAGbRH-wan72RGgAo4gXqM3bFgS6VnpvstOq9bK4xmeKebBqCMm8YgsVo7QOT9b1_M5L5UA4r6vd3RNRYC5U3u7ZfISAYb6UiFPXPAxJgRVUtLw2bDmhJ1&amp;__tn__=*NK-R\">#OreoSocolaPie</a> <a href=\"https://www.facebook.com/hashtag/m%E1%BB%81mngonkh%C3%B3c%C6%B0%E1%BB%A1ng?__eep__=6&amp;__cft__[0]=AZVzBMwNt-HYszL9YvpHpPuXMDyGCRJxy0hU1qb9JlGmqlEs56WZYwfZHgi_SJvG9h4V2AiTv0D3aR94b9XLT6Dbn4J7GfZmRn_BiEydMqwjXjveZR8MOLSarAkyAAoyKNi95pn1J7d3T9Y0pK43wlc_IvaYUhKaxoxwn6X3fkBza_pfAQnJcDNpGBVlLPU4KMAB2ocDyhmXTI8bWMjiKdyVABePsrA71GSAGbRH-wan72RGgAo4gXqM3bFgS6VnpvstOq9bK4xmeKebBqCMm8YgsVo7QOT9b1_M5L5UA4r6vd3RNRYC5U3u7ZfISAYb6UiFPXPAxJgRVUtLw2bDmhJ1&amp;__tn__=*NK-R\">#MềmNgonKhóCưỡng</a></p>', 16, 1, 2, NULL, '2023-12-12 13:15:34'),
+(2, 'Short gió cạp phối chun, in logo mép quần 2.ESBW005', 'short-gio-cap-phoi-chun-in-logo-mep-quan-esbw005', 'ESBW005', '1.webp', '1.webp#2.webp#3.jpg#4.jpg', 300000.00, 0.00, 'Áp dụng từ ngày 01/09/2018.\r\n\r\nTrong vòng 30 ngày kể từ ngày mua sản phẩm với các sản phẩm TORANO.\r\n\r\nÁp dụng đối với sản phẩm nguyên giá và sản phẩm giảm giá ít hơn 50%.\r\n\r\nSản phẩm nguyên giá chỉ được đổi 01 lần duy nhất sang sản phẩm nguyên giá khác và không thấp hơn giá trị sản phẩm đã mua.\r\n\r\nSản phẩm giảm giá/khuyến mại ít hơn 50% được đổi 01 lần sang màu khác hoặc size khác trên cùng 1 mã trong điều kiện còn sản phẩm hoặc theo quy chế chương trình (nếu có). Nếu sản phẩm đổi đã hết hàng khi đó KH sẽ được đổi sang sản phẩm khác có giá trị ngang bằng hoặc cao hơn. Khách hàng sẽ thanh toán phần tiền chênh lệch nếu sản phẩm đổi có giá trị cao hơn sản phẩm đã mua.\r\n\r\nChính sách chỉ áp dụng khi sản phẩm còn hóa đơn mua hàng, còn nguyên nhãn mác, thẻ bài đính kèm sản phẩm và sản phẩm không bị dơ bẩn, hư hỏng bởi những tác nhân bên ngoài cửa hàng sau khi mua sản phẩm.\r\n\r\nSản phẩm đồ lót và phụ kiện không được đổi trả.', '<p>BẢO MẬT THÔNG TIN KHÁCH HÀNG TORANO 1. Thu thập và sử dụng thông tin của TORANO TORANO chỉ thu thập các loại thông tin cơ bản liên quan đến đơn đặt hàng gồm:…… Các thông tin này được sử dụng nhằm mục đích xử lý đơn hàng, nâng cao chất lượng dịch vụ, nghiên cứu thị trường, các hoạt động marketing, chăm sóc khách hàng, quản lý nội bộ hoặc theo yêu cầu của pháp luật. Khách hàng tùy từng thời điểm có thể chỉnh sửa lại các thông tin đã cung cấp để đảm bảo được hưởng đầy đủ các quyền mà TORANO dành cho Khách hàng của mình. TORANO cam kết: Thông tin cá nhân của khách hàng được sử dụng đúng vào mục đích của việc thu thập và cung cấp; Mọi việc thu thập và sử dụng thông tin đã thu thập được của Khách hàng đều được thông qua ý kiến của Khách hàng Chỉ sử dụng các thông tin được Khách hàng đã cung cấp cho TORANO, không sử dụng các thông tin của Khách hàng được biết đến theo các phương thức khác; Thời gian lưu trữ và bảo mật thông tin: Chỉ cho phép các đối tượng sau được tiếp cận với thông tin của Khách hàng: Người thực hiện việc cung cấp hàng hóa, dịch vụ từ TORANO theo yêu cầu của Khách hàng; Người thực hiện việc chăm sóc Khách hàng đã sử dụng hàng hóa, dịch vụ của TORANO; Người tiếp nhận và xử lý các thắc mắc của Khách hàng trong quá trình sử dụng hàng hóa, dịch vụ của TORANO; Cơ quan Nhà nước có thẩm quyền Trong quá trình chào hàng, quảng cáo và chăm sóc Khách hàng, Khách hàng hoàn toàn có thể gửi yêu cầu dừng việc sử dụng thông tin theo cách thức tương ứng mà hoạt động chào hàng, quảng cáo và chăm sóc khách hàng gửi tới Khách hàng. 2. Cách thức bảo mật thông tin khách hàng: Việc bảo mật các thông tin do Khách hàng cung cấp được dựa trên sự đảm bảo việc tuân thủ của từng cán bộ, nhân viên TORANO, đối tác và hệ thống lưu trữ dữ liệu. Trong trường hợp máy chủ lưu trữ thông tin bị hacker tấn công dẫn đến mất mát dữ liệu cá nhân Khách hàng, TORANO sẽ có trách nhiệm thông báo vụ việc cho cơ quan chức năng điều tra xử lý kịp thời và thông báo cho Khách hàng được biết. Tuy nhiên, do đặc điểm của môi trường internet, không một dữ liệu nào trên môi trường mạng cũng có thể được bảo mật 100%. Vì vậy, TORANO không cam kết chắc chắn rằng các thông tin tiếp nhận từ Khách hàng được bảo mật tuyệt đối. 3. Trách nhiệm bảo mật thông tin Khách hàng Khách hàng vui lòng chỉ cung cấp đúng và đủ các thông tin theo yêu cầu của TORANO đặc biệt tránh cung cấp các thông tin liên quan đến tài khoản ngân hàng khi chưa được mã hóa thông tin trong các giao dịch thanh toán trực tuyến hoặc các thông tin nhạy cảm khác. Khách hàng hoàn toàn chịu trách nhiệm về tính trung thực và chính xác đối với các thông tin đã cung cấp cũng như tự chịu trách nhiệm nếu cung cấp các thông tin ngoài yêu cầu. Trong trường hợp Khách hàng cung cấp thông tin cá nhân của mình cho nhiều tổ chức, cá nhân khác nhau, Khách hàng phải yêu cầu các bên liên quan cùng bảo mật. Mọi thông tin cá nhân của Khách hàng khi bị tiết lộ gây thiệt hại đến Khách hàng, Khách hàng phải tự xác định được nguồn tiết lộ thông tin. TORANO không chịu trách nhiệm khi thông tin Khách hàng bị tiết lộ mà không có căn cứ xác đáng thể hiện TORANO là bên tiết lộ thông tin. TORANO không chịu trách nhiệm về việc tiết lộ thông tin của Khách hàng nếu Khách hàng không tuân thủ các yêu cầu trên. 4. Luật áp dụng khi xảy ra tranh chấp Mọi tranh chấp xảy ra giữa Khách hàng và TORANO sẽ được hòa giải. Nếu hòa giải không thành sẽ được giải quyết tại Tòa án có thẩm quyền và tuân theo pháp luật Việt Nam.</p>', 21, 1, 3, '2023-11-18 18:38:15', '2023-12-12 13:15:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_variants`
+--
+
+CREATE TABLE `product_variants` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `size_id` bigint(20) UNSIGNED NOT NULL,
+  `color_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product_variants`
+--
+
+INSERT INTO `product_variants` (`id`, `product_id`, `size_id`, `color_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 3, NULL, '2023-11-28 04:24:20'),
+(2, 1, 2, 2, 0, NULL, NULL),
+(3, 1, 1, 2, 2, NULL, '2023-12-12 13:15:34'),
+(5, 2, 1, 3, 3, NULL, '2023-12-11 15:05:55'),
+(6, 1, 3, 1, 7, NULL, '2023-12-11 15:16:01'),
+(8, 2, 1, 2, 4, NULL, '2023-12-12 13:13:19');
 
 -- --------------------------------------------------------
 
@@ -376,17 +415,20 @@ CREATE TABLE `sizes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `desc_size` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `id_product` bigint(20) UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sizes`
 --
 
-INSERT INTO `sizes` (`id`, `desc_size`, `created_at`, `updated_at`, `id_product`) VALUES
-(1, 'XXL', NULL, NULL, 1),
-(2, 'XL', NULL, NULL, 1);
+INSERT INTO `sizes` (`id`, `desc_size`, `created_at`, `updated_at`) VALUES
+(1, 'XXL', NULL, NULL),
+(2, 'XL', NULL, NULL),
+(3, 'S', '2023-11-18 18:43:19', NULL),
+(4, 'M', '2023-11-18 18:43:19', NULL),
+(5, 'L', '2023-11-18 18:43:53', NULL),
+(7, 'XS', '2023-11-24 19:23:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -406,6 +448,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'truong.vd2000@gmail.com', NULL, '827ccb0eea8a706c4c34a16891f84e7b', '', NULL, '2023-12-13 15:47:26');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -415,6 +464,12 @@ CREATE TABLE `users` (
 ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `accounts_email_account_unique` (`email_account`);
+
+--
+-- Indexes for table `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
@@ -427,8 +482,7 @@ ALTER TABLE `categories`
 -- Indexes for table `colors`
 --
 ALTER TABLE `colors`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `colors_id_product_foreign` (`id_product`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customers`
@@ -504,11 +558,19 @@ ALTER TABLE `products`
   ADD KEY `products_id_category_foreign` (`id_category`);
 
 --
+-- Indexes for table `product_variants`
+--
+ALTER TABLE `product_variants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_variants_product_id_foreign` (`product_id`),
+  ADD KEY `product_variants_size_id_foreign` (`size_id`),
+  ADD KEY `product_variants_color_id_foreign` (`color_id`);
+
+--
 -- Indexes for table `sizes`
 --
 ALTER TABLE `sizes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `sizes_id_product_foreign` (`id_product`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -525,31 +587,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -561,19 +629,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -591,19 +659,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `product_variants`
+--
+ALTER TABLE `product_variants`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -614,12 +688,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_id_parent_foreign` FOREIGN KEY (`id_parent`) REFERENCES `categories` (`id`);
-
---
--- Constraints for table `colors`
---
-ALTER TABLE `colors`
-  ADD CONSTRAINT `colors_id_product_foreign` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`);
 
 --
 -- Constraints for table `customers`
@@ -638,10 +706,10 @@ ALTER TABLE `orders`
 -- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_colorid_foreign` FOREIGN KEY (`colorid`) REFERENCES `sizes` (`id`),
+  ADD CONSTRAINT `order_details_colorid_foreign` FOREIGN KEY (`colorid`) REFERENCES `colors` (`id`),
   ADD CONSTRAINT `order_details_orderid_foreign` FOREIGN KEY (`orderid`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `order_details_productid_foreign` FOREIGN KEY (`productid`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `order_details_sizeid_foreign` FOREIGN KEY (`sizeid`) REFERENCES `colors` (`id`);
+  ADD CONSTRAINT `order_details_sizeid_foreign` FOREIGN KEY (`sizeid`) REFERENCES `sizes` (`id`);
 
 --
 -- Constraints for table `products`
@@ -650,10 +718,12 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_id_category_foreign` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
 
 --
--- Constraints for table `sizes`
+-- Constraints for table `product_variants`
 --
-ALTER TABLE `sizes`
-  ADD CONSTRAINT `sizes_id_product_foreign` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`);
+ALTER TABLE `product_variants`
+  ADD CONSTRAINT `product_variants_color_id_foreign` FOREIGN KEY (`color_id`) REFERENCES `colors` (`id`),
+  ADD CONSTRAINT `product_variants_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `product_variants_size_id_foreign` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
