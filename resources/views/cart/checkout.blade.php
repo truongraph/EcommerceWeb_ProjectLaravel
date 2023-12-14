@@ -262,6 +262,10 @@
                                         <a href="{{ route('login') }}">Ấn vào đây để đăng nhập</a>
                                         </p>
                                        @endif
+                                       @if(session()->has('account_id'))
+                                            <button type="button" class="buy-for-guest" id="clear_info_button">Tôi mua cho người khác</button>
+                                            <button type="button"  class="buy-for-guest" id="get_login_info_button" style="display: none">Lấy thông tin đăng nhập</button>
+                                        @endif
                                        @if(session('error'))
                                        <div class="alert alert-danger">
                                            {{ session('error') }}
@@ -334,6 +338,36 @@
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Xoá toàn bộ thông tin trừ email
+    document.getElementById('clear_info_button').addEventListener('click', function() {
+        document.getElementsByName('name')[0].value = '';
+        document.getElementsByName('phone')[0].value = '';
+        document.getElementsByName('address')[0].value = '';
+        document.getElementsByName('note')[0].value = '';
+
+        // Ẩn clear_info_button và hiển thị get_login_info_button
+        document.getElementById('clear_info_button').style.display = 'none';
+        document.getElementById('get_login_info_button').style.display = 'inline-block';
+    });
+
+    // Lấy lại toàn bộ thông tin mà người dùng đã đăng nhập
+    document.getElementById('get_login_info_button').addEventListener('click', function() {
+        var name = "{{ $customerInfo ? $customerInfo->name_customer : '' }}";
+        var phone = "{{ $customerInfo ? $customerInfo->phone_customer : '' }}";
+        var address = "{{ $customerInfo ? $customerInfo->address_customer : '' }}";
+
+        document.getElementsByName('name')[0].value = name;
+        document.getElementsByName('phone')[0].value = phone;
+        document.getElementsByName('address')[0].value = address;
+
+        // Ẩn get_login_info_button và hiển thị clear_info_button
+        document.getElementById('clear_info_button').style.display = 'inline-block';
+        document.getElementById('get_login_info_button').style.display = 'none';
+    });
+
+</script>
+
     <script>
 $('.alert-danger').delay(5000).fadeOut('slow');
 $(document).ready(function() {
