@@ -58,6 +58,7 @@
                                 <option value="2" {{ request('status_filter') == '2' ? 'selected' : '' }}>Đã xác nhận</option>
                                 <option value="3" {{ request('status_filter') == '3' ? 'selected' : '' }}>Đang giao hàng</option>
                                 <option value="4" {{ request('status_filter') == '4' ? 'selected' : '' }}>Giao thành công</option>
+                                <option value="4" {{ request('status_filter') == '5' ? 'selected' : '' }}>Hoàn trả</option>
                             </select>
                         </div>
 
@@ -96,8 +97,8 @@
                             <td>{{ $order->paymentmethod ? $order->paymentmethod->name_payment : 'N/A' }}</td>
                             <td style="font-weight:700;">{{ number_format($order->total_order, 0, '.', ',') }} đ</td>
                             <td class="text-center last">
-                                <span class="badge @if($order->status_order == 1) badge-soft-dark @elseif($order->status_order == 0) badge-soft-danger @elseif($order->status_order == 2) badge-soft-primary @elseif($order->status_order == 3) badge-soft-info @elseif($order->status_order == 4) badge-soft-success @endif">
-                                    @if($order->status_order == 1) Chờ xác nhận @elseif($order->status_order == 0) Đã huỷ @elseif($order->status_order == 2) Đã xác nhận @elseif($order->status_order == 3) Đang giao hàng @elseif($order->status_order == 4) Giao thành công @endif
+                                <span class="badge @if($order->status_order == 1) badge-soft-dark @elseif($order->status_order == 0) badge-soft-danger @elseif($order->status_order == 2) badge-soft-primary @elseif($order->status_order == 3) badge-soft-info @elseif($order->status_order == 4) badge-soft-success @elseif($order->status_order == 5) badge-soft-warning @endif">
+                                    @if($order->status_order == 1) Chờ xác nhận @elseif($order->status_order == 0) Đã huỷ @elseif($order->status_order == 2) Đã xác nhận @elseif($order->status_order == 3) Đang giao hàng @elseif($order->status_order == 4) Giao thành công @elseif($order->status_order == 5) Hoàn trả @endif
                                 </span>
                             </td>
                             <td>
@@ -108,6 +109,7 @@
                                     @elseif($order->status_order == 2)
                                     <a data-id="{{ $order->id }}" class="btn fw-bold btn-outline-info update-status" data-status="3"><i class="bx bxs-truck"></i> Đang giao hàng</a>
                                     @elseif($order->status_order == 3)
+                                    <a data-id="{{ $order->id }}" class="btn btn-outline-warning fw-bold update-status" data-status="5"><i class="bx bxs-left-arrow-square"></i> Hoàn trả</a>
                                     <a data-id="{{ $order->id }}" class="btn btn-outline-success fw-bold update-status" data-status="4"><i class="bx bxs-package"></i> Giao thành công</a>
                                     @endif
 
@@ -134,7 +136,8 @@
     0: 'Huỷ đơn',
     2: 'Xác nhận đơn',
     3: 'Đang giao hàng',
-    4: 'Giao thành công'
+    4: 'Giao thành công',
+    5: 'Hoàn trả'
     };
     const updateStatusLinks = document.querySelectorAll('.update-status');
     updateStatusLinks.forEach(link => {
