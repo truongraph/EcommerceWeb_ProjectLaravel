@@ -87,7 +87,7 @@
                                             </td>
                                          </tr>
                                     @endforeach
-                                            
+
                                     </tbody>
                                 </table>
                             @else
@@ -99,10 +99,10 @@
                             <div class="content-order">
                                 <h4>Thông tin giao hàng</h4>
                                 <p> <strong>Mã đơn hàng:</strong> <a style="color: #1d6cd9;font-weight: 600;">#{{  $order->code_order  }}</a></p>
-                                <p> <strong>Trạng thái đơn hàng:</strong> 
-                                    <span class="badge @if($order->status_order == 1) pending @elseif($order->status_order == 0) cancelled @elseif($order->status_order == 2) confirmed @elseif($order->status_order == 3) delivering @elseif($order->status_order == 4) delivered @endif">
-                                        @if($order->status_order == 1) Chờ xác nhận @elseif($order->status_order == 0) Đã huỷ @elseif($order->status_order == 2) Đã xác nhận @elseif($order->status_order == 3) Đang giao hàng @elseif($order->status_order == 4) Giao thành công @endif
-                                    </span>     
+                                <p> <strong>Trạng thái đơn hàng:</strong>
+                                    <span class="badge @if($order->status_order == 1) pending @elseif($order->status_order == 0) cancelled @elseif($order->status_order == 2) confirmed @elseif($order->status_order == 3) delivering @elseif($order->status_order == 4) delivered  @elseif($order->status_order == 5) warning @endif">
+                                        @if($order->status_order == 1) Chờ xác nhận @elseif($order->status_order == 0) Đã huỷ @elseif($order->status_order == 2) Đã xác nhận @elseif($order->status_order == 3) Đang giao hàng @elseif($order->status_order == 4) Giao thành công @elseif($order->status_order == 5) Hoàn trả @endif
+                                    </span>
                                 </p>
                                 <p> <strong>Phương thức thanh toán:</strong> {{ $order->paymentMethod->name_payment }}</p>
                                 <p> <strong>Họ tên khách hàng:</strong> {{ $order->name_order }}</p>
@@ -115,7 +115,7 @@
                         <div class="col-lg-4">
                             <div class="content-order">
                                 <h4>Thông tin thanh toán</h4>
-                                <p> <strong> Tổng tiền đơn hàng: </strong> 
+                                <p> <strong> Tổng tiền đơn hàng: </strong>
                                     @if($order->discount_code && $order->discount)
                                     <span style="float: right;">{{ number_format($order->total_order + $order->discount->discount) }} đ</span>
                                 @else
@@ -132,9 +132,9 @@
                        </p>
                                 <p>
                                     <strong> Thành tiền:</strong>
-                                   
+
                                 <span style="float: right;"><span style="color: red; font-size: 20px;font-weight:600">{{ number_format($order->total_order) }} đ</span></span>
-                                   
+
                                 </p>
                             </div>
                           <a   class="text-white continue-btn text-center" style="display: block;width:100%" href="javascript:history.go(-1);"><i class='bx bx-left-arrow-alt' ></i> Trở về</a>

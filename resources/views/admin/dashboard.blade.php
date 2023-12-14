@@ -230,7 +230,7 @@
   dataLabels: { enabled: !1 },
   stroke: { show: !0, width: 2, colors: ["transparent"] },
   series: <?= json_encode($series) ?>,
-  colors: ["#0576b9", "#0ab39c", "#f06548","#F7B84B"],
+  colors: ["#495867","#0576b9",  "#f06548","#0ab39c","#F7B84B"],
   xaxis: {
     categories: <?= json_encode(array_values($formattedDates)) ?>,
   },

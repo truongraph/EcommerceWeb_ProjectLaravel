@@ -107,8 +107,8 @@
                                                                         <td class="text-left last">{{ \Carbon\Carbon::parse($order->date_order)->format('d/m/Y H:i:s') }}</td>
                                                                         <td class="text-right last" width="150px"><span class="price-2 font-bold">{{ number_format($order->total_order) }} đ</span></td>
                                                                         <td class="text-center last">
-                                                                            <span class="badge @if($order->status_order == 1) pending @elseif($order->status_order == 0) cancelled @elseif($order->status_order == 2) confirmed @elseif($order->status_order == 3) delivering @elseif($order->status_order == 4) delivered @endif">
-                                                                                @if($order->status_order == 1) Chờ xác nhận @elseif($order->status_order == 0) Đã huỷ @elseif($order->status_order == 2) Đã xác nhận @elseif($order->status_order == 3) Đang giao hàng @elseif($order->status_order == 4) Giao thành công @endif
+                                                                            <span class="badge @if($order->status_order == 1) pending @elseif($order->status_order == 0) cancelled @elseif($order->status_order == 2) confirmed @elseif($order->status_order == 3) delivering @elseif($order->status_order == 4) delivered  @elseif($order->status_order == 5) warning @endif">
+                                                                                @if($order->status_order == 1) Chờ xác nhận @elseif($order->status_order == 0) Đã huỷ @elseif($order->status_order == 2) Đã xác nhận @elseif($order->status_order == 3) Đang giao hàng @elseif($order->status_order == 4) Giao thành công @elseif($order->status_order == 5) Hoàn trả @endif
                                                                             </span>
                                                                         </td>
                                                                         <td class="text-center last">

@@ -52,32 +52,37 @@ class AdminController extends Controller
         //===========================================================
         // Lấy dữ liệu từ bảng orders
         $orders = Order::select('status_order', 'date_order')
-            ->whereIn('status_order', [1, 2, 3, 4])
+            ->whereIn('status_order', [1, 2, 3, 4,5])
             ->get();
 
         // Tạo các biến cho từng loại status_order
         $deliveryStatus = [
-            'Đang giao' => 0,
-            'Đã giao' => 0,
             'Chờ xác nhận' => 0,
             'Đã xác nhận' => 0,
+            'Đang giao' => 0,
+            'Đã giao' => 0,
+            'Hoàn trả' => 0,
         ];
 
         // Lặp qua dữ liệu và đếm số lượng cho từng loại status_order
         foreach ($orders as $order) {
             switch ($order->status_order) {
-                case 3:
-                    $deliveryStatus['Đang giao']++;
-                    break;
-                case 4:
-                    $deliveryStatus['Đã giao']++;
-                    break;
                 case 1:
                     $deliveryStatus['Chờ xác nhận']++;
                     break;
                 case 2:
                     $deliveryStatus['Đã xác nhận']++;
                     break;
+                case 3:
+                    $deliveryStatus['Đang giao']++;
+                    break;
+                case 4:
+                    $deliveryStatus['Đã giao']++;
+                    break;
+                    case 5:
+                        $deliveryStatus['Hoàn trả']++;
+                        break;
+
             }
         }
 
