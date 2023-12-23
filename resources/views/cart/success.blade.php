@@ -45,33 +45,6 @@
 </head>
 
 <body class="cms-index-index cms-home-page">
-    {{-- <h2>Thông tin đơn hàng</h2>
-    <p>Mã đơn hàng: {{ $order->code_order }}</p>
-    <p>Ngày đặt hàng: {{ $order->date_order }}</p>
-    <!-- Hiển thị thông tin khách hàng -->
-    <h2>Thông tin khách hàng</h2>
-    <p>Tên khách hàng: {{ $order->name_order }}</p>
-    <p>Email: {{ $order->email_order }}</p>
-    <p>Số điện thoại: {{ $order->phone_order }}</p>
-    <p>Địa chỉ: {{ $order->address_order }}</p>
-    <!-- Hiển thị thông tin sản phẩm đã đặt -->
-    <h2>Thông tin sản phẩm đã đặt</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Giá</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($orderDetails as $detail)
-            <li>{{ $detail->product->name_product }} - {{ $detail->quantity }} - {{ $detail->totalprice }}</li>
-            <p>Size: {{ $detail->sizes->desc_size }}</p>
-            <p>Color: {{ $detail->colors->desc_color }}</p>
-            @endforeach
-        </tbody>
-    </table> --}}
     <div class="content">
         <div class="wrap">
             <div class="sidebar">
@@ -175,9 +148,9 @@
                                     <hr style="border: 1px dashed rgb(131, 131, 131); margin: 25px auto">
                                     <div class="mb-3">
                                         <h2 class="title-cart mb-2">Tài khoản ngân hàng</h2>
-                                        <p class="mb-2" style="color: #000;"><strong style="color:red">*Nội dung chuyển khoản:</strong> Mã đơn hàng va Số điện thoại</p>
+                                        <p class="mb-2" style="color: #000;"><strong style="color:red">*Nội dung chuyển khoản:</strong> Mã đơn hàng và Số điện thoại</p>
                                         <span class="mb-2" style="color: #000;"><i class='bx bx-copy' ></i> Copy nội dung chuyển khoản: <a href="" style="color:green"><strong>{{ $order->code_order }}va{{ $order->phone_order }}</strong></a></span>
-                                        <p class="mt-2">- Trước hoặc sau khi chuyển khoản. Vui lòng chụp lại thông tin chuyển khoản và liên hệ cho cửa hàng qua số hotline để được xác nhân đơn hàng</p>
+                                        <p class="mt-2">- Trước hoặc sau khi chuyển khoản. Vui lòng chụp lại thông tin chuyển khoản và liên hệ cho cửa hàng qua số hotline:<strong style="color:red">0789703120</strong> để được xác nhân đơn hàng</p>
                                     </div>
                                     <table class="table table-bordered p-10 bg-white">
                                         <tr>
@@ -186,16 +159,16 @@
                                         </tr>
                                         <tr>
                                             <td style="padding:5px">
-                                                <p >Ngân Hàng TMCP Ngoại Thương Việt Nam</p>
-                                                <strong style="margin-top: 7px;">Chi nhánh: Bắc sài gòn</strong>
+                                                <p >Ngân Hàng Tiên Phong Bank</p>
+                                                <strong style="margin-top: 7px;">Chi nhánh: Bình Tân</strong>
                                             </td>
-                                            <td style="padding:5px">1018660781</td>
+                                            <td style="padding:5px">68695696789</td>
                                         </tr>
                                         <tr>
                                             <td style="padding:5px">
                                                 <p>Momo</p>
                                             </td>
-                                            <td style="padding:5px">0768484671</td>
+                                            <td style="padding:5px">0789703120</td>
                                         </tr>
                                     </table>
 

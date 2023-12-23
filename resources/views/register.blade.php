@@ -32,7 +32,7 @@
                                         <div class="login-input-box">
                                             <div class="col_full">
                                                 <label for="username">Tên tài khoản<span class="require_symbol"> *</span></label>
-                                                <input type="text" id="username" name="username" value="{{ old('username') }}" required class="form-control">
+                                                <input type="text" id="username" name="username" value="{{ old('username') }}" class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="password">Mật khẩu <span class="require_symbol">* </span></label>
@@ -44,15 +44,15 @@
                                             </div>
                                             <div class="col_full">
                                                 <label for="name">Họ và tên<span class="require_symbol"> *</span></label>
-                                                <input type="text" id="name" name="name" value="{{ old('name') }}" required class="form-control">
+                                                <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="email">Email<span class="require_symbol"> *</span></label>
-                                                <input type="email" id="email" name="email" value="{{ old('email') }}" required class="form-control">
+                                                <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control">
                                             </div>
                                             <div class="col_full">
                                                 <label for="phone">Số điện thoại<span class="require_symbol"> *</span></label>
-                                                <input type="number" id="phone"  name="phone" value="{{ old('phone') }}" required class="form-control">
+                                                <input type="number" id="phone"  name="phone" value="{{ old('phone') }}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="button-box">
@@ -75,5 +75,6 @@
     </div>
 </div>
 <!-- main-content-wrap end -->
+
 @endsection
 

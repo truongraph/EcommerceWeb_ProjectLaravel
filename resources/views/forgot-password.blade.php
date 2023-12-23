@@ -31,7 +31,7 @@
                                         <div class="login-input-box">
                                             <div class="col_full">
                                                 <label for="email">Email:<span class="require_symbol">* </span></label>
-                                                <input type="text" name="email" required  class="form-control">
+                                                <input type="text" name="email"  class="form-control">
                                             </div>
                                         </div>
                                         <div class="button-box">

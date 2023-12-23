@@ -25,12 +25,16 @@ class ForgotPasswordController extends Controller
 
         $email = $request->input('email');
         $account = Account::where('email_account', $email)->first();
+
+        if(empty($email)|| empty($account)){
+            return redirect()->back()->with('error', 'Vui lòng nhập thông tin email của bạn !!.');
+        }
         if (!$account) {
                 return redirect()->back()->with('error', 'Email không tồn tại trong hệ thống.');
         }
         if ($account) {
             if ($account->status_account == 0) {
-                return redirect()->back()->with('error', 'Tài khoản của bạn đã ngừng hoạt động. Vui lòng liên hệ quản trị viên.');
+                return redirect()->back()->with('error', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.');
             }
             $token = Str::random(60);
             $account->update(['reset_password_token' => $token]);
@@ -58,7 +62,14 @@ class ForgotPasswordController extends Controller
     //==========================================
     public function resetPassword(Request $request)
     {
+        // $account = $request->input('password_account');
+        // $account = $request->input('reset_password_token');
+        // if(empty($account)){
+        //     return redirect()->back()->with('error', 'Vui lòng nhập đầy đủ thông tin.');
+        // }    
+
         $account = Account::where('reset_password_token', $request->input('token'))->first();
+
         if (!$account) {
             return redirect()->back()->with('error', 'Đường dẫn khôi phục mật khẩu không hợp lệ.');
         }

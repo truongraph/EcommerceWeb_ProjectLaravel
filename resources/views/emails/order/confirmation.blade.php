@@ -106,7 +106,12 @@
         <p>Mã giảm giá: {{ $order->discount_code }}</p>
         <p>Tổng tiền: {{ number_format($order->total_order) }} đ</p>
 
-        <p>Cảm ơn bạn đã mua hàng!</p>
+        <div style="font-size: 13px;text-align:center;margin-top:50px;">
+            <p><i>Xin cảm ơn quý khách và hẹn gặp lại !</i></p>
+            <p><i>Mọi thắc mắc xin hãy liên hệ về hotline: 0789703120</i></p>
+            <p><i>180 Cao Lỗ, P.4, Q.8, HCM</i></p>
+        </div>
+
     </div>
     <div class="footer">
         &copy; 2023 Doantotnghiep

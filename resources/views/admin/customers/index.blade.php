@@ -79,7 +79,7 @@
                             <td>@if( $customer->account->status_account == 1)
                                 <small class="badge badge-soft-success">Hoạt động</small>
                                 @elseif( $customer->account->status_account == 0)
-                                <small class="badge badge-soft-danger">Ngừng hoạt động</small>
+                                <small class="badge badge-soft-danger">Đã khóa</small>
                                 @endif</td>
                             {{-- <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('d/m/Y H:i:s') }}</td> --}}
                             <td>

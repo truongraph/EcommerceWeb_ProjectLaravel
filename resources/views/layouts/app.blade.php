@@ -77,8 +77,6 @@
                         <div class="right-blok-box text-white d-flex">
                             <div class="box-cart-wrap">
                                 <div class="shopping-cart-wrap account_box">
-                                    <!-- <a class='d-block d-lg-none' href='thongtincanhan.html'><i class='bx bx-user-circle' ></i></a>
-                                        <a class='d-none d-lg-block' href='thongtincanhan.html'><i class='bx bxs-user-circle'></i> <span class='cart-total-amunt'>Tài khoản của tôi</span></a> -->
                                     <a class='d-block d-lg-none' >
                                         <<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                             viewBox="0 0 22 22">
@@ -202,64 +200,45 @@
     <footer>
         <div class="footer-top section-pb section-pt-60">
             <div class="container">
-                <div class="row">
+                <div class="row" >
                     <div class="col-lg-4">
                         <div class="widget-footer ">
                             <h6 class="title-widget">Thông tin liên hệ</h6>
                             <ul class="footer-list">
                                 <li class="clearfix">
                                     <i class='bx bx-map'></i>
-                                    <span>CN1: 396 - 398 Nguyễn Kiệm, P. 3, Q. Phú Nhuận, HCM</span>
-                                </li>
-                                <li class="clearfix">
-                                    <i class='bx bx-map'></i>
-                                    <span>CN2: 55 Chu Mạnh Trinh, P. Bình Thọ, Q. Thủ Đức, HCM</span>
-                                </li>
-                                <li class="clearfix">
-                                    <i class='bx bx-map'></i>
-                                    <span>CN3: 184/41 Nguyễn Xí, Phường 26, Q. Bình Thạnh, HCM</span>
+                                    <span>180 Cao Lỗ, P.14, Q.8, TP.HCM</span>
                                 </li>
                                 <li class="clearfix">
                                     <i class='bx bx-phone'></i>
-                                    <span>Tổng đài hỗ trợ: 0906 866 535 (8:30 - 17:30)</span>
+                                    <span>Tổng đài hỗ trợ: 0789 703 120 (8:30 - 17:30)</span>
                                 </li>
                                 <li class="clearfix">
                                     <i class='bx bx-mail-send'></i>
-                                    <span><a href="mailto:test2000@gmail.com">test2000@gmail.com</a></span>
+                                    <span><a href="mailto:huy07112000@gmail.com">huy07112000@gmail.com</a></span>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="col-lg-2 col-md-6 col-sm-6" style="margin-left: 100px">
                         <div class="widget-footer ">
                             <h6 class="title-widget">Liên kết</h6>
                             <ul class="footer-list">
-                                <li><a href="index.html">Trang chủ</a></li>
-                                <li><a href="vechungtoi.html">Về chúng tôi</a></li>
-                                <li><a href="sanpham.html">Sản phẩm</a></li>
-                                <li><a href="tintuc.html">Tin tức nổi bật</a></li>
-                                <li><a href="tintuc.html">Tin tức nổi bật</a></li>
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/ve-chung-toi">Về chúng tôi</a></li>
+                                <li><a href="/categories">Sản phẩm</a></li>
+                                <li><a href="/lienhe">Liên hệ</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="col-lg-2 col-md-6 col-sm-6" style="margin-left: 100px">
                         <div class="widget-footer ">
                             <h6 class="title-widget">Hỗ trợ</h6>
                             <ul class="footer-list">
-                                <li><a href="#">Chính sách bảo mật</a></li>
                                 <li><a href="#">Chính sách mua hàng</a></li>
                                 <li><a href="#">Hỗ trợ mua hàng</a></li>
                                 <li><a href="#">Hỗ trợ kỹ thuật</a></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="widget-footer ">
-                            <h6 class="title-widget">Bản đồ</h6>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.14003056735!2d106.67761601524109!3d10.80058536169965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d77aea3b1d%3A0x9146d5cdf75abe16!2zSGFuZ2NoaW5oaGlldS52biB8IENodXnDqm4gTGFwdG9wIENoxqFpIEdhbWUsIExhcHRvcCBHYW1pbmcgfCBDaMOtbmggSMOjbmcgLSBHacOhIFPhu5Fj!5e0!3m2!1svi!2s!4v1668604526117!5m2!1svi!2s"
-                                width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -271,7 +250,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-12">
                         <div class="copy-left-text">
-                            <p>Copyright &copy; <a href="#">Cửa hàng quần áo</a> 2022. All Right Reserved.</p>
+                            <p>Copyright &copy; <a href="#">Cửa hàng quần áo ToranoShop</a> 2023. All Right Reserved.</p>
                         </div>
                     </div>
                 </div>

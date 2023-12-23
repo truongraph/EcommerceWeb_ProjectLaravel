@@ -25,32 +25,32 @@ class CheckoutController extends Controller
     {
         $cart = session()->get('cart', []);
 
-        // Check if the cart is not empty
+
         if (!empty($cart)) {
             foreach ($cart as $cartKey => $item) {
                 list($productid, $sizeid, $colorid) = explode('_', $cartKey);
 
-                // Fetch the product variant
+
                 $productVariant = ProductVariant::where('product_id', $productid)
                     ->where('size_id', $sizeid)
                     ->where('color_id', $colorid)
                     ->first();
 
-                // Check if the product variant exists and if the quantity in cart exceeds available quantity
+
                 if (!$productVariant || $item['quantity'] > $productVariant->quantity) {
                     return redirect()->route('cart.index')
                         ->with('error', 'Số lượng sản phẩm không khả dụng. Vui lòng kiểm tra lại giỏ hàng của bạn.')
                         ->withInput();
                 }
                 if (!empty($error)) {
-                    // If there's an error, redirect back to the cart view with an error message
+
                     return redirect()->route('cart.index')
                         ->with('error', $error);
                 }
             }
         }
 
-        // Calculate the total amount, fetch payment methods, and customer info if logged in
+
         $total = 0;
         foreach ($cart as $item) {
             if ($item['sellprice'] > 0) {
@@ -135,6 +135,7 @@ class CheckoutController extends Controller
     }
     //===================================================
     //===================================================
+    //============Xóa mã giảm===========================
     public function removeDiscount(Request $request)
     {
         // Lấy tổng tiền trước khi áp dụng mã giảm giá

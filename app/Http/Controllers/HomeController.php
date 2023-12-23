@@ -29,13 +29,12 @@ class HomeController extends Controller
         ->where('status', 1)
             ->get();
         // Lấy các sản phẩm mới nhất
-        $newestProducts = Product::orderBy('id', 'desc')->take(10)->get();
-        $numberbuyProducts = Product::orderBy('number_buy', 'desc')->take(10)->get();
+        $newestProducts = Product::orderBy('id', 'desc')->take(5)->get();
         // Lấy các sp giảm giá
         $sellProducts = Product::where('sellprice_product', '>', 0)
             ->orderBy('created_at', 'desc')
-            ->take(10)
+            ->take(5)
             ->get();
-        return view('home', compact('banners', 'newestProducts', 'sellProducts', 'numberbuyProducts', 'secon1Banners', 'secon2Banners', 'secon3Banners', 'secon4Banners'));
+        return view('home', compact('banners', 'newestProducts', 'sellProducts', 'secon1Banners', 'secon2Banners', 'secon3Banners', 'secon4Banners'));
     }
 }

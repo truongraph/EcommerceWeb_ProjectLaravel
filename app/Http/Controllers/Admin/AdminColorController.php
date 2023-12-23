@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Color;
 use App\Models\ProductVariant;
-
+use App\Models\OrderDetail;
 class AdminColorController extends Controller
 {
     public function index()
@@ -39,9 +39,10 @@ class AdminColorController extends Controller
         $color = Color::find($id);
 
         $productVariants = ProductVariant::where('color_id', $id)->exists();
+        $orderDetails = OrderDetail::where('colorid', $id)->exists();
 
-        if ($productVariants) {
-            return redirect()->back()->with('error', 'Không thể xóa màu sắc vì màu sắc đang được sử dụng trong sản phẩm.');
+        if ($productVariants || $orderDetails) {
+            return redirect()->back()->with('error', 'Không thể xóa màu sắc vì màu sắc đang được sử dụng trong sản phẩm hoặc đơn hàng.');
         }
 
         $color->delete();

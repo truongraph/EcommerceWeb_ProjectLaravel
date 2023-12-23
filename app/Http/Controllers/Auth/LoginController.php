@@ -21,27 +21,27 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-{
-    $login = $request->input('email');
-    $password = $request->input('password');
+    {
+        $login = $request->input('email');
+        $password = $request->input('password');
 
-    // Tìm tài khoản theo email hoặc tên người dùng
-    $account = User::where(function ($query) use ($login) {
-        $query->where('email', $login)->orWhere('name', $login);
-    })->first();
+        // Tìm tài khoản theo email hoặc tên người dùng
+        $account = User::where(function ($query) use ($login) {
+            $query->where('email', $login)->orWhere('name', $login);
+        })->first();
 
-    // Kiểm tra xem tài khoản có tồn tại không
-    if ($account) {
-        // Kiểm tra mật khẩu dưới dạng bcrypt
-        if (md5($password, $account->password)) {
-            session(['id' => $account->id]);
-            Auth::login($account);
-            return redirect()->intended('/admin');
+        // Kiểm tra xem tài khoản có tồn tại không
+        if ($account) {
+            // Kiểm tra mật khẩu dưới dạng bcrypt
+            if (md5($password, $account->password)) {
+                session(['id' => $account->id]);
+                Auth::login($account);
+                return redirect()->intended('/admin');
+            }
         }
-    }
 
-    return redirect('/admin/login')->with('error', 'Thông tin tài khoản hoặc mật khẩu không đúng.');
-}
+        return redirect('/admin/login')->with('error', 'Thông tin tài khoản hoặc mật khẩu không đúng.');
+    }
     public function logout()
     {
         Auth::logout();

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use App\Models\Product;
 class AdminCategoryController extends Controller
 {
 
@@ -88,10 +88,17 @@ class AdminCategoryController extends Controller
         if (!$category) {
             return redirect()->back()->with('error', 'Không tìm thấy danh mục');
         }
-        $childCategories = Category::where('id_parent', $category->id)->count();
-        if ($childCategories > 0) {
+
+        $pr_Prodcut = Product::where('id_category',$id)->first();
+        if ($pr_Prodcut) {
+            return redirect()->back()->with('error', 'Danh mục này có chứa sản phẩm. Vui lòng xóa các sản phẩm con trước khi xóa danh mục này.');
+        }
+
+        $childCategories = Category::where('id_parent', $category->id)->first();
+        if ($childCategories) {
             return redirect()->back()->with('error', 'Danh mục này có danh mục con. Vui lòng xóa các danh mục con trước khi xóa danh mục này.');
         }
+
         $category->delete();
         return redirect()->back()->with('success', 'Đã xoá danh mục thành công');
     }

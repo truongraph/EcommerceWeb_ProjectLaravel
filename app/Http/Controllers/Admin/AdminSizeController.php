@@ -17,11 +17,12 @@ class AdminSizeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validateData = $request->validate([
             'desc_size' => 'required|unique:sizes,desc_size' // Bắt buộc và duy nhất trong bảng sizes
         ], [
             'desc_size.unique' => 'Kích thước này đã tồn tại.',
         ]);
+
         try {
             $size = new Size();
             $size->desc_size = $request->input('desc_size');
@@ -39,13 +40,13 @@ class AdminSizeController extends Controller
 
         $productVariants = ProductVariant::where('size_id', $id)->exists();
 
-        if ($productVariants) {
-            return redirect()->back()->with('error', 'Không thể xóa màu sắc vì màu sắc đang được sử dụng trong sản phẩm.');
+        if ($productVariants || $orderDetails) {
+            return redirect()->back()->with('error', 'Không thể xóa size vì size đang được sử dụng trong sản phẩm hoặc đơn hàng.');
         }
 
         $size->delete();
 
-        return redirect()->back()->with('success', 'Đã xóa màu sắc thành công.');
+        return redirect()->back()->with('success', 'Đã xóa kích thước thành công.');
     }
 
     public function edit($id)

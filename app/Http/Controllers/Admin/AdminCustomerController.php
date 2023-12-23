@@ -54,6 +54,13 @@ class AdminCustomerController extends Controller
             'address_customer' => 'required',
             'email_customer' => 'required|email',
         ]);
+        $existingCustomer = Customer::where('phone_customer', $request->input('phone_customer'))
+            ->where('id', '!=', $id) 
+            ->first();
+
+        if ($existingCustomer) {
+            return redirect()->back()->with('error', 'Số điện thoại đã tồn tại cho một khách hàng khác');
+        }
 
         // Cập nhật thông tin khách hàng
         $customer->name_customer = $validatedData['name_customer'];
@@ -62,6 +69,7 @@ class AdminCustomerController extends Controller
         $customer->email_customer = $validatedData['email_customer'];
         // Lưu các thay đổi vào cơ sở dữ liệu
         $customer->save();
+
         // Cập nhật thông tin email_account của account tương ứng
         $account = $customer->account;
         if ($account) {

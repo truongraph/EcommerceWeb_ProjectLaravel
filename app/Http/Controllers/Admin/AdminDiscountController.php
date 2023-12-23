@@ -24,20 +24,35 @@ class AdminDiscountController extends Controller
     }
     public function store(Request $request)
     {
+        $filled = collect($request->all())->filter(); // Lọc bỏ các trường trống
+
+        if ($filled->count() !== count($request->all())) {
+            return redirect()->back()->with('error', 'Vui lòng nhập đầy đủ thông tin');
+        }
+
         $validator = Validator::make($request->all(), [
             'code' => 'required|unique:discounts,code',
             'discount' => 'required',
             'limit_number' => 'required',
-            'expiration_date' => 'required|date',
+            'expiration_date' => 'required',
             'payment_limit' => 'required',
         ], [
             'code.unique' => 'Mã giảm này đã tồn tại.',
+            'expiration_date' => 'Ngày hết hạn không được để trống',
+
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $expiration_date = Carbon::createFromFormat('d/m/Y H:i', $request->input('expiration_date'))->format('Y-m-d H:i:s');
+
+        $expiration_date = Carbon::createFromFormat('d/m/Y H:i', $request->input('expiration_date')); 
+
+        $dateNow = Carbon::now();
+        if ($expiration_date < $dateNow) {
+            return redirect()->back()->with('error', 'Ngày và giờ hết hạn phải lớn hơn hoặc bằng ngày và giờ hiện tại.');
+        }
+
 
         $discount = new Discount();
         $discount->code = $request->input('code');
