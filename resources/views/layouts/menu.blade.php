@@ -14,6 +14,6 @@
         @endif
     @endforeach
     <li><a href="{{URL::to('/lienhe')}}">Liên hệ</a></li>
-    <li><a href="{{URL::to('/discount')}}">Mã khuyến mãi</a></li>
+    <li><a href="{{URL::to('/discounts')}}">Mã khuyến mãi</a></li>
     <li><a href="{{ route('order.search.view') }}">Tra cứu đơn hàng</a></li>
 </ul>

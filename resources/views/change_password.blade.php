@@ -28,17 +28,17 @@
 										<div class="login-input-box">
 											<div class="col_full">
 												<label for="current_password">Mật khẩu hiện tại: <span class="require_symbol">* </span></label>
-												<input type="password" name="current_password" required class="form-control">
+												<input type="password" name="current_password" class="form-control">
 
 											</div>
 											<div class="col_full">
 												<label for="new_password">Mật khẩu mới: <span class="require_symbol">* </span></label>
-												<input type="password" name="new_password" required class="form-control">
+												<input type="password" name="new_password" class="form-control">
 
 											</div>
 											<div class="col_full">
 												<label for="confirm_password">Nhập lại mật khẩu mới: <span class="require_symbol">* </span></label>
-												<input type="password" name="confirm_password" required class="form-control">
+												<input type="password" name="confirm_password"  class="form-control">
 
 											</div>
 										</div>

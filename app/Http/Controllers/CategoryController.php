@@ -38,7 +38,7 @@ class CategoryController extends Controller
         }
 
         // Phân trang
-        $perPage = 10;
+        $perPage = 5;
         $currentPage = $request->query('page', 1);
         $pagedData = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $totalItems = $allProducts->count();
