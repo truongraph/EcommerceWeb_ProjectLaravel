@@ -54,7 +54,7 @@ Route::get('/lienhe', [ContactController::class, 'index']);
 Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('contact.send');
 Route::get('/search', [SearchController::class, 'index']);
 //==============================================
-Route::get('/discount', [DiscountController::class, 'index'])->name('discounts.index');;
+Route::get('/discounts', [DiscountController::class, 'index'])->name('discounts.index');
 //===========================================
 Route::get('/login', [AccountController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AccountController::class, 'loginSubmit'])->name('login.submit');

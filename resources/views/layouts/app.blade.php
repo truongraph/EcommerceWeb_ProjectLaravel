@@ -262,14 +262,13 @@
     <!-- Modernizer JS -->
 
     <script>
-        // Bắt thông báo thành công và ẩn nó sau 3 giây
         document.addEventListener("DOMContentLoaded", function() {
             var successAlert = document.querySelector('.alert');
 
             if (successAlert) {
                 setTimeout(function() {
                     successAlert.classList.add('d-none');
-                }, 5000); // 4 giây
+                }, 4000);
             }
         });
     </script>
@@ -338,8 +337,8 @@
                 prevEl: ".swiper-button-prev",
             },
         });
-        $('.error').delay(2000).hide(0);
-        $('.alert').delay(2000).hide(0);
+        $('.error').delay(3000).hide(0);
+        $('.alert').delay(3000).hide(0);
     </script>
 
 </body>
