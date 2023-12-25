@@ -12,21 +12,27 @@
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
+                                @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
                                 @if(session('success'))
                                 <div class="alert alert-success">
                                     {{ session('success') }}
                                 </div>
-                            @endif
+                                 @endif
                                 <h4> Đăng nhập tài khoản </h4>
                                 <p class="secon-title-login">Nếu bạn đã có tài khoản. Hãy đăng nhập ngay</p>
 
-                                <div class="login-register-form">
+                                <div class="login-register-form ">
                                     <form id="login-form" method="post" action="{{ route('login.submit') }}">
                                         @csrf
-                                        <div class="login-input-box">
+                                        <div class="login-input-box ">
                                             <div class="col_full">
                                                 <label for="email">Email hoặc tên tài khoản<span class="require_symbol">* </span></label>
-                                                <input type="text" name="email" required  class="form-control">
+                                                <input type="text" name="email" class="form-control">
+
                                             </div>
                                             <div class="col_full">
                                                 <label for="password">Mật khẩu:<span class="require_symbol">* </span></label>

@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Account;
 use App\Models\Customer;
+use App\Models\ProductVariant;
 
 class OrderController extends Controller
 {
@@ -93,6 +94,21 @@ class OrderController extends Controller
     if ($order && $order->status_order == 1) {
         $order->status_order = 0; // Chuyển đổi thành trạng thái đã huỷ
         $order->save();
+        if ($order->status_order == 0){
+            foreach ($order->orderDetails as $orderDetail) {
+                // Tìm sản phẩm và kích thước tương ứng để tăng số lượng
+                $productSize = ProductVariant::where('product_id', $orderDetail->productid)
+                    ->where('size_id', $orderDetail->sizeid)
+                    ->where('color_id', $orderDetail->colorid) // Tìm theo màu sắc
+                    ->first();
+
+                if ($productSize) {
+                    // Tăng số lượng sản phẩm và kích thước tương ứng
+                    $productSize->quantity += $orderDetail->quantity;
+                    $productSize->save();
+                }
+            }
+        }
         return redirect()->back()->with('success', 'Đã huỷ đơn hàng thành công')->with('activeTab', 'orders');
     } else {
         return redirect()->back()->with('error', 'Không thể huỷ đơn hàng');

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->integer('status_order');
             $table->foreignId('id_customer')->constrained('customers');
-            $table->string('type_payment');
+            $table->string('id_payment');
             $table->timestamps();
         });
     }

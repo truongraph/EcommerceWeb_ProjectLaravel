@@ -18,6 +18,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\DiscountController;
 //===========================================
 //===========================================
 //===========================================
@@ -52,6 +53,16 @@ Route::get('/ve-chung-toi', [AboutController::class, 'index']);
 Route::get('/lienhe', [ContactController::class, 'index']);
 Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('contact.send');
 Route::get('/search', [SearchController::class, 'index']);
+//==============================================
+Route::get('/discount', [DiscountController::class, 'index'])->name('discounts.index');;
+//===========================================
+Route::get('/login', [AccountController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AccountController::class, 'loginSubmit'])->name('login.submit');
+Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
+//===========================================
+Route::get('/register', [AccountController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AccountController::class, 'register'])->name('register.submit');
+//===========================================
 //===========================================
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
@@ -59,8 +70,7 @@ Route::get('/categories/{category}', [CategoryController::class, 'show'])->name(
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{linkProduct}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/get-quantity', [ProductController::class, 'getQuantity'])->name('get.quantity');
-// Route::get('/products/{id}', [ProductController::class, 'show']);
-// Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+//===========================================
 //===========================================
 Route::post('/cart/add', [CartController::class, 'addToCart']);
 Route::delete('/cart/remove', [CartController::class, 'removeFromCart']);
@@ -69,18 +79,13 @@ Route::get('/cart', [CartController::class, 'showCart']);
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 //===========================================
+//===========================================
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::post('/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('apply.discount');
 Route::post('/remove-discount', [CheckoutController::class, 'removeDiscount'])->name('remove.discount');
 //===========================================
-Route::post('/login', [AccountController::class, 'loginSubmit'])->name('login.submit');
-Route::get('/login', [AccountController::class, 'showLoginForm'])->name('login');
-Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
-//===========================================
-Route::get('/register', [AccountController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AccountController::class, 'register'])->name('register.submit');
 //===========================================
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password.form');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forgot.password.email');
@@ -126,6 +131,8 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::get('/admin/accounts', [AdminAccountController::class, 'index'])->name('admin.accounts.index');
     Route::get('/admin/accounts/{id}/edit', [AdminAccountController::class, 'edit'])->name('admin.accounts.edit');
     Route::put('/admin/accounts/{id}', [AdminAccountController::class, 'update'])->name('admin.accounts.update');
+    Route::get('/admin/accounts/{id}/block', [AdminAccountController::class, 'block'])->name('admin.accounts.block');
+    Route::get('/admin/accounts/{id}', [AdminAccountController::class, 'blockacc'])->name('admin.accounts.blockacc');
     Route::get('/admin/accounts/delete/{id}', [AdminAccountController::class, 'delete'])->name('admin.accounts.delete');
     //========================================================
     //========================================================
@@ -151,36 +158,33 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::put('/admin/sizes/update/{id}', [AdminSizeController::class, 'update'])->name('admin.sizes.update');
     //========================================================
     //========================================================
-    Route::get('/admin/discounts', [AdminDiscountController::class, 'index'])->name('admin.discounts.index');
-    Route::get('/admin/discounts/create', [AdminDiscountController::class, 'create'])->name('admin.discounts.create');
-    Route::post('/admin/discounts/store', [AdminDiscountController::class, 'store'])->name('admin.discounts.store');
-    Route::get('/admin/discounts/delete/{id}', [AdminDiscountController::class, 'delete'])->name('admin.discounts.delete');
-    Route::get('/admin/discounts/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discounts.edit');
-    Route::put('/admin/discounts/update/{id}', [AdminDiscountController::class, 'update'])->name('admin.discounts.update');
-     //========================================================
+   Route::get('/admin/discounts', [AdminDiscountController::class, 'index'])->name('admin.discounts.index');
+   Route::get('/admin/discounts/create', [AdminDiscountController::class, 'create'])->name('admin.discounts.create');
+   Route::post('/admin/discounts/store', [AdminDiscountController::class, 'store'])->name('admin.discounts.store');
+   Route::get('/admin/discounts/delete/{id}', [AdminDiscountController::class, 'delete'])->name('admin.discounts.delete');
+   Route::get('/admin/discounts/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discounts.edit');
+   Route::put('/admin/discounts/update/{id}', [AdminDiscountController::class, 'update'])->name('admin.discounts.update');
     //========================================================
-    Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.products.index');
-    Route::get('/admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
-    Route::post('/admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
-    Route::get('/admin/products/delete/{id}', [AdminProductController::class, 'delete'])->name('admin.products.delete');
-    Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
-    Route::put('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
-    Route::delete('/delete-variant/{id}', [AdminProductController::class, 'deleteVariant'])->name('delete.variant');
-    //========================================================
-    //========================================================
+   //========================================================
+   Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.products.index');
+   Route::get('/admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+   Route::post('/admin/products/store', [AdminProductController::class, 'store'])->name('admin.products.store');
+   Route::get('/admin/products/delete/{id}', [AdminProductController::class, 'delete'])->name('admin.products.delete');
+   Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+   Route::put('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
+   Route::delete('/delete-variant/{id}', [AdminProductController::class, 'deleteVariant'])->name('delete.variant');
+   //========================================================
+   //========================================================
     Route::get('/admin/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     Route::get('admin/orders/update_status/{id}/{status}', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update_status');
     Route::get('/admin/orders/delete/{id}', [AdminOrderController::class, 'delete'])->name('admin.orders.delete');
     Route::get('/admin/orders/view/{id}', [AdminOrderController::class, 'view'])->name('admin.orders.view');
     Route::get('admin/orders/{id}/print', [AdminOrderController::class, 'printInvoice'])->name('admin.orders.print');
-    //========================================================
+     //========================================================
     //========================================================
     Route::get('/admin/banners', [AdminBannerController::class, 'index'])->name('admin.banners.index');
     Route::post('/admin/banners/store', [AdminBannerController::class, 'store'])->name('admin.banners.store');
     Route::get('/admin/banners/delete/{id}', [AdminBannerController::class, 'delete'])->name('admin.banners.delete');
     Route::get('/admin/banners/activate/{id}', [AdminBannerController::class, 'activate'])->name('admin.banners.activate');
-    //========================================================
-    //========================================================
-    Route::get('/admin/email/edit', [AdminEmailConfigController::class, 'edit'])->name('admin.email.edit');
-    Route::post('/admin/email/update', [AdminEmailConfigController::class, 'update'])->name('admin.email.update');
+
 });

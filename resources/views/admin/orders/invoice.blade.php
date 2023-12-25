@@ -143,18 +143,12 @@
 
 		</table>
     <div style="font-size: 11px;text-align:center;margin-top:50px;">
-        <p><i>Xin cảm ơn quý khách, hạn gặp lại !</i></p>
-        <p><i>Mọi thắc mắc xin hãy liên hệ về hotline: 0227263522</i></p>
-        <p><i>396 - 398 Nguyễn Kiệm, P. 3, Q. Phú Nhuận, HCM</i></p>
+        <p><i>Xin cảm ơn quý khách và hẹn gặp lại !</i></p>
+        <p><i>Mọi thắc mắc xin hãy liên hệ về hotline: 0789703120</i></p>
+        <p><i>180 Cao Lỗ, P.4, Q.8, HCM</i></p>
 
         <p> <span>Hệ thống quản lý bán hàng</span></p>
 
-        <div style="font-size: 11px;text-align:center;margin-top:30px;">
-            <span style="margin-right: auto;">
-                <p style="margin-bottom:0px"><strong>www.quanlybanhang.vn</strong></p>
-            </span>
-
-        </div>
     </div>
     <style>
         * {

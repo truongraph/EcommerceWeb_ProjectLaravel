@@ -50,7 +50,7 @@
     @csrf
     <div class="content">
         <div class="wrap">
-            <div class="sidebar">
+            <div class="sidebar" style="margin-top: 60px">
                 <div class="sidebar-content">
                     <div class="order-summary order-summary-is-collapsed">
                         <h2 class="visually-hidden">Thông tin đơn hàng</h2>
@@ -249,32 +249,31 @@
                 <div class="main-content">
                     <div class="step">
                         <div class="section">
+
                             <div class="section-header">
                                 <h2 class="section-title">Thông tin giao hàng</h2>
                             </div>
+
                             <div class="section-content section-customer-information no-mb">
 
-                                            @if(session()->has('account_id'))
-                                            <div></div>
-                                       @else
-                                       <p class="section-content-text">
-                                        Bạn có tài khoản?
-                                        <a href="{{ route('login') }}">Ấn vào đây để đăng nhập</a>
-                                        </p>
+                                        @if(session()->has('account_id'))
+                                                    <div></div>
+                                            @else
+                                            <p class="section-content-text">
+                                                Bạn có tài khoản?
+                                                <a href="{{ route('login') }}">Ấn vào đây để đăng nhập</a>
+                                                </p>
                                        @endif
-                                       @if(session()->has('account_id'))
-                                            <button type="button" class="buy-for-guest" id="clear_info_button">Tôi mua cho người khác</button>
-                                            <button type="button"  class="buy-for-guest" id="get_login_info_button" style="display: none">Lấy thông tin đăng nhập</button>
-                                        @endif
+
                                        @if(session('error'))
-                                       <div class="alert alert-danger">
-                                           {{ session('error') }}
-                                       </div>
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
                                        @endif
                                        @if(session('success'))
-                                       <div class="alert alert-success">
-                                           {{ session('success') }}
-                                       </div>
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
                                        @endif
 
                                 <div class="fieldset">
@@ -338,123 +337,94 @@
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    // Xoá toàn bộ thông tin trừ email
-    document.getElementById('clear_info_button').addEventListener('click', function() {
-        document.getElementsByName('name')[0].value = '';
-        document.getElementsByName('phone')[0].value = '';
-        document.getElementsByName('address')[0].value = '';
-        document.getElementsByName('note')[0].value = '';
+    $('.alert-danger').delay(5000).fadeOut('slow');
+    $(document).ready(function() {
+        var originalTotal = {{ $total }};
+        var hasDiscountApplied = {{ session()->has('original_total') ? 'true' : 'false' }};
+        // Ẩn nút gỡ mã giảm giá khi ban đầu
+        $('#remove_discount_button').hide();
+        $('#apply_discount_button').click(function(event) {
+            event.preventDefault();
+            var discountCode = $('#discount_code').val();
 
-        // Ẩn clear_info_button và hiển thị get_login_info_button
-        document.getElementById('clear_info_button').style.display = 'none';
-        document.getElementById('get_login_info_button').style.display = 'inline-block';
-    });
-
-    // Lấy lại toàn bộ thông tin mà người dùng đã đăng nhập
-    document.getElementById('get_login_info_button').addEventListener('click', function() {
-        var name = "{{ $customerInfo ? $customerInfo->name_customer : '' }}";
-        var phone = "{{ $customerInfo ? $customerInfo->phone_customer : '' }}";
-        var address = "{{ $customerInfo ? $customerInfo->address_customer : '' }}";
-
-        document.getElementsByName('name')[0].value = name;
-        document.getElementsByName('phone')[0].value = phone;
-        document.getElementsByName('address')[0].value = address;
-
-        // Ẩn get_login_info_button và hiển thị clear_info_button
-        document.getElementById('clear_info_button').style.display = 'inline-block';
-        document.getElementById('get_login_info_button').style.display = 'none';
-    });
-
-</script>
-
-    <script>
-$('.alert-danger').delay(5000).fadeOut('slow');
-$(document).ready(function() {
-    var originalTotal = {{ $total }};
-    var hasDiscountApplied = {{ session()->has('original_total') ? 'true' : 'false' }};
-    // Ẩn nút gỡ mã giảm giá khi ban đầu
-    $('#remove_discount_button').hide();
-    $('#apply_discount_button').click(function(event) {
-        event.preventDefault();
-        var discountCode = $('#discount_code').val();
-
-        if (!discountCode) {
-            toastr.error('Vui lòng nhập mã giảm giá');
-            return;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('apply.discount') }}',
-            data: {
-                _token: '{{ csrf_token() }}',
-                discount_code: discountCode
-            },
-            success: function(response) {
-                if (response.success) {
-                    toastr.success(response.message);
-                    var newTotal = response.totalPrice;
-                    $('#total').text(number_format(newTotal) + ' đ');
-                    $('#total_price').val(newTotal);
-                    if (response.discountName && response.discountAmount) {
-                        var discountInfo = response.discountName;
-                        var discountMoney = response.discountAmount;
-                        $('#discount_info').text(discountInfo);
-                        $('#discount_money').text(number_format(discountMoney) + ' đ');
-                        $('#remove_discount_button').show();
-                    }
-                } else {
-                    toastr.error(response.message);
-                    $('#total').text(number_format(originalTotal) + ' đ');
-                    $('#total_price').val(originalTotal);
-                    $('#discount_code').val('');
-                }
-            },
-            error: function() {
-                toastr.error('Lỗi áp dụng mã giảm giá');
+            if (!discountCode) {
+                toastr.error('Vui lòng nhập mã giảm giá');
+                return;
             }
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('apply.discount') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    discount_code: discountCode
+                },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var newTotal = response.totalPrice;
+                        $('#total').text(number_format(newTotal) + ' đ');
+                        $('#total_price').val(newTotal);
+                        if (response.discountName && response.discountAmount) {
+                            var discountInfo = response.discountName;
+                            var discountMoney = response.discountAmount;
+                            $('#discount_info').text(discountInfo);
+                            $('#discount_money').text(number_format(discountMoney) + ' đ');
+                            $('#remove_discount_button').show();
+                        }
+                    } else {
+                        toastr.error(response.message);
+                        $('#total').text(number_format(originalTotal) + ' đ');
+                        $('#total_price').val(originalTotal);
+                        $('#discount_code').val('');
+                    }
+                },
+                error: function() {
+                    toastr.error('Lỗi áp dụng mã giảm giá');
+                }
+            });
+        });
+
+        $('#remove_discount_button').click(function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('remove.discount') }}',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        // Cập nhật lại số tiền trên giao diện với originalTotal
+                        var newTotal = response.originalTotal;
+                        $('#total').text(number_format(newTotal) + ' đ');
+                        $('#total_price').val(newTotal);
+                        $('#discount_info').text(''); // Xóa thông tin về mã giảm giá
+                        $('#discount_money').text('');
+                        if (!response.hasDiscountApplied) {
+                            $('#remove_discount_button').hide(); // Ẩn nút gỡ mã nếu không có mã áp dụng
+                        }
+                        $('#discount_code').val('');
+                    } else {
+                        toastr.error('Gỡ mã giảm giá không thành công');
+                    }
+                },
+                error: function() {
+                    toastr.error('Lỗi khi gỡ mã giảm giá');
+                }
+            });
         });
     });
 
-    $('#remove_discount_button').click(function(event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{{ route('remove.discount') }}',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    toastr.success(response.message);
-                    // Cập nhật lại số tiền trên giao diện với originalTotal
-                    var newTotal = response.originalTotal;
-                    $('#total').text(number_format(newTotal) + ' đ');
-                    $('#total_price').val(newTotal);
-                    $('#discount_info').text(''); // Xóa thông tin về mã giảm giá
-                    $('#discount_money').text('');
-                    if (!response.hasDiscountApplied) {
-                        $('#remove_discount_button').hide(); // Ẩn nút gỡ mã nếu không có mã áp dụng
-                    }
-                    $('#discount_code').val('');
-                } else {
-                    toastr.error('Gỡ mã giảm giá không thành công');
-                }
-            },
-            error: function() {
-                toastr.error('Lỗi khi gỡ mã giảm giá');
-            }
-        });
-    });
-});
 
 
 
-
-function number_format(number) {
-    return new Intl.NumberFormat('vi-VN').format(number).replace(/\./g, ",");;
-}
+    function number_format(number) {
+        return new Intl.NumberFormat('vi-VN').format(number).replace(/\./g, ",");;
+    }
 
 
 

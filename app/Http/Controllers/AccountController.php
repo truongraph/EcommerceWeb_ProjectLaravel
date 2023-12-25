@@ -21,6 +21,7 @@ class AccountController extends Controller
     }
     public function loginSubmit(Request $request)
     {
+
         $login = $request->input('email');
         $password = md5($request->input('password'));
 
@@ -29,9 +30,13 @@ class AccountController extends Controller
                 ->orWhere('name_account', $login);
         })->where('password_account', $password)->first();
 
+        if(empty($login) || empty($password)){
+            return response()->json(['error' => false, 'message' => 'Vui lòng điền đầy đủ thông tin đăng nhập!!']);
+        }
+
         if ($account) {
             if ($account->status_account == 0) {
-                return response()->json(['success' => false, 'message' => 'Tài khoản của bạn đã bị ngừng hoạt động. Vui lòng liên hệ quản trị viên.']);
+                return response()->json(['success' => false, 'message' => 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.']);
             }
 
             session(['account_id' => $account->id]);
@@ -103,6 +108,7 @@ class AccountController extends Controller
     }
     public function register(Request $request)
     {
+
         // Lấy thông tin từ form đăng ký
         $username = $request->input('username');
         $name = $request->input('name');
@@ -110,6 +116,18 @@ class AccountController extends Controller
         $password = md5($request->input('password'));
         $repassword = md5($request->input('repassword'));
         $phone = $request->input('phone');
+
+        /// Kiểm tra trống thông tin
+        if (empty($username) || empty($name) || empty($email) || empty($password) || empty($repassword) || empty($phone)) {
+            return redirect()->route('register')->with('error', 'Vui lòng điền đầy đủ thông tin bắt buộc có * đỏ.')->withInput();
+        }
+
+        /// Kiểm tra số điện thoại
+        if (strlen($phone) !== 10 || !ctype_digit($phone)) {
+            return redirect()->route('register')->with('error', 'Số điện thoại phải có 10 chữ số.')->withInput();
+        }
+
+        /// Kiểm tra
         $existingUsernameAccount = Account::where('name_account', $username)->first();
         if ($existingUsernameAccount) {
             return redirect()->route('register')->with('error', 'Tên tài khoản đã tồn tại.')->withInput();
@@ -120,6 +138,10 @@ class AccountController extends Controller
         $existingAccount = Account::where('email_account', $email)->first();
         if ($existingAccount) {
             return redirect()->route('register')->with('error', 'Email đã tồn tại. Bạn có thể đăng nhập hoặc khôi phục mật khẩu nếu quên')->withInput();
+        }
+        $existingAccount = Customer::where('phone_customer', $phone)->first();
+        if ($existingAccount) {
+            return redirect()->route('register')->with('error', 'Số điện thoại đã tồn tại.')->withInput();
         }
         // Tạo tài khoản mới
         $account = new Account();
@@ -141,7 +163,6 @@ class AccountController extends Controller
         $customer->save();
 
         // Tạo mã giảm giá
-        //$discountCode = 'NEW_' . strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
         $accountName = $account->name_account;
         $discountCode = 'WELCOME_' . strtoupper($accountName);
         $expirationDate = Carbon::now()->addDays(30);
@@ -160,34 +181,50 @@ class AccountController extends Controller
     }
 
 
-public function updateCustomerInfo(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'phone' => 'required',
-        'address' => 'required',
-        //Thêm các quy tắc kiểm tra khác tùy thuộc vào yêu cầu của bạn
-    ]);
+    public function updateCustomerInfo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+        $name = $request->input('name');
+        $phone  = $request->input('phone');
+        $address = $request->input('address');
 
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
+        if(empty($name) || empty($phone) || empty($address)){
+            return redirect()->back()->with('error', 'Không được để trống thông tin');
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $accountId = session('account_id');
+        $customer = Customer::where('id_account', $accountId)->first();
+
+
+
+        if ($customer) {
+            $customer->name_customer = $request->input('name');
+            $customer->phone_customer = $request->input('phone');
+            $customer->address_customer = $request->input('address');
+
+            // Kiểm tra xem số điện thoại mới có trùng với bất kỳ khách hàng nào khác không
+            $existingCustomer = Customer::where('phone_customer', $phone)
+            ->where('id', '!=', $customer->id)
+            ->first();
+
+            if ($existingCustomer) {
+            return redirect()->back()->with('error', 'Số điện thoại này đã được sử dụng bởi khách hàng khác');
+            }
+
+            $customer->save();
+
+            return redirect()->back()->with('success', 'Thông tin khách hàng đã được cập nhật thành công');
+        }
+
+        return redirect()->back()->with('error', 'Không tìm thấy thông tin khách hàng');
     }
-
-    $accountId = session('account_id');
-    $customer = Customer::where('id_account', $accountId)->first();
-
-    if ($customer) {
-        $customer->name_customer = $request->input('name');
-        $customer->phone_customer = $request->input('phone');
-        $customer->address_customer = $request->input('address');
-        // Cập nhật thông tin khác tùy thuộc vào yêu cầu của bạn
-
-        $customer->save();
-
-        return redirect()->back()->with('success', 'Thông tin khách hàng đã được cập nhật thành công');
-    }
-
-    return redirect()->back()->with('error', 'Không tìm thấy thông tin khách hàng');
-}
 
 }

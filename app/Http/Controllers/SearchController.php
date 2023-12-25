@@ -13,6 +13,7 @@ class SearchController extends Controller
         $query = $request->input('query');
         $products = Product::where('name_product', 'like', "%$query%")->get();
 
+
         return view('search.index', compact('products', 'query'));
     }
 }

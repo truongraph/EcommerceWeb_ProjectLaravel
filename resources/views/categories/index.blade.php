@@ -9,7 +9,7 @@
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
                     <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
-                    <li class="breadcrumb-item">Danh mục sản phẩm</li>
+                    <li class="breadcrumb-item">Sản phẩm của shop</li>
                 </ul>
 
                 <!-- breadcrumb-list end -->
@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="shop-product-wrapper">
                     <div class="row align-itmes-center">
-                        <div class="col"><span class="title-shop">Danh mục sản phẩm</span>
+                        <div class="col"><span class="title-shop">Sản phẩm của shop</span>
                         </div>
                         <div class="col">
                             <!-- product-short start -->

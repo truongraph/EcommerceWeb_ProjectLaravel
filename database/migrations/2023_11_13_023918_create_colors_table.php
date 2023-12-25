@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('desc_color');
             $table->timestamps();
-            $table->foreignId('id_product')->constrained('products');
         });
     }
 

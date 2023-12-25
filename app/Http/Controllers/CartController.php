@@ -124,6 +124,9 @@ class CartController extends Controller
                  if ($totalQuantity > $variant->quantity) {
                     return Response::json(['message' => 'Số lượng vượt quá số lượng tồn'], 400);
                 }
+                if ($totalQuantity <= 0) {
+                    return Response::json(['message' => 'Số lượng phải lớn hơn 0 '], 400);
+                }
 
                 // Cập nhật số lượng sản phẩm trong giỏ hàng
                 $cart[$productid]['quantity'] = $totalQuantity;

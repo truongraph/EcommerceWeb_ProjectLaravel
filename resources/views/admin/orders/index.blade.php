@@ -58,7 +58,7 @@
                                 <option value="2" {{ request('status_filter') == '2' ? 'selected' : '' }}>Đã xác nhận</option>
                                 <option value="3" {{ request('status_filter') == '3' ? 'selected' : '' }}>Đang giao hàng</option>
                                 <option value="4" {{ request('status_filter') == '4' ? 'selected' : '' }}>Giao thành công</option>
-                                <option value="4" {{ request('status_filter') == '5' ? 'selected' : '' }}>Hoàn trả</option>
+                                <option value="5" {{ request('status_filter') == '5' ? 'selected' : '' }}>Hoàn trả</option>
                             </select>
                         </div>
 
@@ -107,6 +107,7 @@
                                     <a data-id="{{ $order->id }}" class="btn fw-bold btn-outline-danger update-status" data-status="0"><i class="bx bxs-x-circle"></i> Huỷ đơn</a>
                                     <a data-id="{{ $order->id }}" class="btn fw-bold btn-outline-success update-status" data-status="2"><i class="bx bxs-check-circle"></i> Xác nhận đơn</a>
                                     @elseif($order->status_order == 2)
+                                    <a data-id="{{ $order->id }}" class="btn fw-bold btn-outline-danger update-status" data-status="0"><i class="bx bxs-x-circle"></i> Huỷ đơn</a>
                                     <a data-id="{{ $order->id }}" class="btn fw-bold btn-outline-info update-status" data-status="3"><i class="bx bxs-truck"></i> Đang giao hàng</a>
                                     @elseif($order->status_order == 3)
                                     <a data-id="{{ $order->id }}" class="btn btn-outline-warning fw-bold update-status" data-status="5"><i class="bx bxs-left-arrow-square"></i> Hoàn trả</a>
@@ -150,7 +151,6 @@
             Swal.fire({
                 title: `Chuyển sang ${statusName}`,
                 text: `Bạn có chắc muốn thực hiện thao tác này ?`
-                , icon: "question"
                 , showCancelButton: true
                 , confirmButtonColor: "#34c3af"
                 , cancelButtonColor: "#f46a6a"

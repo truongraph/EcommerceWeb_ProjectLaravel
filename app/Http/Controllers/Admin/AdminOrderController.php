@@ -59,72 +59,65 @@ class AdminOrderController extends Controller
         return view('admin.orders.index', compact('orders', 'paymentMethods'));
     }
 
-public function delete($id)
-{
-    $order = Order::find($id);
+    public function delete($id)
+    {
+        $order = Order::find($id);
 
-    if (!$order) {
-        return redirect()->back()->with('error', 'Đơn hàng không tồn tại.');
+        if (!$order) {
+            return redirect()->back()->with('error', 'Đơn hàng không tồn tại.');
+        }
+        if($order->status_order === 5){
+            // Xóa các chi tiết đơn hàng liên quan
+        $order->orderDetails()->delete();
+
+        // Xóa đơn hàng
+        $order->delete();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Đơn hàng đã được xoá thành công.');
+        }
+        // Kiểm tra nếu đơn hàng chưa được hủy
+        if ($order->status_order !== 0) {
+            return redirect()->back()->with('error', 'Không thể xóa đơn hàng đã được xác nhận hoặc đang giao.');
+        }
+
+        // Xóa các chi tiết đơn hàng liên quan
+        $order->orderDetails()->delete();
+
+        // Xóa đơn hàng
+        $order->delete();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Đơn hàng đã được xoá thành công.');
     }
-
-    // Xóa các chi tiết đơn hàng liên quan
-    $order->orderDetails()->delete();
-
-    // Xóa đơn hàng
-    $order->delete();
-
-    return redirect()->route('admin.orders.index')->with('success', 'Đơn hàng đã được xoá thành công.');
-}
 
     public function updateStatus($id, $status)
-{
-    $order = Order::find($id);
+    {
+        $order = Order::find($id);
 
-    if (!$order) {
-        return redirect()->back()->with('error', 'Đơn hàng không tồn tại.');
-    }
+        if (!$order) {
+            return redirect()->back()->with('error', 'Đơn hàng không tồn tại.');
+        }
 
-    $order->status_order = $status;
-    $order->save();
+        $order->status_order = $status;
+        $order->save();
 
-    if ($status == 3) {
-        foreach ($order->orderDetails as $orderDetail) {
-            // Giảm số lượng sản phẩm và kích thước tương ứng
-            $productSize = ProductVariant::where('product_id', $orderDetail->productid)
-                ->where('size_id', $orderDetail->sizeid)
-                ->where('color_id', $orderDetail->colorid) // Tìm theo màu sắc
-                ->first();
+        if ($status === 5 || $status === 0 ){ // Nếu chuyển sang status_order = 5 (Đã hoàn trả)
+            foreach ($order->orderDetails as $orderDetail) {
+                // Tìm sản phẩm và kích thước tương ứng để tăng số lượng
+                $productSize = ProductVariant::where('product_id', $orderDetail->productid)
+                    ->where('size_id', $orderDetail->sizeid)
+                    ->where('color_id', $orderDetail->colorid) // Tìm theo màu sắc
+                    ->first();
 
-            if ($productSize) {
-                // Giảm số lượng sản phẩm và kích thước tương ứng
-                $productSize->quantity -= $orderDetail->quantity;
-
-                // Kiểm tra số lượng mới, tránh số âm
-                if ($productSize->quantity < 0) {
-                    $productSize->quantity = 0;
+                if ($productSize) {
+                    // Tăng số lượng sản phẩm và kích thước tương ứng
+                    $productSize->quantity += $orderDetail->quantity;
+                    $productSize->save();
                 }
-
-                $productSize->save();
             }
         }
-    } elseif ($status == 5) { // Nếu chuyển sang status_order = 5 (Đã hoàn trả)
-        foreach ($order->orderDetails as $orderDetail) {
-            // Tìm sản phẩm và kích thước tương ứng để tăng số lượng
-            $productSize = ProductVariant::where('product_id', $orderDetail->productid)
-                ->where('size_id', $orderDetail->sizeid)
-                ->where('color_id', $orderDetail->colorid) // Tìm theo màu sắc
-                ->first();
 
-            if ($productSize) {
-                // Tăng số lượng sản phẩm và kích thước tương ứng
-                $productSize->quantity += $orderDetail->quantity;
-                $productSize->save();
-            }
-        }
+        return redirect()->back()->with('success', 'Trạng thái đơn hàng đã được cập nhật thành công.');
     }
-
-    return redirect()->back()->with('success', 'Trạng thái đơn hàng đã được cập nhật thành công.');
-}
     public function view($id)
     {
         $order = Order::findOrFail($id);

@@ -54,13 +54,14 @@
                             <td>@if($account->status_account == 1)
                                 <small class="badge badge-soft-success">Hoạt động</small>
                                 @elseif($account->status_account == 0)
-                                <small class="badge badge-soft-danger">Ngừng hoạt động</small>
+                                <small class="badge badge-soft-danger">Đã khóa</small>
                                 @endif</td>
                             <td>
                                 <div style="display:flex;gap:10px">
                                     @if($account->id !== 1)
                                     <!-- Nút xoá chỉ được hiển thị nếu ID không phải là 1 -->
                                     <a class="btn btn-primary" href="{{ route('admin.accounts.edit', $account->id) }}"><i class="bx bx-edit"></i> Chỉnh sửa</a>
+                                    <a class="btn btn-primary" href="{{ route('admin.accounts.block', $account->id) }}"><i class="bx bx-edit"></i> Khóa tài khoản</a>
                                     @endif
                                 </div>
                             </td>

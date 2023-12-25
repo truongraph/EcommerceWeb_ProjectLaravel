@@ -48,15 +48,6 @@
                                     <input type="password" class="form-control" id="password_account" name="password_account">
                                 </div>
                             </div>
-                            <div class="col-md-12" bis_skin_checked="1">
-                                <div class="mb-3" bis_skin_checked="1">
-                                    <label for="parent" class="form-label">Trạng thái</label>
-                                    <div class="form-check form-switch form-switch-lg mb-lg-3" dir="ltr" bis_skin_checked="1">
-                                        <input class="form-check-input" type="checkbox" id="status_account" name="status_account" {{ ($account->status_account == 1) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="status_account">{{ ($account->status_account == 1) ? 'Hoạt động' : 'Ngừng hoạt động' }}</label>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div bis_skin_checked="1">
                             <!-- Nút xoá chỉ được hiển thị nếu ID không phải là 1 -->

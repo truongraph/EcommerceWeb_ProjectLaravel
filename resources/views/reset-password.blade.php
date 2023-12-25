@@ -12,6 +12,16 @@
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
+                                @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+                                @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                                @endif
                                 <h4> Đổi mật khẩu </h4>
                                 <p class="secon-title-login">Bạn vui lòng nhập mật khẩu mới cho tài khoản của mình</p>
                                 <div class="login-register-form">
@@ -21,12 +31,12 @@
                                             <div class="col_full">
                                                 <input type="hidden" name="token" value="{{ $token }}">
                                                 <label for="password">Mật khẩu mới: <span class="require_symbol">* </span></label>
-                                                <input type="password" name="password" required class="form-control">
+                                                <input type="password" name="password"  class="form-control">
 
                                             </div>
                                             <div class="col_full">
                                                 <label for="password_confirmation">Nhập lại mật khẩu mới: <span class="require_symbol">* </span></label>
-                                                <input type="password" name="password_confirmation" required class="form-control">
+                                                <input type="password" name="password_confirmation" class="form-control">
 
                                             </div>
                                         </div>

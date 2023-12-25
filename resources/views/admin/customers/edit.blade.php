@@ -47,7 +47,7 @@
                             <div class="col-md-6" bis_skin_checked="1">
                                 <div class="mb-3" bis_skin_checked="1">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email_customer" name="email_customer" required value="{{ $customers->email_customer }}">
+                                    <input type="email" class="form-control" id="email_customer" name="email_customer" required value="{{ $customers->email_customer }}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6" bis_skin_checked="1">

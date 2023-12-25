@@ -20,12 +20,12 @@
                                         @csrf
                                         <div class="login-input-box">
                                             <div class="col_full">
-                                                <label for="email_or_phone">Email hoặc Số điện thoại</label>
+                                                <label for="email_or_phone">Email hoặc Số điện thoại<span class="required">*</span></label>
                                                 <input type="text" name="email_or_phone" required class="form-control">
 
                                             </div>
                                             <div class="col_full">
-                                                <label for="order_code">Mã đơn hàng (Ví dụ: OD92823736)</label>
+                                                <label for="order_code">Mã đơn hàng (Ví dụ: OD92823736)<span class="required">*</span></label>
                                                 <input type="text" name="order_code" required class="form-control">
 
                                             </div>

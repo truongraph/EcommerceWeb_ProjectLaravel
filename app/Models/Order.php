@@ -29,14 +29,5 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class, 'orderid');
     }
 
-    // public function color()
-    // {
-    //     return $this->belongsTo(Color::class, 'id_color');
-    // }
-
-    // public function size()
-    // {
-    //     return $this->belongsTo(Size::class, 'id_size');
-    // }
 
 }

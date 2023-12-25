@@ -197,13 +197,6 @@
                                 <span key="t-ui-elements">Banner</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is('admin/emails*') ? 'mm-active' : '' }}">
-                            <a href="{{ route('admin.email.edit') }}"
-                                class="waves-effect {{ Request::is('admin/emails*') ? 'active' : '' }}">
-                                <i class='bx bx-envelope'></i>
-                                <span key="t-ui-elements">Cấu hình email</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>

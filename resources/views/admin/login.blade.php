@@ -42,7 +42,7 @@
                         <div class="row g-0">
                             <div class="col-lg-6">
                                 <div class="p-lg-5 p-4">
-
+                                    
                                     <div>
                                         <h5><b>HỆ THỐNG QUẢN LÝ BÁN HÀNG</b></h5>
                                         <p class="text-muted">Đăng nhập tài khoản để bắt đầu quản trị</p>
@@ -53,12 +53,12 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label for="username" class="fw-semibold">Email hoặc tên tài khoản</label>
-                                                <input type="text" class="form-control" id="email" name="email" required>
+                                                <input type="text" class="form-control" id="email" name="email">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="userpassword" class="fw-semibold">Mật khẩu</label>
-                                                <input type="password" class="form-control" id="password" name="password" required>
+                                                <input type="password" class="form-control" id="password" name="password" >
                                             </div>
 
                                             <div class="row align-items-center">

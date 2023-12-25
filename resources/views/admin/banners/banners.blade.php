@@ -101,8 +101,12 @@
                                 <option value="inactive" {{ request('status_filter') == 'inactive' ? 'selected' : '' }}>Ngừng hoạt động</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2" style ="margin-right: -75px">
                             <button type="submit" class="btn btn-primary"><i class="bx bx-filter-alt"></i> Lọc</button>
+
+                        </div>
+                        <div class="col-md-2">
+
                             <a href="{{ route('admin.banners.index') }}" class="btn btn-secondary"><i class="bx bx-reset"></i> Reset</a>
                         </div>
                     </div>

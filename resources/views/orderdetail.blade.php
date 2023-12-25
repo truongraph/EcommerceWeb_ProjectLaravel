@@ -123,18 +123,24 @@
                                 @endif
                                    </p>
                               <p>
-                           <strong>Mã giảm giá :</strong>
-                           @if($order->discount_code && $order->discount)
-                                    <span style="float: right;">- {{ number_format($order->discount->discount) }} đ</span>
-                                @else
-                                    <span style="float: right;">Không có mã giảm giá</span>
-                                @endif
-                       </p>
+                                    <strong>Mã giảm giá :</strong>
+                                    @if($order->discount_code && $order->discount)
+                                                <span style="float: right;">- {{ number_format($order->discount->discount) }} đ</span>
+                                            @else
+                                                <span style="float: right;">Không có mã giảm giá</span>
+                                            @endif
+                                </p>
                                 <p>
-                                    <strong> Thành tiền:</strong>
+                                        <strong> Thành tiền:</strong>
 
-                                <span style="float: right;"><span style="color: red; font-size: 20px;font-weight:600">{{ number_format($order->total_order) }} đ</span></span>
+                                    <span style="float: right;"><span style="color: red; font-size: 20px;font-weight:600">{{ number_format($order->total_order) }} đ</span></span>
 
+                                </p>
+                                <p>
+                                    <div style="font-size: 11px;text-align:center;margin-top:50px;">
+                                        <p><i>Mọi thắc mắc xin hãy liên hệ về hotline: 0789703120</i></p>
+                                        <p><i> Địa chỉ : 180 Cao Lỗ, P.4, Q.8, HCM</i></p>
+                                    </div>
                                 </p>
                             </div>
                           <a   class="text-white continue-btn text-center" style="display: block;width:100%" href="javascript:history.go(-1);"><i class='bx bx-left-arrow-alt' ></i> Trở về</a>

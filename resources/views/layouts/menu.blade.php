@@ -2,6 +2,7 @@
 <ul class="{{ isset($isSubmenu) ? 'sub-menu' : '' }}">
     <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
     <li><a href="{{URL::to('/ve-chung-toi')}}">Về chúng tôi</a></li>
+    <li><a href="{{URL::to('/categories')}}">Sản phẩm</a></li>
     @foreach($categories as $category)
     @if($category->status_category == 1)
         <li>
@@ -13,5 +14,6 @@
         @endif
     @endforeach
     <li><a href="{{URL::to('/lienhe')}}">Liên hệ</a></li>
+    <li><a href="{{URL::to('/discount')}}">Mã khuyến mãi</a></li>
     <li><a href="{{ route('order.search.view') }}">Tra cứu đơn hàng</a></li>
 </ul>
