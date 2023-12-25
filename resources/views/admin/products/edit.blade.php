@@ -768,55 +768,65 @@ $selectedVariantsJSON = json_encode($selectedVariants);
             }
 
             if (e.target && e.target.classList.contains('remove-variant')) {
-                const parentRow = e.target.parentNode;
-                const colorDiv = parentRow.querySelector('.color-name').textContent;
-                const sizeDiv = parentRow.querySelector('.size-name').textContent;
-                const variantId = parentRow.getAttribute('data-variant-id');
-                console.log("variantId", variantId);
-                const confirmDelete = Swal.fire({
-                    title: "Thông báo",
-                    text: `Bạn có chắc chắn muốn xóa biến thể có màu ${colorDiv} và kích thước ${sizeDiv} không?`,
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#34c3af",
-                    cancelButtonColor: "#f46a6a",
-                    confirmButtonText: "Đồng ý xoá",
-                    cancelButtonText: "Huỷ bỏ"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        if (variantId) {
-                            axios.delete(`/delete-variant/${variantId}`).then(response => {
-                                    // Xoá thành công, có thể thực hiện các thao tác cần thiết
-                                    $.toast({
-                                        heading: 'Thành công',
-                                        text: 'Đã xoá thành công',
-                                        hideAfter: 3000,
-                                        icon: 'success',
-                                        position: 'top-right',
-                                        loader: false,
-                                    });
-                                    parentRow.remove();
-                                })
-                                .catch(error => {
-                                    // Xử lý lỗi nếu có
-                                    console.error('Error:', error);
-                                });
-                        } else {
-                            $.toast({
-                                heading: 'Thành công',
-                                text: 'Đã xoá thành công',
-                                hideAfter: 3000,
-                                icon: 'success',
-                                position: 'top-right',
-                                loader: false,
-                            });
-                            parentRow.remove();
-                        }
+    const parentRow = e.target.parentNode;
+    const variantId = parentRow.getAttribute('data-variant-id');
+        const variantIndex = Array.from(parentRow.parentNode.children).indexOf(parentRow);
+console.log(variantIndex);
+    const confirmDelete = Swal.fire({
+        title: "Thông báo",
+        text: `Bạn có chắc chắn muốn xóa biến thể không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#34c3af",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "Đồng ý xoá",
+        cancelButtonText: "Huỷ bỏ"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (variantIndex !== -1) {
 
-                    }
+            if (variantId) {
+                // Gọi endpoint để xóa biến thể khỏi database
+                axios.delete(`/admin/products/delete-variant/${variantId}`)
+                    .then(response => {
+                        // Xoá thành công, có thể thực hiện các thao tác cần thiết
+                        $.toast({
+                            heading: 'Thành công',
+                            text: 'Đã xoá thành công',
+                            hideAfter: 3000,
+                            icon: 'success',
+                            position: 'top-right',
+                            loader: false,
+                        });
+                        // Sau khi xóa thành công, xóa biến thể khỏi giao diện
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi nếu có
+                        console.error('Error:', error);
+                    });
+            } else {
+                $.toast({
+                    heading: 'Thành công',
+                    text: 'Đã xoá thành công',
+                    hideAfter: 3000,
+                    icon: 'success',
+                    position: 'top-right',
+                    loader: false,
                 });
-
             }
+            selectedVariants.splice(variantIndex, 1);
+                parentRow.remove();
+
+            // Cập nhật lại giá trị ẩn trong variantsInput
+            const variantsInput = document.getElementById('variantsInput');
+            const variantInputs = variantsInput.querySelectorAll('input[name="variants[]"]');
+            if (variantInputs.length > variantIndex) {
+                variantInputs[variantIndex].remove(); // Xóa phần tử ẩn tương ứng với biến thể đã xóa
+            }
+        }
+        }
+    });
+}
 
         });
 </script>

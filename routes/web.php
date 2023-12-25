@@ -158,12 +158,14 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::put('/admin/sizes/update/{id}', [AdminSizeController::class, 'update'])->name('admin.sizes.update');
     //========================================================
     //========================================================
+
    Route::get('/admin/discounts', [AdminDiscountController::class, 'index'])->name('admin.discounts.index');
    Route::get('/admin/discounts/create', [AdminDiscountController::class, 'create'])->name('admin.discounts.create');
    Route::post('/admin/discounts/store', [AdminDiscountController::class, 'store'])->name('admin.discounts.store');
    Route::get('/admin/discounts/delete/{id}', [AdminDiscountController::class, 'delete'])->name('admin.discounts.delete');
    Route::get('/admin/discounts/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discounts.edit');
    Route::put('/admin/discounts/update/{id}', [AdminDiscountController::class, 'update'])->name('admin.discounts.update');
+
     //========================================================
    //========================================================
    Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.products.index');

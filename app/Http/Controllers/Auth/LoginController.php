@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordEmail;
 use Illuminate\Support\Str;
+
 class LoginController extends Controller
 {
     public function showLogin()
@@ -30,18 +31,16 @@ class LoginController extends Controller
             $query->where('email', $login)->orWhere('name', $login);
         })->first();
 
-        // Kiểm tra xem tài khoản có tồn tại không
-        if ($account) {
-            // Kiểm tra mật khẩu dưới dạng bcrypt
-            if (md5($password, $account->password)) {
-                session(['id' => $account->id]);
-                Auth::login($account);
-                return redirect()->intended('/admin');
-            }
+        // Kiểm tra xem tài khoản có tồn tại không và mật khẩu đúng hay không
+        if ($account && md5($password) === $account->password) {
+            session(['id' => $account->id]);
+            Auth::login($account);
+            return redirect()->intended('/admin');
         }
 
         return redirect('/admin/login')->with('error', 'Thông tin tài khoản hoặc mật khẩu không đúng.');
     }
+
     public function logout()
     {
         Auth::logout();
