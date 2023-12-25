@@ -73,10 +73,21 @@ class ForgotPasswordController extends Controller
         if (!$account) {
             return redirect()->back()->with('error', 'Đường dẫn khôi phục mật khẩu không hợp lệ.');
         }
+
+        $password = $request->input('password');
+        $passwordConfirmation = $request->input('password_confirmation');
+
+        // Kiểm tra xem hai mật khẩu có khớp nhau không
+        if ($password !== $passwordConfirmation) {
+            return redirect()->back()->with('error', 'Mật khẩu nhập lại không khớp. Vui lòng nhập lại.');
+        }
+
         $account->update([
-            'password_account' => md5($request->input('password')),
+            'password_account' => md5($password),
             'reset_password_token' => null,
         ]);
+
         return redirect()->route('login')->with('success', 'Mật khẩu đã được khôi phục thành công. Vui lòng đăng nhập.');
     }
+
 }

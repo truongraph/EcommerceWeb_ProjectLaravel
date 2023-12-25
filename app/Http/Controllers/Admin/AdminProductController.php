@@ -268,11 +268,23 @@ class AdminProductController extends Controller
 
         if ($variant) {
             $variant->delete();
-            return response()->json(['message' => 'Xoá thuộc tính thành công']);
+
+            // Xoá biến thể thành công, tiến hành làm mới lại danh sách biến thể
+            $productId = $variant->product_id;
+            $product = Product::with('variants')->find($productId);
+
+            if ($product) {
+                $variants = $product->variants;
+                // Trả về danh sách biến thể mới sau khi xoá thành công
+                return response()->json(['message' => 'Xoá thuộc tính thành công', 'variants' => $variants]);
+            }
+
+            return response()->json(['message' => 'Không tìm thấy sản phẩm sau khi xoá biến thể'], 404);
         }
 
         return response()->json(['message' => 'Thuộc tính không tồn tại'], 404);
     }
+
 
 
     public function update(Request $request, $id)
@@ -383,14 +395,34 @@ class AdminProductController extends Controller
 
         // Xử lý lưu biến thể
         $variants = $request->input('variants');
+        // Xử lý lưu biến thể
         if ($variants) {
-            foreach ($variants as $variant) {
-                $variantData = json_decode($variant, true);
-                // Chuyển đổi các giá trị từ chuỗi sang kiểu integer
-                $colorId = intval($variantData['color']);
-                $sizeId = intval($variantData['size']);
-                $quantity = intval($variantData['quantity']);
-                // Kiểm tra biến thể đã tồn tại hay chưa
+            // Lấy danh sách các biến thể được chọn từ giao diện người dùng
+            $receivedVariants = collect($variants)->map(function ($variant) {
+                return json_decode($variant, true);
+            });
+
+            // Lấy danh sách biến thể hiện có trong cơ sở dữ liệu của sản phẩm
+            $existingVariants = ProductVariant::where('product_id', $id)->get();
+
+            // Xóa các biến thể không còn được chọn từ cơ sở dữ liệu
+            foreach ($existingVariants as $existingVariant) {
+                $variantExists = $receivedVariants->contains(function ($receivedVariant) use ($existingVariant) {
+                    return $existingVariant->color_id == $receivedVariant['color'] && $existingVariant->size_id == $receivedVariant['size'];
+                });
+
+                if (!$variantExists) {
+                    $existingVariant->delete();
+                }
+            }
+
+            // Thêm những biến thể mới
+            foreach ($receivedVariants as $receivedVariant) {
+                $colorId = intval($receivedVariant['color']);
+                $sizeId = intval($receivedVariant['size']);
+                $quantity = intval($receivedVariant['quantity']);
+
+                // Kiểm tra xem biến thể đã tồn tại hay chưa
                 $existingVariant = ProductVariant::where('product_id', $id)
                     ->where('color_id', $colorId)
                     ->where('size_id', $sizeId)
@@ -414,6 +446,7 @@ class AdminProductController extends Controller
                 }
             }
         }
+
 
 
         return redirect()->route('admin.products.index')->with('success', 'Sản phẩm đã cập nhật thành công.');

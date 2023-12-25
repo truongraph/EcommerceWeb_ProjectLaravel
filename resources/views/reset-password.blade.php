@@ -12,11 +12,13 @@
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
+
                                 @if(session('success'))
                                 <div class="alert alert-success">
                                     {{ session('success') }}
                                 </div>
                                 @endif
+
                                 @if(session('error'))
                                 <div class="alert alert-danger">
                                     {{ session('error') }}
