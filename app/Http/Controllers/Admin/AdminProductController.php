@@ -267,6 +267,17 @@ class AdminProductController extends Controller
         $variant = ProductVariant::find($variantId);
 
         if ($variant) {
+            // Kiểm tra xem biến thể có được sử dụng trong OrderDetail hay không
+            $usedInOrderDetail = OrderDetail::where('productid', $variant->product_id)
+                ->where('sizeid', $variant->size_id)
+                ->where('colorid', $variant->color_id)
+                ->exists();
+
+            if ($usedInOrderDetail) {
+                return response()->json(['error' => 'Không thể xóa biến thể vì nó được sử dụng trong chi tiết đơn'], 400);
+            }
+
+            // Nếu không được sử dụng trong OrderDetail, tiến hành xóa biến thể
             $variant->delete();
 
             // Xoá biến thể thành công, tiến hành làm mới lại danh sách biến thể
@@ -276,14 +287,15 @@ class AdminProductController extends Controller
             if ($product) {
                 $variants = $product->variants;
                 // Trả về danh sách biến thể mới sau khi xoá thành công
-                return response()->json(['message' => 'Xoá thuộc tính thành công', 'variants' => $variants]);
+                return response()->json(['success' => 'Xoá biến thể thành công', 'variants' => $variants]);
             }
 
-            return response()->json(['message' => 'Không tìm thấy sản phẩm sau khi xoá biến thể'], 404);
+            return response()->json(['error' => 'Không tìm thấy sản phẩm sau khi xoá biến thể'], 400);
         }
 
-        return response()->json(['message' => 'Thuộc tính không tồn tại'], 404);
+        return response()->json(['error' => 'Biến thể không tồn tại'], 400);
     }
+
 
 
 

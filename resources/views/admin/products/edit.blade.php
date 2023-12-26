@@ -786,6 +786,7 @@ console.log(variantIndex);
             if (variantIndex !== -1) {
 
             if (variantId) {
+
                 // Gọi endpoint để xóa biến thể khỏi database
                 axios.delete(`/admin/products/delete-variant/${variantId}`)
                     .then(response => {
@@ -799,11 +800,37 @@ console.log(variantIndex);
                             loader: false,
                         });
                         // Sau khi xóa thành công, xóa biến thể khỏi giao diện
+                        selectedVariants.splice(variantIndex, 1);
+                parentRow.remove();
+
+            // Cập nhật lại giá trị ẩn trong variantsInput
+            const variantsInput = document.getElementById('variantsInput');
+            const variantInputs = variantsInput.querySelectorAll('input[name="variants[]"]');
+            if (variantInputs.length > variantIndex) {
+                variantInputs[variantIndex].remove(); // Xóa phần tử ẩn tương ứng với biến thể đã xóa
+            }
                     })
-                    .catch(error => {
-                        // Xử lý lỗi nếu có
-                        console.error('Error:', error);
-                    });
+                     .catch(error => {
+        // Xử lý lỗi nếu có
+        if (error.response && error.response.status === 400) {
+            // Hiển thị thông báo lỗi từ server
+            const errorMessage = error.response.data.error;
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: errorMessage,
+            });
+        } else {
+            // Xử lý lỗi không xác định
+            console.error('Error:', error);
+            // Hiển thị thông báo lỗi mặc định
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Đã xảy ra lỗi khi xóa biến thể.',
+            });
+        }
+    });
             } else {
                 $.toast({
                     heading: 'Thành công',
@@ -813,8 +840,7 @@ console.log(variantIndex);
                     position: 'top-right',
                     loader: false,
                 });
-            }
-            selectedVariants.splice(variantIndex, 1);
+                selectedVariants.splice(variantIndex, 1);
                 parentRow.remove();
 
             // Cập nhật lại giá trị ẩn trong variantsInput
@@ -823,6 +849,8 @@ console.log(variantIndex);
             if (variantInputs.length > variantIndex) {
                 variantInputs[variantIndex].remove(); // Xóa phần tử ẩn tương ứng với biến thể đã xóa
             }
+            }
+
         }
         }
     });
