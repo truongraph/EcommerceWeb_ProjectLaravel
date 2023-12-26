@@ -31,3 +31,28 @@ vào admin thì thêm /admin
 
 Đây là template admin clone
 https://www.preview.pichforest.com/samply/layouts/
+
+
+
+
+---------------------------------------------------------------
+
+Các lệnh khi get source mới về
+
+(Nếu có thay đổi gì ở source)
+
+- Kiểm tra nhánh: git branch
+
+Nhớ nhánh của mình tên là gì
+
+- Cho vào nháp: git stash
+- Checkout qua development: git checkout development
+- Get source về: git pull
+- Checkout qua source cũ của mình: git checkout tênnhánhcủamìnhtrướcđó
+- Mở nháp: git stash pop
+- Fetch lại: git fetch
+- Rebase lại: git rebase origin/development
+
+
+  
+
