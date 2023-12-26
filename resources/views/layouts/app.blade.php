@@ -139,7 +139,7 @@
 
             <!-- haeader bottom Start -->
             <div class="haeader-bottom-area bg-gren header-sticky">
-                <div class="container">
+                <div class="container container-menu">
                     <div class="row align-items-center">
                         <div class="col-lg-12 d-none d-lg-block">
                             <div class="main-menu-area white_text">

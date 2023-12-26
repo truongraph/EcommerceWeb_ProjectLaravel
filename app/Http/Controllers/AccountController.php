@@ -91,6 +91,10 @@ class AccountController extends Controller
             return redirect()->back()->with('error', 'Mật khẩu hiện tại không chính xác');
         }
 
+        if ($newPassword === $currentPassword) {
+            return redirect()->back()->with('error', 'Mật khẩu mới phải khác với mật khẩu hiện tại.');
+        }
+
         if ($newPassword !== $confirmPassword) {
             return redirect()->back()->with('error', 'Mật khẩu mới và xác nhận mật khẩu không khớp.');
         }

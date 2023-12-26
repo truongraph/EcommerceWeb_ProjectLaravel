@@ -174,7 +174,7 @@ Route::middleware(['admin.auth'])->group(function () {
    Route::get('/admin/products/delete/{id}', [AdminProductController::class, 'delete'])->name('admin.products.delete');
    Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
    Route::put('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
-   Route::delete('/delete-variant/{id}', [AdminProductController::class, 'deleteVariant'])->name('delete.variant');
+   Route::delete('/admin/products/delete-variant/{id}', [AdminProductController::class, 'deleteVariant'])->name('delete.variant');
    //========================================================
    //========================================================
     Route::get('/admin/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
