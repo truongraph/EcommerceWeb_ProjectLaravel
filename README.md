@@ -2,6 +2,7 @@ CÁCH CÀI ĐẶT WEBSITE
 1.Nếu chưa có xampp thì cài xampp
 2.Nếu chưa có composer thì theo dõi link -> https://hocwebchuan.com/tutorial/laravel/install_composer.php
 
+
 B1: tải hoặc clone source về bỏ thư mục htdoct của xamp và chạy xamp
 
 B2: tạo database tên toranowebsite với loại general utf8
@@ -10,6 +11,8 @@ B2: tạo database tên toranowebsite với loại general utf8
 B3: Mở source bằng visual code
 
 - Tải file .env về và copy bỏ vô source
+
+B4: Cài nodejs
 
 Mở terminal như đã hướng dẫn hoặc gõ Ctrl + shift + `
 
@@ -34,6 +37,10 @@ https://www.preview.pichforest.com/samply/layouts/
 
 Đầ là template user clone
 https://preview.themeforest.net/item/origine-organic-food-ecommerce-bootstrap-4-template/full_screen_preview/23895004?_ga=2.202722838.684922558.1705724379-1844940076.1704855501
+
+Source chạy laravel 10 và php 8
+
+
 
 ---------------------------------------------------------------
 
