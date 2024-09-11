@@ -27,7 +27,10 @@ Mở terminal như đã hướng dẫn hoặc gõ Ctrl + shift + `
 
 Sau khi update lại composer xong thì chạy tiếp lệnh
 
+- php artisan cache:clear
+
 - php artisan key:generate
+
 
 Xong thì chạy lệnh 
 
