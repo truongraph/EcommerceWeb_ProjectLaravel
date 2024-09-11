@@ -5,14 +5,19 @@ CÁCH CÀI ĐẶT WEBSITE
 
 B1: tải hoặc clone source về bỏ thư mục htdoct của xamp và chạy xamp
 
-B2: tạo database tên toranowebsite với loại general utf8
-- import databse vào
+B2: Truy cập localhost phpmyadmin
+
+tạo database tên toranowebsite với loại general utf8
+
+- import database vào
 
 B3: Mở source bằng visual code
 
 - Tải file .env về và copy bỏ vô source
 
 B4: Cài nodejs
+
+B5: Mở visual studio code
 
 Mở terminal như đã hướng dẫn hoặc gõ Ctrl + shift + `
 
