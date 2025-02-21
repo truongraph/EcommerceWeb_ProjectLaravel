@@ -1,3 +1,7 @@
+ĐỂ LẤY FILE ENV CONTACT ZALO: 0768484671
+
+
+
 CÁCH CÀI ĐẶT WEBSITE
 1.Nếu chưa có xampp thì cài xampp
 2.Nếu chưa có composer thì theo dõi link -> https://hocwebchuan.com/tutorial/laravel/install_composer.php
