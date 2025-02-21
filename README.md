@@ -1,6 +1,22 @@
 ĐỂ LẤY FILE ENV CONTACT ZALO: 0768484671
 
 ----------------------------------------------------------------------------------------------------
+HÌNH ẢNH PREVIEW PROJECT ĐỒ ÁN TỐT NGHIỆP ( LÀM GIÚP SV )
+![image](https://github.com/user-attachments/assets/e8b5dc39-a09d-45d0-b18f-c45352a9ca4c)
+![image](https://github.com/user-attachments/assets/9082851b-4e7d-4cc4-bde0-12a01c9f9332)
+![image](https://github.com/user-attachments/assets/a8f61618-c626-4def-b258-cfc0fb85f972)
+![image](https://github.com/user-attachments/assets/9f6b5059-f064-4ff0-93d8-c906c208c6f5)
+![image](https://github.com/user-attachments/assets/b86ed214-8ffa-47ca-a18c-9075f3770c7b)
+![image](https://github.com/user-attachments/assets/00c8de4f-3c64-4adf-85d6-89dd300dcaa8)
+![image](https://github.com/user-attachments/assets/c486c464-5a61-4aba-9945-001cff9aec3a)
+![image](https://github.com/user-attachments/assets/76db9809-7f4b-424c-9355-9e5a6c4bfeb9)
+![image](https://github.com/user-attachments/assets/fb457d2b-87cf-4de0-bea6-0aa4deac88d0)
+![image](https://github.com/user-attachments/assets/be0d43ff-8c43-4edf-8321-22e05e8b429a)
+
+
+
+
+----------------------------------------------------------------------------------------------------
 
 CÁCH CÀI ĐẶT WEBSITE
 1.Nếu chưa có xampp thì cài xampp
