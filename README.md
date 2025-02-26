@@ -1,4 +1,4 @@
-ĐỂ LẤY FILE ENV CONTACT ZALO: 0768484671
+ĐỂ LẤY FILE ENV + DATABASE CONTACT ZALO: 0768484671
 
 ----------------------------------------------------------------------------------------------------
 HÌNH ẢNH PREVIEW PROJECT ĐỒ ÁN TỐT NGHIỆP ( LÀM GIÚP SV )
