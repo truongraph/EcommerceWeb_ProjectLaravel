@@ -1,7 +1,7 @@
 ĐỂ LẤY FILE ENV + DATABASE CONTACT ZALO: 0768484671
 
 ----------------------------------------------------------------------------------------------------
-HÌNH ẢNH PREVIEW PROJECT ĐỒ ÁN TỐT NGHIỆP ( LÀM GIÚP SV )
+HÌNH ẢNH PREVIEW PROJECT ĐỒ ÁN TỐT NGHIỆP ( LÀM GIÚP SINH VIÊN STU )
 ----------------------------------------------------------------------------------------------------
 ![image](https://github.com/user-attachments/assets/e8b5dc39-a09d-45d0-b18f-c45352a9ca4c)
 ![image](https://github.com/user-attachments/assets/9082851b-4e7d-4cc4-bde0-12a01c9f9332)
