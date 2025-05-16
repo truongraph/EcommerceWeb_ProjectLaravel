@@ -1,4 +1,4 @@
-# 🎓 Hướng Dẫn Cài Đặt và Vận Hành Dự Án Website Bán Hàng
+# 🎓 Hướng Dẫn Cài Đặt Dự Án Website Bán Hàng
 
 **Dự án Website Bán Hàng** là đồ án tốt nghiệp hỗ trợ sinh viên Trường Đại học Công nghệ Sài Gòn (STU), được phát triển trên nền tảng **Laravel 10**. Hướng dẫn này cung cấp các bước chi tiết để cài đặt, cấu hình và vận hành dự án, cùng với các mẹo xử lý lỗi thường gặp.
 
