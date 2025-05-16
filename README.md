@@ -1,122 +1,122 @@
-# 🎓 Hướng Dẫn Cài Đặt và Triển Khai Dự Án Điểm Đối Đa
+# 🎓 Hướng Dẫn Cài Đặt và Vận Hành Dự Án Website Bán Hàng
 
-Dự án **Điểm Đối Đa** là đồ án tốt nghiệp hỗ trợ sinh viên STU, được phát triển trên nền tảng **Laravel 10**. Hướng dẫn này cung cấp các bước chi tiết để cài đặt, cấu hình, và chạy dự án một cách hiệu quả.
+**Dự án Website Bán Hàng** là đồ án tốt nghiệp hỗ trợ sinh viên Trường Đại học Công nghệ Sài Gòn (STU), được phát triển trên nền tảng **Laravel 10**. Hướng dẫn này cung cấp các bước chi tiết để cài đặt, cấu hình và vận hành dự án, cùng với các mẹo xử lý lỗi thường gặp.
 
+Dự án đã đạt điểm tuyệt đối trong kỳ đồ án tốt nghiệp
 ---
 
-## 📋 Tổng Quan Dự Án
-- **Mục đích**: Hỗ trợ sinh viên STU quản lý và thực hiện đồ án tốt nghiệp.
+## 📋 Thông Tin Dự Án
+
+- **Tên dự án**: Website Bán Hàng 
+- **Mục đích**: Hỗ trợ sinh viên STU trong việc quản lý và tra cứu điểm số.
 - **Công nghệ chính**:
-  - Framework: Laravel 10
-  - Ngôn ngữ: PHP 8.x
-  - Cơ sở dữ liệu: MySQL
-  - Quản lý thư viện: Composer (PHP), NPM (JavaScript)
+  - **Framework**: Laravel 10
+  - **Ngôn ngữ lập trình**: PHP 8.x
+  - **Cơ sở dữ liệu**: MySQL
+  - **Quản lý thư viện**: Composer (PHP), NPM (JavaScript)
 - **Giao diện**:
-  - Người dùng: Origine Organic Food Template
-  - Quản trị: Samply Admin Template
+  - **Admin**: Samply Admin Template
+  - **Người dùng**: Origine Organic Food Template
 
 ---
 
-## 🛠️ Yêu Cầu Hệ Thống
+## 🔧 Yêu Cầu Hệ Thống
 
-### Yêu Cầu Tối Thiểu
-- **Hệ điều hành**: Windows 10/11, macOS, hoặc Linux (Ubuntu 20.04+)
-- **RAM**: 4GB (khuyến nghị 8GB)
-- **Dung lượng ổ cứng**: 2GB trống
-- **Trình duyệt**: Chrome, Firefox, Edge (phiên bản mới nhất)
+Trước khi bắt đầu, đảm bảo hệ thống của bạn đáp ứng các yêu cầu sau:
 
-### Phần Mềm Cần Thiết
-- **XAMPP**: Phiên bản 8.0+ ([Tải tại đây](https://www.apachefriends.org/index.html))
-- **Composer**: Phiên bản 2.x ([Hướng dẫn cài đặt](https://getcomposer.org/doc/00-intro.md))
-- **Node.js**: Phiên bản 16.x hoặc cao hơn, bao gồm NPM ([Tải tại đây](https://nodejs.org/))
-- **Git**: Để quản lý source code ([Tải tại đây](https://git-scm.com/))
-- **Visual Studio Code** (khuyến nghị): Để chỉnh sửa mã nguồn ([Tải tại đây](https://code.visualstudio.com/))
+| Yêu cầu          | Phiên bản/Chi tiết                                   |
+|------------------|----------------------------------------------------|
+| **Hệ điều hành** | Windows, macOS, hoặc Linux                         |
+| **XAMPP**        | Phiên bản mới nhất ([Tải tại đây](https://www.apachefriends.org/index.html)) |
+| **PHP**          | 8.x (Tương thích với Laravel 10)                   |
+| **Composer**     | Quản lý thư viện PHP ([Hướng dẫn cài đặt](https://getcomposer.org/download/)) |
+| **Node.js**      | Bao gồm NPM ([Tải tại đây](https://nodejs.org/))   |
+| **MySQL**        | Tích hợp trong XAMPP                               |
+| **Git**          | Công cụ quản lý mã nguồn ([Tải tại đây](https://git-scm.com/downloads)) |
 
 ---
 
-## ⚙️ Hướng Dẫn Cài Đặt
+## ⚙️ Các Bước Cài Đặt
 
-### 1. Chuẩn Bị Môi Trường
+### 1. Kiểm Tra và Cài Đặt Môi Trường
 1. **Cài đặt XAMPP**:
-   - Tải và cài đặt XAMPP, đảm bảo bật **Apache** và **MySQL**.
-   - Kiểm tra hoạt động của XAMPP bằng cách truy cập `http://localhost`.
+   - Tải và cài đặt XAMPP từ trang chính thức.
+   - Khởi động **Apache** và **MySQL** trong bảng điều khiển XAMPP.
+   - Kiểm tra hoạt động bằng cách truy cập `http://localhost`.
 
 2. **Cài đặt Composer**:
-   - Chạy lệnh kiểm tra:
+   - Tải và cài đặt Composer từ [trang chính thức](https://getcomposer.org/download/).
+   - Kiểm tra cài đặt:
      ```bash
      composer --version
      ```
-   - Nếu chưa cài, làm theo hướng dẫn tại [getcomposer.org](https://getcomposer.org/).
 
 3. **Cài đặt Node.js**:
-   - Xác nhận cài đặt thành công:
+   - Tải và cài đặt Node.js từ [trang chính thức](https://nodejs.org/).
+   - Kiểm tra cài đặt:
      ```bash
      node --version
      npm --version
      ```
 
-4. **Cài đặt Git**:
-   - Kiểm tra phiên bản:
+4. **Cài đặt Git** (nếu chưa có):
+   - Tải và cài đặt Git từ [trang chính thức](https://git-scm.com/downloads).
+   - Kiểm tra cài đặt:
      ```bash
      git --version
      ```
 
-### 2. Thiết Lập Dự Án
-1. **Tải source code**:
+### 2. Chuẩn Bị Dự Án
+1. **Tải hoặc clone mã nguồn**:
    - Clone dự án vào thư mục `htdocs` của XAMPP:
      ```bash
      git clone <repository-url> toranowebsite
      ```
-   - Hoặc tải file nén từ repository và giải nén vào `htdocs/toranowebsite`.
+   - Hoặc tải file nén từ kho lưu trữ và giải nén vào `htdocs/toranowebsite`.
 
-2. **Tạo database**:
+2. **Tạo cơ sở dữ liệu**:
    - Truy cập `http://localhost/phpmyadmin`.
-   - Tạo database với tên: `toranowebsite`.
-   - Chọn kiểu mã hóa: `utf8mb4_unicode_ci` (để hỗ trợ Unicode đầy đủ).
+   - Tạo database mới:
+     - Tên: `toranowebsite`
+     - Kiểu mã hóa: `utf8_general_ci`.
 
-3. **Import database**:
+3. **Import cơ sở dữ liệu**:
    - Trong **phpMyAdmin**, chọn database `toranowebsite`.
-   - Nhấn tab **Import**, chọn file `.sql` từ thư mục dự án, và nhấn **Go**.
+   - Chọn tab **Import** và tải lên file `.sql` từ thư mục dự án.
+   - Nhấn **Go** để thực hiện.
 
 4. **Cấu hình file `.env`**:
-   - Sao chép file `.env.example` thành `.env`:
-     ```bash
-     cp .env.example .env
-     ```
-   - Chỉnh sửa thông tin database trong `.env`:
+   - Sao chép file `.env.example` trong thư mục dự án và đổi tên thành `.env`.
+   - Cập nhật thông tin cơ sở dữ liệu trong `.env`:
      ```env
-     APP_NAME="Diem Doi Da"
+     APP_NAME=ToranoWebsite
      APP_ENV=local
      APP_KEY=
      APP_DEBUG=true
-     APP_URL=http://127.0.0.1:8000
+     APP_URL=http://localhost:8000
 
      DB_CONNECTION=mysql
      DB_HOST=127.0.0.1
      DB_PORT=3306
-     DB_DATABASE=toranowebsite
+     DBStuff_DATABASE=toranowebsite
      DB_USERNAME=root
      DB_PASSWORD=
      ```
-   - **Lưu ý**: Nếu MySQL có mật khẩu, cập nhật `DB_PASSWORD` tương ứng.
+   - Lưu ý: Nếu MySQL yêu cầu mật khẩu, cập nhật `DB_PASSWORD` tương ứng.
 
 ### 3. Cài Đặt Thư Viện
-1. Mở **Terminal** trong thư mục dự án (trong VS Code: `Ctrl + Shift + ``).
-2. Cài đặt các thư viện PHP:
+1. Mở **Terminal** trong thư mục dự án (hoặc sử dụng Visual Studio Code: `Ctrl + Shift + ``).
+2. Cài đặt các thư viện PHP và JavaScript:
    ```bash
    composer update --with-all-dependencies
-   ```
-3. Cài đặt các thư viện JavaScript:
-   ```bash
    npm install
    npm run dev
    ```
-4. Tạo khóa ứng dụng và xóa cache:
+3. Xóa cache và tạo khóa ứng dụng:
    ```bash
-   php artisan key:generate
    php artisan cache:clear
-   php artisan config:cache
-   php artisan route:cache
+   php artisan config:clear
+   php artisan key:generate
    ```
 
 ### 4. Chạy Dự Án
@@ -124,84 +124,26 @@ Dự án **Điểm Đối Đa** là đồ án tốt nghiệp hỗ trợ sinh vi�
    ```bash
    php artisan serve
    ```
-2. Truy cập:
+2. Truy cập dự án:
    - **Giao diện người dùng**: `http://127.0.0.1:8000`
    - **Giao diện quản trị**: `http://127.0.0.1:8000/admin`
-3. **Thông tin đăng nhập mặc định** (nếu có):
-   - Vui lòng kiểm tra file `README.md` hoặc tài liệu dự án để biết tài khoản/mật khẩu admin.
+3. Kiểm tra giao diện:
+   - Đảm bảo các tính năng như đăng nhập, tra cứu điểm hoạt động bình thường.
+   - Nếu gặp lỗi, xem phần **Xử lý lỗi thường gặp** bên dưới.
 
 ---
 
-## 🔒 Cấu Hình Bảo Mật
-- **Chmod file `.env`**:
-  ```bash
-  chmod 600 .env
-  ```
-- **Tắt chế độ debug trên production**:
-  - Trong file `.env`, đặt:
-    ```env
-    APP_DEBUG=false
-    ```
-- **Cập nhật mật khẩu MySQL**:
-  - Đảm bảo tài khoản MySQL không sử dụng mật khẩu rỗng trong môi trường production.
+## 🎨 Thông Tin Giao Diện
 
----
+- **Giao diện Admin**:
+  - Sử dụng **Samply Admin Template**, cung cấp giao diện quản trị hiện đại, dễ sử dụng.
+  - Hỗ trợ quản lý người dùng, điểm số, và cấu hình hệ thống.
 
-## 🛠️ Quản Lý Source Code Với Git
-Để làm việc với repository, sử dụng các lệnh Git sau:
+- **Giao diện Người dùng**:
+  - Sử dụng **Origine Organic Food Template**, thân thiện và trực quan.
+  - Tối ưu hóa cho trải nghiệm tra cứu điểm số và thông tin cá nhân.
 
-```bash
-# Kiểm tra nhánh hiện tại
-git branch
-
-# Lưu tạm các thay đổi
-git stash
-
-# Chuyển sang nhánh development
-git checkout development
-
-# Cập nhật code mới nhất
-git pull
-
-# Quay lại nhánh của bạn
-git checkout <your-branch-name>
-
-# Áp dụng lại các thay đổi đã lưu
-git stash pop
-
-# Cập nhật thông tin nhánh từ remote
-git fetch
-
-# Đồng bộ với nhánh development
-git rebase origin/development
-```
-
----
-
-## 🐞 Xử Lý Lỗi Thường Gặp
-1. **Lỗi "Composer dependencies not installed"**:
-   - Chạy lại:
-     ```bash
-     composer install
-     ```
-2. **Lỗi "Key not generated"**:
-   - Chạy:
-     ```bash
-     php artisan key:generate
-     ```
-3. **Lỗi kết nối database**:
-   - Kiểm tra thông tin trong `.env` và đảm bảo MySQL đang chạy.
-4. **Lỗi giao diện không hiển thị đúng**:
-   - Xóa cache giao diện:
-     ```bash
-     php artisan view:clear
-     npm run dev
-     ```
-
----
-
-## 📸 Hình Ảnh Giao Diện
-Hình ảnh giao diện dự án có thể được xem trên repository:
+Hình ảnh giao diện dự án:
 - [Hình 1](https://github.com/user-attachments/assets/e8b5dc39-a09d-45d0-b18f-c45352a9ca4c)
 - [Hình 2](https://github.com/user-attachments/assets/9082851b-4e7d-4cc4-bde0-12a01c9f9332)
 - [Hình 3](https://github.com/user-attachments/assets/a8f61618-c626-4def-b258-cfc0fb85f972)
@@ -215,16 +157,90 @@ Hình ảnh giao diện dự án có thể được xem trên repository:
 
 ---
 
-## 📚 Tài Liệu Tham Khảo
-- [Laravel Documentation](https://laravel.com/docs/10.x)
-- [XAMPP Documentation](https://www.apachefriends.org/docs/)
-- [Composer Documentation](https://getcomposer.org/doc/)
-- [Node.js Documentation](https://nodejs.org/en/docs/)
+## 🛠️ Quản Lý Mã Nguồn Với Git
+
+Để làm việc với mã nguồn và đồng bộ hóa với nhóm, sử dụng các lệnh Git sau:
+
+```bash
+# Kiểm tra nhánh hiện tại
+git branch
+
+# Lưu tạm các thay đổi hiện tại
+git stash
+
+# Chuyển sang nhánh development
+git checkout development
+
+# Cập nhật mã nguồn mới nhất
+git pull origin development
+
+# Quay lại nhánh của bạn
+git checkout <ten-nhanh-cua-ban>
+
+# Áp dụng lại các thay đổi đã lưu
+git stash pop
+
+# Cập nhật thông tin nhánh từ remote
+git fetch
+
+# Đồng bộ với nhánh development
+git rebase origin/development
+```
+
+**Lưu ý**:
+- Thay `<ten-nhanh-cua-ban>` bằng tên nhánh cá nhân của bạn.
+- Nếu xảy ra xung đột khi rebase, sử dụng `git rebase --continue` hoặc `git rebase --abort`.
 
 ---
 
-## ❓ Hỗ Trợ
-Nếu gặp vấn đề, vui lòng:
-1. Kiểm tra phần **Xử Lý Lỗi Thường Gặp**.
-2. Liên hệ nhóm phát triển qua email hoặc kênh hỗ trợ được cung cấp.
-3. Tham khảo tài liệu trong thư mục dự án (`README.md`).
+## 🛡️ Xử Lý Lỗi Thường Gặp
+
+| Lỗi                              | Nguyên nhân & Cách khắc phục                                                                 |
+|----------------------------------|--------------------------------------------------------------------------------------------|
+| **Không kết nối được database**  | - Kiểm tra thông tin `DB_*` trong file `.env`.<br>- Đảm bảo MySQL đang chạy trong XAMPP.   |
+| **Lỗi 500 Server Error**         | - Chạy `php artisan cache:clear` và `php artisan config:clear`.<br>- Kiểm tra quyền thư mục (777 cho `storage` và `bootstrap/cache`). |
+| **Lỗi thiếu thư viện**           | - Chạy lại `composer update` và `npm install`.<br>- Kiểm tra phiên bản PHP (8.x).          |
+| **Giao diện không tải đúng**     | - Chạy `npm run dev` để biên dịch lại tài nguyên JavaScript/CSS.                          |
+| **Lỗi key ứng dụng**             | - Chạy `php artisan key:generate` để tạo khóa mới.                                        |
+
+---
+
+## 📦 Cấu Trúc Thư Mục Dự Án
+
+Cấu trúc thư mục chính của dự án:
+
+```
+toranowebsite/
+├── app/                  # Mã nguồn logic ứng dụng
+├── bootstrap/            # Tệp khởi động Laravel
+├── config/               # Cấu hình hệ thống
+├── database/             # Migrations và seeds
+├── public/               # Tài nguyên tĩnh (CSS, JS, hình ảnh)
+├── resources/            # Views và tài nguyên giao diện
+├── routes/               # Định tuyến
+├── storage/              # Lưu trữ logs, cache
+├── vendor/               # Thư viện Composer
+├── .env                  # Cấu hình môi trường
+├── artisan               # Công cụ dòng lệnh Laravel
+├── composer.json         # Quản lý thư viện PHP
+├── package.json          # Quản lý thư viện JavaScript
+```
+
+---
+
+## ❓ Hỗ Trợ và Liên Hệ
+
+- **Tài liệu tham khảo**:
+  - [Laravel Documentation](https://laravel.com/docs/10.x)
+  - [XAMPP FAQs](https://www.apachefriends.org/faq_windows.html)
+- **Liên hệ**:
+  - Nếu gặp vấn đề, liên hệ nhóm phát triển qua email hoặc kho lưu trữ dự án.
+  - Gửi câu hỏi đến `<repository-url>/issues` nếu sử dụng GitHub.
+
+---
+
+## 📝 Ghi Chú
+
+- Đảm bảo sao lưu database và mã nguồn trước khi thực hiện các thay đổi lớn.
+- Kiểm tra thường xuyên cập nhật từ nhánh `development` để đồng bộ mã nguồn.
+- Nếu triển khai trên server thật, cập nhật `APP_ENV=production` và tối ưu hóa bằng `php artisan optimize`.
